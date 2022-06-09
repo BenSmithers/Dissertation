@@ -1,0 +1,98 @@
+\documentclass[main.tex]{subfiles}
+
+\externalcitedocument{bibfile}
+
+\begin{document}
+
+\section{The Ghosts of the Real World}
+The three-mass and three active-flavor neutrino paradigm has been well-studied~\cite{PhysRevD.98.030001,Esteban_2019,de_Salas_2018,Capozzi_2016,zboson2006, berns2021recent}.
+However, several anomalies persist at short baselines, including in $\nu_\mu\rightarrow\nu_e $ appearance in decay-in-flight~\cite{aguilar2018significant} and decay-at-rest~\cite{Athanassopoulos_1998} beams  and $\nu_e\rightarrow\nu_e$ disappearance at reactors~\cite{mention2011reactor,serebrov2019first}  and with $^{71}$Ga electron capture sources~\cite{PhysRevC.73.045805,giunti2011statistical}.  
+These anomalies have been attributed to possible oscillations of unknown neutrinos with mass-squared differences in the range of $\Delta m^{2}\sim 0.1-10\text{ eV}^{2}$~\cite{abazajian2012light}.   
+Such an additional neutrino flavor state must be non-weakly interacting, or ``sterile,'' to be consistent with observed decay widths of the Z-boson~\cite{zboson2006}; the simplest such model is known as the ``3+1'' light sterile neutrino model in which a single sterile neutrino is added. 
+
+There have been interesting recent developments for the 3+1 model.  
+The BEST experiment appears to validate the anomalous electron neutrino disappearance signature of the previous gallium anomalies with a new level of statistical significance and experimental precision~\cite{barinov2021results}. 
+The Neutrino-4 experiment claims evidence of short-baseline oscillations in the $\bar{\nu}_e$ disappearance channel with $\Delta m^2\sim 7.3\,\mathrm{eV}^2$ at the 2.9$\sigma$ level.
+ Meanwhile results from the MicroBooNE~\cite{microboonecollaboration2021search,microboonecollaboration2021search1,microboonecollaboration2021searchmulti} experiment challenge the interpretation that the MiniBooNE low energy excess~\cite{miniboone2018} is due entirely to the electron neutrino by placing a constraint on the sterile neutrino interpretation of the excess; though the impact of this observation on the 3+1 model has yet to be assessed.  Continued exploration of sterile neutrino mixing in all channels and all energy ranges thus remains strongly motivated~\cite{sbnfermilab}.
+
+The addition of a fourth neutrino mass and flavor eigenstate expands the unitary mixing matrix to four dimensions. 
+The four-neutrino oscillations model becomes an extension of the three-neutrino model with three additional mixing angles $\theta_{14}$, $\theta_{24}$, and $\theta_{34}$, and two new CP-violating phases $\delta_{14}$ and $\delta_{24}$. These three new mixing angles parametrize the amplitude of oscillations between the three active states and the one sterile state, and lead to additional short-baseline vacuum-like oscillations as well as novel effects in the presence of matter~\cite{Akhmedov:1988kd,KRASTEV1989341,Chizhov:1998ug, Chizhov_1999, Akhmedov_2000, Nunokawa:2003ep,Petcov:2016iiu}.  In this work we consider CP-conserving models with all CP-violating phases set to zero.
+
+Of particular interest to neutrino telescopes, matter effects can result in the near complete disappearance of TeV-scale muon anti-neutrinos passing through the Earth's core for a sterile neutrino with eV-scale mass squared differences~\cite{Nunokawa:2003ep, Choubey:2007ji, Barger:2011rc, Esmaili:2012nz, esmaili2013restricting, Lindner:2015iaa}. This signature of matter-enhanced resonant disappearance has been targeted by the IceCube Neutrino Observatory~\cite{Aartsen_2020, Aartsen_2020_prd}, leading to one of the  most sensitive $\nu_\mu$ disappearance analyses to date. The result of the analysis was a closed 90\% contour with best fit point at $\sin^2 2\theta_{24}\sim0.1$ and $\Delta m^2_{14}=4.5\text{ eV}^2$, under a conservative assumption (for the $\nu_\mu$ disappearance channel) that $\theta_{34}=\theta_{14}=0$. In addition to being a strong refutation, lower mass solutions consistent with the LSND~\cite{Athanassopoulos_1998} and MiniBooNE anomalies and constraints around 1~eV$^2$~\cite{kopp2013sterile, Cirelli:2004cz, abazajian2012light, Gariazzo:2017fdh, Dentler:2017tkw, Diaz:2019fwt}, a possible interpretation of this result is as a statistically weak hint of a disappearance signature around $\Delta m^2_{41}\sim4.5\text{ eV}^2$.  Further exploration of this region of parameter space  in other channels at neutrino telescopes is therefore strongly motivated. 
+
+\subsection{Three-Neutrino oscillations}
+
+Neutrino oscillations are fundamentally facilitated through a PMNS matrix allowing us to re-express neutrino flavor states in a mass basis.
+
+\begin{equation}
+    U_{\text{PMNS}} = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right)
+\end{equation}
+Such that, 
+\begin{equation}
+    \left(\begin{array}{ccc} \nu_{e} & \nu_{\mu} & \nu_{\tau} \end{array}\right)  = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right) \left(\begin{array}{c} \nu_{1} \\ \nu_{2} \\ \nu_{3} \end{array}\right).
+\end{equation}
+Considering a neutrino originally in the electron flavor state and at energy $E$, then propagated over a distance \(L\), we can calcualte the odds of measuring it in the same electron flavor state. This is the $P(\nu_{e}\to\nu_{e})$ survival probability. Expressed in the mass eigenstate, 
+\begin{equation}
+    \ket{\nu_{e}} = U_{e1} \ket{\nu_{1}} + U_{e2} \ket{\nu_{2}} + U_{e3}\ket{\nu_{3}},
+\end{equation}
+and so in order to consider the propagation of these mass eigenstates, we consider the time-dependent Schr\"odinger equation
+\begin{equation}
+i\dfrac{\partial}{\partial t} \ket{\nu_{i} (t)} = \bvec{H}_{\nu}\ket{\nu_{i}(t)},
+\end{equation}
+which can be solved with the stationary state solution 
+\begin{equation}
+    \ket{\nu_{i} (t)}  =  e^{-iEt} \ket{\nu_{i} (0)}.
+\end{equation}
+From here, the neutrino masses enter the equation
+\begin{align}
+E_{i} &= \sqrt{p^{2}c^{2} + m_{i}^{2}c^{4}} \\
+&\approxeq pc + \dfrac{m_{i}^{2}c^{4}}{2E_{i}}
+\end{align}
+So then applying this to the above setup 
+
+\begin{equation}
+    \ket{\nu_{i} (t)}  =  e^{-ipt}e^{ m_{i}^{2}/(2E}\ket{\nu_{i} (0)}
+\end{equation}
+and 
+\begin{equation}
+\ket{\nu_{e}(t)} = \sum\limits_{i} U_{ei} e^{-ipt}e^{ m_{i}^{2}/(2E)}\ket{\nu_{i} (0)}
+\end{equation}
+
+
+\subsection{3+1 Neutrino Oscillations}
+An additional fourth neutrino mass an flavor eigenstate will modify exxpected oscillations. To parametrize this, three additional mixing angles and two additional CP-violating phases must be added to the standard three neutrino paradigm. The new four-neutrino unitary mixing matrix becomes.
+\begin{equation}
+    U_{\text{PMNS}} = \left(\begin{array}{ccc} 1 & 0 & 0 & 0 \\ 0&\cos\theta_{23}&\sin\theta_{23}&0 \\ 0&-\sin\theta_{23}&\cos\theta_{23}&0 \\ 0&0&0&1 \end{array}\right)
+\end{equation}
+
+\section{IceCube}
+
+The IceCube Neutrino Observatory is described at length in Ref.~\cite{Aartsen_2017}. Briefly, the detector is a cubic-kilometer Cherenkov neutrino observatory one and half kilometers deep in the Antarctic ice~\cite{Aartsen_2017}.
+There, 5160 photo-multiplier tubes encased within glass pressure vessels, or ``Digital Optical Modules'' (DOMs)~\cite{ABBASI2009294} detect Cherenkov emission from charged particles traversing the ice.
+The DOMs are arranged vertically with a seventeen meter spacing into seventy-nine strings, which themselves are aligned into a hexagonal lattice with a 125 meter spacing. 
+An additional, more densely instrumented sub-detector called DeepCore exists towards the bottom-center of the main detector~\cite{ABBASI2012615}.
+The observatory has been running for over a decade and has accumulated large numbers of $\nu_{\mu}$ CC interactions which make depositions of light that make long signatures in the detector called tracks; and neutral current, electron neutrino, and tau neutrino events which deposit light in blob-like shapes called cascades. These event topologies are elaborated upon in Section. %~\ref{sec:depo}.
+
+\section{Event topologies}
+
+Large-volume neutrino telescopes typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} and the recently-observed~\cite{IceCube:2021rpz} Glashow-Resonance~\cite{PhysRev.118.316} interactions dominate. 
+The detected neutrino interaction events fall into two morphological categories: tracks and cascades.
+
+Charged-current (CC) $\nu_{\mu}$ DIS events result in muons at energies where radiative processes dominate energy loss rates.
+As a result, energy losses are stochastically driven and the produced muons travel for kilometers. 
+The results are threefold: muons are difficult to fully contain in neutrino telescopes, muon energies are poorly correlated with progenitor muon-neutrino energies, and muons' long travel-distance can allow for reconstructing their direction to within 1$^{\circ}$~\cite{trackaccuracy2017}. These events are called \textit{tracks}~\cite{icecube_energy_reco}.
+
+All neutral-current (NC) DIS events result in a hadronic shower spreading around the interaction point and a secondary neutrino invisibly carrying away a proportion of the parent neutrino's energy. 
+These events are often contained with a spherical topology. 
+$\nu_{e}$-CC interactions develop similarly to neutral-current interactions, but repeated inverse Compton scattering of the produced electron initiates an electromagnetic shower superimposed over the hadronic shower. 
+Thus, nearly all of the interacting neutrino's energy is observable as detectable light. 
+These events are called \textit{cascades.} Such events tend to be well-contained permitting an efficient energy reconstruction, although suffer from poor angular reconstruction~\cite{icecube_energy_reco}. 
+
+The evolution of a $\nu_{\tau}$-CC interaction is highly dependent on the energies involved. A tau is produced simultaneously as a hadronic cascade propagates around the interaction point, and then the tau decays. 
+Due to their large mass, taus have a short lifetime and a decay length of $\sim 50$ m per PeV of tau energy~\cite{abbasi2020measurement}. 
+From the tau branching ratios~\cite{PhysRevD.98.030001}, 17.37\% of the charged tau decays evolve as muon tracks, while the remainder of the decays evolve as electromagnetic or hadronic cascades. Only at neutrino energies above 60 TeV do $\nu_{\tau}$-CC interactions yield events with distinguishable primary and secondary cascades~\cite{abbasi2020measurement}.
+
+Several distinct event samples have been developed to study these different types of events in IceCube. The High-Energy Starting Events sample~\cite{2021hese}, for example, was developed to study both taus and high-energy neutrinos likely astrophysical in origin. There exist other events samples optimized for higher event rates at lower energies, such as the Medium-Energy Starting Events~\cite{PhysRevDoverone}, and the five-year inelasticity sample~\cite{inelasticity2019}. There are also samples optimized for muon purity, such as the eight-year atmospheric muon sample~\cite{Aartsen_2020_prd} and others optimized for accurate energy resolution such as the six-years cascade sample~\cite{sixyrscascade}. This work will consider the cascade event selection described in~\cite{2018PhDT17N} and the track event selection previously used in IceCube sterile neutrino searches~\cite{PhysRevLett.117.071801}.
+
+
+\end{document}
