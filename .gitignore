@@ -5,3 +5,9 @@
 *.log
 *.out
 *.pdf
+*.idx
+*.ilg
+*.ind
+*.toc
+*.bbl
+*.blg

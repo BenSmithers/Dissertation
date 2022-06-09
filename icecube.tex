@@ -1,0 +1,37 @@
+\documentclass[main.tex]{subfiles}
+
+\externalcitedocument{bibfile}
+
+\begin{document}
+
+\section{IceCube}
+
+The \index{IceCube Neutrino Observatory} is described at length in Ref.~\cite{Aartsen_2017}. Briefly, the detector is a cubic-kilometer Cherenkov neutrino observatory one and half kilometers deep in the Antarctic ice~\cite{Aartsen_2017}.
+There, 5160 photo-multiplier tubes encased within glass pressure vessels, or ``Digital Optical Modules'' (DOMs)~\cite{ABBASI2009294} detect Cherenkov emission from charged particles traversing the ice.
+The DOMs are arranged vertically with a seventeen meter spacing into seventy-nine strings, which themselves are aligned into a hexagonal lattice with a 125 meter spacing. 
+An additional, more densely instrumented sub-detector called DeepCore exists towards the bottom-center of the main detector~\cite{ABBASI2012615}.
+The observatory has been running for over a decade and has accumulated large numbers of $\nu_{\mu}$ CC interactions which make depositions of light that make long signatures in the detector called tracks; and neutral current, electron neutrino, and tau neutrino events which deposit light in blob-like shapes called cascades. These event topologies are elaborated upon in Section. %~\ref{sec:depo}.
+
+\section{Event topologies}
+
+Large-volume neutrino telescopes typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} and the recently-observed~\cite{IceCube:2021rpz} Glashow-Resonance~\cite{PhysRev.118.316} interactions dominate. 
+The detected neutrino interaction events fall into two morphological categories: tracks and cascades.
+
+Charged-current (CC) $\nu_{\mu}$ DIS events result in muons at energies where radiative processes dominate energy loss rates.
+As a result, energy losses are stochastically driven and the produced muons travel for kilometers. 
+The results are threefold: muons are difficult to fully contain in neutrino telescopes, muon energies are poorly correlated with progenitor muon-neutrino energies, and muons' long travel-distance can allow for reconstructing their direction to within 1$^{\circ}$~\cite{trackaccuracy2017}. These events are called \textit{tracks}~\cite{icecube_energy_reco}.
+
+All neutral-current (NC) DIS events result in a hadronic shower spreading around the interaction point and a secondary neutrino invisibly carrying away a proportion of the parent neutrino's energy. 
+These events are often contained with a spherical topology. 
+$\nu_{e}$-CC interactions develop similarly to neutral-current interactions, but repeated inverse Compton scattering of the produced electron initiates an electromagnetic shower superimposed over the hadronic shower. 
+Thus, nearly all of the interacting neutrino's energy is observable as detectable light. 
+These events are called \textit{cascades.} Such events tend to be well-contained permitting an efficient energy reconstruction, although suffer from poor angular reconstruction~\cite{icecube_energy_reco}. 
+
+The evolution of a $\nu_{\tau}$-CC interaction is highly dependent on the energies involved. A tau is produced simultaneously as a hadronic cascade propagates around the interaction point, and then the tau decays. 
+Due to their large mass, taus have a short lifetime and a decay length of $\sim 50$ m per PeV of tau energy~\cite{abbasi2020measurement}. 
+From the tau branching ratios~\cite{PhysRevD.98.030001}, 17.37\% of the charged tau decays evolve as muon tracks, while the remainder of the decays evolve as electromagnetic or hadronic cascades. Only at neutrino energies above 60 TeV do $\nu_{\tau}$-CC interactions yield events with distinguishable primary and secondary cascades~\cite{abbasi2020measurement}.
+
+Several distinct event samples have been developed to study these different types of events in IceCube. The High-Energy Starting Events sample~\cite{2021hese}, for example, was developed to study both taus and high-energy neutrinos likely astrophysical in origin. There exist other events samples optimized for higher event rates at lower energies, such as the Medium-Energy Starting Events~\cite{PhysRevDoverone}, and the five-year inelasticity sample~\cite{inelasticity2019}. There are also samples optimized for muon purity, such as the eight-year atmospheric muon sample~\cite{Aartsen_2020_prd} and others optimized for accurate energy resolution such as the six-years cascade sample~\cite{sixyrscascade}. This work will consider the cascade event selection described in~\cite{2018PhDT17N} and the track event selection previously used in IceCube sterile neutrino searches~\cite{PhysRevLett.117.071801}.
+
+
+\end{document}

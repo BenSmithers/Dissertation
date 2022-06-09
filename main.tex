@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{book}
 \usepackage{subfiles}
 
 
@@ -41,6 +41,7 @@
 \usepackage{placeins}
 
 \usepackage{tikz}
+\usepackage{makeidx}
 
 \usepackage{bm}
 
@@ -130,11 +131,17 @@
 
 \usepackage{listings}
 
+\makeindex
+
 
 \begin{document}
 \tableofcontents
+\chapter{Introduction}
 \subfile{introduction.tex}
+\subfile{icecube.tex}
+\chapter{More Stuff}
 \subfile{chapter1.tex}
 \subfile{bibfile.tex}
+\printindex
 
 \end{document}
