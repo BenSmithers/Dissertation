@@ -1,5 +1,13 @@
-\documentclass{book}
+\documentclass{report}
 \usepackage{subfiles}
+
+\usepackage[square,numbers,comma]{natbib}
+\bibliographystyle{acm}
+\renewcommand\bibname{References}
+% \setcitestyle{authoryear, open={(},close={)},citesep={,},aysep=}
+
+
+% \addbibresource{main.bib}
 
 
 %\usepackage[caption=false]{subfig}
@@ -85,6 +93,24 @@
 \defaultaddspace=.5em
 }
 
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
 \newcommand{\as}[1]{\textcolor{Magenta}{{[\bf AS:\@ #1]}}}
 \newcommand{\ca}[1]{\textcolor{RoyalBlue}{{[\bf CA:\@ #1]}}}
 \newcommand{\ty}[1]{\textcolor{AmericanRose}{{[\bf TY:\@ #1]}}}
@@ -118,6 +144,7 @@
 \newcommand{\cross}{\times}
 \newcommand{\bvec}[1]{\bm{#1}}
 
+\include{tex/units}
 
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
@@ -131,17 +158,19 @@
 
 \usepackage{listings}
 
+\usepackage{filecontents}
 \makeindex
-
 
 \begin{document}
 \tableofcontents
 \chapter{Introduction}
 \subfile{introduction.tex}
 \subfile{icecube.tex}
+\chapter{LeptonInjector and LeptonWeighter}
+\subfile{leptons.tex}
 \chapter{More Stuff}
-\subfile{chapter1.tex}
-\subfile{bibfile.tex}
-\printindex
+% \subfile{appendix.tex}
 
+% \subfile{bibfile.tex}
+\bibliography{main}
 \end{document}
