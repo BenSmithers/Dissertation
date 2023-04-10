@@ -144,6 +144,7 @@
 \newcommand{\cross}{\times}
 \newcommand{\bvec}[1]{\bm{#1}}
 
+
 \include{tex/units}
 
 % Default fixed font does not support bold face
@@ -160,21 +161,28 @@
 
 \usepackage{filecontents}
 \makeindex
+\usepackage{setspace}
 
+\doublespacing
 \begin{document}
 \tableofcontents
+
 \chapter{Introduction}
 \subfile{introduction.tex}
 \subfile{icecube.tex}
 \subfile{degg_fat.tex}
-\chapter{LeptonInjector and LeptonWeighter}
+\chapter{LeptonInjector and LeptonWeighter}\label{chapter:LI}
 \subfile{leptons.tex}
-\chapter{Full Generation Schema}
+\chapter{Event Generation and Filters}
 \subfile{generation.tex}
-\chapter{Sterile Neutrino Oscillation Sensitivities}
 \chapter{Sources of Systematic Uncertainties}
+\subfile{systematics.tex}
+\chapter{Sterile Neutrino Oscillation Sensitivities}
 \subfile{sensitivity.tex}
 \chapter{Results of Cascade Analysis}
+
+
+
 % \subfile{appendix.tex}
 
 % \subfile{bibfile.tex}
