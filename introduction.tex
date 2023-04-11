@@ -56,35 +56,56 @@ which can be solved with the stationary state solution
 For neutrinos, we can expand out the energy term and simplify under the small-mass assumption. 
 \begin{align}
     E_{i} &= \sqrt{p^{2}c^{2} + m_{i}^{2}c^{4}} \\
-    &\approxeq pc + \dfrac{m_{i}^{2}c^{4}}{2E_{i}}
+    &\approxeq pc + \dfrac{m_{i}^{2}c^{4}}{2E}
 \end{align}
-The stationary state solution then becomes 
+The stationary state solution then becomes, using $t=L/c$ and $c=1$ 
 \begin{equation}
-    \ket{\nu_{i} (t)}  =  e^{-ipt}e^{ m_{i}^{2}/(2E}\ket{\nu_{i} (0)}
+    \ket{\nu_{i} (t)}  =  e^{-ipt}e^{ -m_{i}^{2}L/2E}\ket{\nu_{i} (0)}
 \end{equation}
 and for the state described in Equation~\eqref{eq:nunu},
 
 \begin{equation}
-    \ket{\nu_{e}(t)} = \sum\limits_{i} U_{ei} e^{-ipt}e^{ m_{i}^{2}/(2E)}\ket{\nu_{i} (0)}
+    \ket{\nu_{e}(t)} = \sum\limits_{i} U_{ei} e^{-ipt}e^{ -m_{i}^{2}L/2E}\ket{\nu_{i} (0)}
 \end{equation}
 
+Oscillations probabilities can be calculated by projecting the final considered state onto this propagated state
 
-Therefore, when considering a neutrino originally in the electron flavor state and at energy $E$, then propagated over a distance \(L\), we can calcualte the odds of measuring it in the same electron flavor state. This is the $P(\nu_{e}\to\nu_{e})$ survival probability. Expressed in the mass eigenstate, 
 
-
-\subsection{3+1 Neutrino Oscillations}
-\index{neutrino!oscillations}
-An additional fourth neutrino mass an flavor eigenstate will modify exxpected oscillations. To parametrize this, three additional mixing angles and two additional CP-violating phases must be added to the standard three neutrino paradigm. The new four-neutrino unitary mixing matrix becomes.
 \begin{equation}
-    U_{\text{PMNS}} = \left(\begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0&\cos\theta_{23}&\sin\theta_{23}&0 \\ 0&-\sin\theta_{23}&\cos\theta_{23}&0 \\ 0&0&0&1 \end{array}\right)
+    \braket{\nu_{\mu} | \nu_{e}(t)} = e^{-ipt} \sum\limits_{i} U_{\mu i}^{*}U_{ei} e^{ -m_{i}^{2}L/2E}
 \end{equation}
+To calculate actual transmission probabilities, we need the conjugate squared of this, $P_{e\mu} = \left|\braket{\nu_{\mu}|\nu_{e}(t)}\right|^{2}$. While the phase term, $e^{-ipt}$, cancels we are left with 
+\begin{equation}\begin{split}
+P_{\mu e}&= \sum\limits_{i}\left[\left|U_{\mu i}\right|^{2}\left|U_{e i}\right|^{2} \right.\\
+&\hspace{1cm} + 2\sum\limits_{i>j}U_{\mu i}^{*}U_{e i}U_{\mu j}U_{e j}^{*}\left.e^{-i\Delta m_{ij}^{2}L/2E} \right]
+\end{split}\end{equation} 
+Using the sinusoidal form of the exponential, we can write this in other components 
+\begin{equation}\begin{split}
+    P_{\mu e}&= \sum\limits_{i}\left[\left|U_{\mu i}\right|^{2}\left|U_{e i}\right|^{2} \right.\\
+    &\hspace{1cm} -2\sum\limits_{i>j} \Re(U_{\mu i}^{*}U_{e i}U_{\mu j}U_{e j}^{*})\cos\left(\Delta m_{ij}^{2}L/2E \right) \\
+    &\hspace{1cm} -2\sum\limits_{i>j}\Im(U_{\mu i}^{*}U_{e i}U_{\mu j}U_{e j}^{*})\sin\left(\Delta m_{ij}^{2}L/2E \right)
+\end{split}\end{equation} 
+
+From this we notice a few things. 
+Neutrino oscillation probabilities are dependent not just on the mass of the neutrino eigenstates, but the differences of square of the masses. 
+Through oscillations we can only measure the absolute of the difference of the masses, and so the ordering of the masses will be invisible to oscillations. 
+This also suggests that, since oscillations have been observed, at minimum two of the neutrino masses must be non-zero. 
+Oscillations will also depend on the energy $E$ of the neutrinos involved and the baseline $L$ over which they travel. \index{neutrino!baseline}
+
 
 \subsection{Neutrino Interactions}
 \index{neutrino!interactions}
 Discuss neutrino interactions at medium to high energies. Deep Inelastic Scattering
 
 \subsection{Matter Effects on Neutrion Oscillations}
-Words on the matter effect. \index{neutrino!matter effect} Effective neutrino masses. 
+\index{neutrino!matter effect}
+Neutrinos propagating in the presence of matter will experience a coherent forward elastic scattering with electrons and nucleons in the medium through which they propagate. Although all three neutrinos can scatter via Z$^{0}$ boson exchange with nucleons only $\nu_{e}$ can scatter via the exchange of W$^{\pm}$ and Z$^{0}$ with electrons. 
+The consequence of these interactions is that neutrinos behave as if they had slightly different masses, which are referred to as effective massses, and so their oscillations are impacted.  
+Mathematically, in the two-neutrino case the total effective Hamiltonian governing the neutrino propagation is modified via the orgogonal matrix 
+\begin{equation}
+    U^{m} = \left( \begin{array}{cc} \cos\theta^{m} & \sin\theta^{m} \\ -\sin\theta^{m} & \cos\theta^{m} \end{array}\right) 
+\end{equation}
+
 
 
 
