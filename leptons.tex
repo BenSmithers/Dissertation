@@ -573,9 +573,10 @@ p_\textrm{physical}^\textrm{interaction} = 1-\exp\left(-N_A{\sum_{p,i} (X_\textr
 \end{equation}
 The implementation in \LeptonWeighter{} groups protons and neutrons together and assumes that the molar mass of nucleons is $\SI{1}{\gram\per\mol}$.
 The depth distribution $p_\textrm{physical}^\textrm{depth}$ follows a similar form as the survival probability, but is normalized within the generation bounds such that
-\begin{equation}
-p_\textrm{physical}^\textrm{depth} = \exp\left(-{\int_{\ell_i}^{\ell}{d\ell \sum_{p,i} n_\textrm{physical}^p(\ell) \sigma_\textrm{physical}^{\textrm{tot},p,i} }}\right) / \int_{\ell_i}^{\ell_f}{d\ell}\exp\left(-{\int_{\ell_i}^{\ell}{d\ell \sum_{p,i} n_\textrm{physical}^p(\ell) \sigma_\textrm{physical}^{\textrm{tot},p,i} }}\right),
-\end{equation}
+\begin{equation}\begin{split}
+p_\textrm{physical}^\textrm{depth} &= \exp\left(-{\int_{\ell_i}^{\ell}{d\ell \sum_{p,i} n_\textrm{physical}^p(\ell) \sigma_\textrm{physical}^{\textrm{tot},p,i} }}\right) \\
+& \hspace{1cm} / \int_{\ell_i}^{\ell_f}{d\ell}\exp\left(-{\int_{\ell_i}^{\ell}{d\ell \sum_{p,i} n_\textrm{physical}^p(\ell) \sigma_\textrm{physical}^{\textrm{tot},p,i} }}\right),
+\end{split}\end{equation}
 which can similarly be recast in terms of the density or column depth.
 The last two terms, $p_\textrm{physical}^\textrm{interaction type}$ and $p_\textrm{physical}^\textrm{kinematics}$, depend only on the position and type of the interaction, and so are independent of the generator.
 Once we assume that an interaction occurs at a known location, the probability of a specific interaction $p_\textrm{physical}^\textrm{interaction type}$ is the ratio of total cross sections at that location $p_\textrm{physical}^\textrm{interaction type} = (\sigma_\textrm{physical}^{\textrm{tot}, i})/(\sum_j \sigma_\textrm{physical}^{\textrm{tot}, j})$ where the subscript $j$ iterates over all possible interactions.

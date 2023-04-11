@@ -8,22 +8,32 @@
 
 Introduce physics goals of IceCube upgrade, show some plots that compare old v new event displays. 
 
+Upgrade is shown in Figure~\ref{fig:upgrade_layout}
+
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/ICUpgradeLayout_V4b.jpg}
     \caption{A top-down view of the planned installation locations of IceCube Upgrade strings relative to existing IceCube and DeepCore strings.}
-    \label{fig:degglayout}
+    \label{fig:upgrade_layout}
 \end{figure}
 
 \section{IceCube D-Eggs}
 
-The ``Dual optical sensors in an Ellipsoid Glass for Gen2,'' or DEgg, is a new module designed for future extensions of IceCube. \ref{fig:degglayout}
+The ``\textbf{D}ual optical sensors in an \textbf{E}llipsoid \textbf{G}lass for \textbf{G}en2,'' or D-Egg, is a new module designed for future extensions of IceCube. 
+A diagram of a D-Egg is shown in Figure~\ref{fig:degg}
+In particular, it is one of the planned optical modules to be deployed at the IceCube Neutrino Observatory as part of IceCube Upgrade, witha planned deployment in the 2025-2026 South Pole season.
+The D-Eggs have been designed with an elongated egg-like shape and narrow cross section to maximize its photon-sensitive area while maintaining a slim shape to reduce the time needed for deployment-hole drilling in the Antarctic ice to depths of up to 2,700 meters. 
+Two PMTs are used per D-Egg: one each facing upwards and downwards. 
 
-DOS-Eggis 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/degg.png}
+    \caption{(left) A D-Egg with the harness around its equator, which is used to hold the device during deployment, and its sealed UV-transparent glass housing. (right) An exploded figuring showing the D-Egg internal structure, including: the mainboard, three cameras, twelve LED flashers, two PMTs, optical coupling silicone gel, and the emagnetic shielding.}\label{fig:degg}
+\end{figure}
 
-\section{Final Acceptance Testing (FAT) of D-Eggs}
+\section{Final Acceptance Testing of D-Eggs}
 
-For testing, D-Eggs are tested in batches of fifteen plus one reference D-Egg. 
+For the Final Acceptance Testing (FAT), D-Eggs are tested in batches of fifteen D-Eggs plus one reference D-Egg. 
 They are lifted into a freezer, capable of reaching temperatures as low as negative sixty degrees Celcius, and placed into light-sealed boxes in order to isolate individual D-Eggs from one another. 
 Optical fibers and insulated cables are routed into the freezer to provide communications, power, and light sources to each D-Egg. 
 
@@ -53,7 +63,15 @@ This allows for conversion of the internal D-Egg timestamps to UTC using the sta
 
 \subsection{Detailed Monitoring}
 
-Once a target temperature is met and the high-voltage, necessary for a gain of 1e7, for the D-Egg PMTs is found, a measurements are carried out to test the stability of the gain and high-voltage of the D-Eggs' PMTs over time. 
+As the temperature in the freezer is moving to its new target temperature, gain scans are regularly performed on the D-Eggs. 
+The D-Egg PMTs have been independently measured to have an SPE pulse full-width half-maximum of approximately 14 nanoseconds and an amplitude of approximately 12 mV. 
+Mainboard electronics on the D-Eggs broaden these pulses to an approximate amplitude of 6mV and FWHM of 20ns. 
+As such, a trigger threshold of 2.0mV is typically used.
+
+To calculate the gain, a charge distribution is first constructed from the read-out SPE waveforms by integrating from ten bins before the peak to fifteen bins after it.
+A Gaussian is then fitted to the charge histogram, whose peak corresponds to the PMT voltage at a given set high-toltage. An example SPE waveform and charge distribution is shown in Figure~FIG.
+This procedure is repeated at varrying high voltages until the calculated gain is within $\pm 2\%$ of $10^{7}$.
+A typical high voltage found is around 1500V. 
 
 \subsection{Analyses}
 

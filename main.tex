@@ -1,5 +1,6 @@
-\documentclass{report}
+\documentclass{book}
 \usepackage{subfiles}
+% \usepackage[margin=1.0in]{geometry}
 
 \usepackage[square,numbers,comma]{natbib}
 \bibliographystyle{acm}
@@ -167,19 +168,39 @@
 \begin{document}
 \tableofcontents
 
-\chapter{Introduction}
+\chapter{Introduction}\label{chapter:intro}
+\section{Foreward}
+
+The work presented in this dissertation is as follows:
+
+\textbf{Chapter \ref{chapter:intro}} will introduce the background physics relevant for this work. 
+
+\textbf{Chapter \ref{chapter:icecube}} will describe the IceCube Neutrino Observatory and the details of its operation. 
+
+\textbf{Chapter \ref{chapter:LI}} will discuss event generation schema for Monte Carlo simulation in IceCube.
+
+\textbf{Chapter~\ref{chapter:gen}} will continue the previous chapter's discussion with a description of the full Monte Carlo simulation procedure and detail the event selections used herein.
+
+\textbf{Chapter~\ref{chapter:unc}} will summarize all the sources of systematic uncertainty relevant for this analysis.
+
+\textbf{Chapter~\ref{chapter:sense}} will introduce the expected sensitivities for this analysis. 
+
+And finally,\textbf{ Chapter~\ref{chapter:res}} will provide the results of this analysis. 
+
 \subfile{introduction.tex}
+
+\chapter{The IceCube Neutrino Observatory}\label{chapter:icecube}
 \subfile{icecube.tex}
 \subfile{degg_fat.tex}
 \chapter{LeptonInjector and LeptonWeighter}\label{chapter:LI}
 \subfile{leptons.tex}
-\chapter{Event Generation and Filters}
+\chapter{Event Generation and Filters}\label{chapter:gen}
 \subfile{generation.tex}
-\chapter{Sources of Systematic Uncertainties}
+\chapter{Sources of Systematic Uncertainties}\label{chapter:unc}
 \subfile{systematics.tex}
-\chapter{Sterile Neutrino Oscillation Sensitivities}
+\chapter{Sterile Neutrino Oscillation Sensitivities}\label{chapter:sense}
 \subfile{sensitivity.tex}
-\chapter{Results of Cascade Analysis}
+\chapter{Results of Cascade Analysis}\label{chapter:res}
 
 
 

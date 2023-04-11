@@ -4,8 +4,19 @@
 
 \begin{document}
 
+\section{Methods}
+\subsection{Snowstorm}
+While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can be particuarly complex in their relationship between detector performance and reconstructed event rates. 
+
+A method for efficiently determining the effects of these parametere are discussed at-length in Reference~\cite{Aartsen_2019_snow}.
+
+
+more words! 
+
 \subsection{Systematic Downsizing}
 
+
+\section{Applications}
 \subsection{DOM Efficiency}
 
 To evaluate the effects of varrying the DOM efficiency on reconstructed event rates, a Monte Carlo sample was generated following the Snowstorm method for low-level systematic uncertainties.
@@ -35,6 +46,25 @@ A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figu
 
 
 \subsection{Bulk Ice}
+
+The bulk ice in the ice is characterised by uncertainties in the absorption and scattering length. 
+Initially, every ten meter section of the ice was assigned an absorption length and a scatteing length with some uncertainty. 
+Over the 1500 meter span of IceCube, this would require 300 separate nuisance parameters to account for these parameters fully.
+Figure~\ref{fig:iceabsfracshift} shows the allowed variance of the ice as a function of depth. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/AbsFracShift.png}
+    \caption{Write caption}\label{fig:iceabsfracshift}
+\end{figure}
+
+This is an overwhelming and intractable quantity. 
+For this and similar analyses, a Fourier decomposition of the depth ($x$) dependence of the absorption and scattering is used instead, as described in Ref~\cite{Aartsen_2019_snow}: 
+\begin{equation}
+    \dfrac{1}{2}\log\left(\text{Abs} \times \text{Sca}\right) = \dfrac{A_{0}}{2} +\sum\limits_{n=1}^{N}A_{n} \sin\left(\dfrac{2\pi nx}{L} + \phi_{n}\right)
+\end{equation}
+where $A_{n}$ and $\phi_{n}$ are amplitudes and phases for the $n$'th term in the series expansiion, $L$ is the vertical extent of IceCube, and \textit{Abs} and \textit{Sca} are the in-ice absorption and scattering lengths. 
+
+Each of these amplitudes and phases are fit using DOM LED flasher data.
 
 \subsection{Hole Ice}
 
