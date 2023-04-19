@@ -1,4 +1,12 @@
-\documentclass{book}
+\documentclass[
+11pt, 
+english, 
+doublespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+headsepline, % Uncomment to get a line under the header
+usenames,dvipsnames
+]{dissertation_class} % The class file specifying the document structure
+
+
 \usepackage{subfiles}
 % \usepackage[margin=1.0in]{geometry}
 
@@ -30,6 +38,9 @@
 \usepackage{lipsum}
 \usepackage[capitalise]{cleveref}
 \usepackage{xcite}
+\usepackage{setspace}
+\usepackage{hyperref}
+
 
 \usepackage[utf8]{inputenc}
 
@@ -103,6 +114,17 @@
 }
 {}
 
+
+
+\geometry{
+	paper=letterpaper, % Change to letterpaper for US letter
+	inner=2.5cm, % Inner margin
+	outer=2.5cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+}
+
 % Python for external files
 \newcommand\pythonexternal[2][]{{
 \pythonstyle
@@ -161,11 +183,84 @@
 \usepackage{listings}
 
 \usepackage{filecontents}
-\makeindex
-\usepackage{setspace}
 
-\doublespacing
+\thesistitle{A Multi-Channel Search for Signatures of eV$^{2}$-Scale Sterile Neutrinos in IceCube} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Dr. Benjamin J.P. \textsc{Jones}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\earneddegree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Benjamin \textsc{Smithers}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Neutrino Physics} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.uta.edu/}{University of Texas at Arlington}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{\href{https://www.uta.edu/physics/}{Physics}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{\href{nures.uta.edu}{nuRES}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{https://www.uta.edu/academics/schools-colleges/science}{College of Science}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+
+\makeindex
+
+
 \begin{document}
+
+
+\begin{titlepage}
+    \begin{center}
+    
+    \vspace*{.06\textheight}
+    {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+    \textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
+    
+    \HRule \\[0.4cm] % Horizontal line
+    {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+    \HRule \\[1.5cm] % Horizontal line
+     
+    \begin{minipage}[t]{0.4\textwidth}
+    \begin{flushleft} \large
+    \emph{Author:}\\
+    \href{http://www.johnsmith.com}{\authorname} % Author name - remove the \href bracket to remove the link
+    \end{flushleft}
+    \end{minipage}
+    \begin{minipage}[t]{0.4\textwidth}
+    \begin{flushright} \large
+    \emph{Supervisor:} \\
+    \href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+    \end{flushright}
+    \end{minipage}\\[3cm]
+     
+    \vfill
+    
+    \large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+    \textit{in the}\\[0.4cm]
+    \groupname\\\deptname\\[2cm] % Research group name and department name
+     
+    \vfill
+    
+    %{\large \today}\\[4cm] % Date
+    {\large {December 2021}}\\[4cm] % Date
+    %\includegraphics{Logo} % University/department logo - uncomment to place it
+     
+    \vfill
+    \end{center}
+\end{titlepage}
+    
+
+
+\begin{abstract}
+    \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+
+    The IceCube Neutrino Observatory is a cubic-kilometer-scale neutrino observatory built near the Admunsen Scott South Pole Station in Antarctica;
+    it uses a gigaton of instrumented ice to search for the Cherenkov light emitted by the daughter particles of deep inelastic scatteing interactions occuring inside and around the detector from neutrinos of both astrophysical and atmospheric origin. 
+    For eV$^{2}$-scale sterile neutrino models, matter-effects yield resonant $\bar{\nu}_{\mu}\to\bar{\nu}_{s}$ oscillations for TeV-scale up-going neutrinos. 
+    For certain combinations of mixing angles, this can also yield $\bar{\nu}_{\mu}\to\bar{\nu}_{\tau}$ oscillations a strong signature of $\bar{\nu}_{\tau}$ appearance. 
+    This dissertation presents the development of novel techniques for quantifying new sources of detector uncertainty, and applies them in a multi-channel search for signs of both the resonant muon neutrino disappearance alongside the tau neutrino appearance. 
+
+    We find `these results' which are now presented in this second paragraph of the abstract. 
+    
+    \end{abstract}
+    
+
 \tableofcontents
 
 \chapter{Introduction}\label{chapter:intro}
