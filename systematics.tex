@@ -1,7 +1,6 @@
 \documentclass[main.tex]{subfiles}
 
 %\externalcitedocument{bibfile}
-
 \begin{document}
 
 \section{Methods}
@@ -50,12 +49,6 @@ A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figu
 The bulk ice in the ice is characterised by uncertainties in the absorption and scattering length. 
 Initially, every ten meter section of the ice was assigned an absorption length and a scatteing length with some uncertainty. 
 Over the 1500 meter span of IceCube, this would require 300 separate nuisance parameters to account for these parameters fully.
-Figure~\ref{fig:iceabsfracshift} shows the allowed variance of the ice as a function of depth. 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{./figures/AbsFracShift.png}
-    \caption{Write caption}\label{fig:iceabsfracshift}
-\end{figure}
 
 This is an overwhelming and intractable quantity. 
 For this and similar analyses, a Fourier decomposition of the depth ($x$) dependence of the absorption and scattering is used instead, as described in Ref~\cite{Aartsen_2019_snow}: 
@@ -64,7 +57,62 @@ For this and similar analyses, a Fourier decomposition of the depth ($x$) depend
 \end{equation}
 where $A_{n}$ and $\phi_{n}$ are amplitudes and phases for the $n$'th term in the series expansiion, $L$ is the vertical extent of IceCube, and \textit{Abs} and \textit{Sca} are the in-ice absorption and scattering lengths. 
 
-Each of these amplitudes and phases are fit using DOM LED flasher data.
+
+To calibrate these amplitudes and phases and to determine the covariance between them, we use the IceCube in-situ flasher data~\cite{Aartsen_2013}. 
+These use the 12 on-board LEDs mounted in the housings of each DOM. 
+The LEDs on all DOMs of string 63 are flashed, and then the measured light throughout IceCube, minus string 63, is logged. 
+Then, PPC simulations were carried out for various, perturbed, ice models were performed. 
+PPC simulations were performed by perturbing the amplitudes and phases for the first four modes in the Fourier series expansion of the depth dependence of absorption and scattering in the bulk ice.
+PPC simulations were also performed by perturbing various combinations of these modes. 
+These PPC simulations were used, in conjunction with the measured flasher data, to quantify the likelihood of the observed data assuming different ice models,
+
+For each amplitude and phase, these likelihoods were calculated for icemodels where the amplitudes of the first five fourier modes and the first fourier phases were shifted. 
+These values were shited large amounts first, from which an approximate minimum was determined. 
+Then, more granular PPC simulations were carried out by varrying these amplitudes and phases about the approximate centers. 
+
+For each amplitude and phase a quadratic fit was then done to the log likelihood distributions, 
+\begin{equation}
+    \mathcal{L}(\eta_{i}) = A_{i}\eta_{i}^{2} + B_{i}\eta_{i} + C_{i}
+\end{equation}
+where $\eta_{i}$ is for any one amplitude or phase. These fits are shown in Figure FIG. 
+A similar scan was then done for combinations of nuisance parameters by shifting each possible pairing of them by amounts proportional to the widths of the nuisance parameters. 
+
+For a correlated set of nuisance parameters $\vec{\eta}$, the prior penalty of the likelihood function is equal to 
+\begin{equation}
+    \mathcal{L} = \vec{\eta}^{T} \Sigma^{-1} \vec{\eta} + C
+\end{equation} 
+where $C$ is a constant prefactor to normalize the distribution and $\Sigma$ is the covariance.
+The inverse of the covariance matrix, $\Sigma^{-1}$, is also known as the Hessian matrix, and so to fit to the covariance it is easiest to fit first to the Hessian. 
+In order for the prior penalty function to normalizable, both the covariance matrix and the hessian must be real-valued and positive semi-definite: all eigenvalues and its determinant must be greater than or equal to zero. 
+A consequence of this is that the Hessian can be written as 
+\begin{equation}
+    \Sigma^{-1} = H = LL^{T},
+\end{equation} 
+where $L$ is a lower-diagonal matrix. 
+We can therefore parametrize any Hessian matrix $H$ using values occupying the lower-diagonal of such a matrix $L$. This takes $n(n-1)/2$ values, where $n$ is the rank of the covariance. 
+
+For a given lower-diagonal matrix $\bvec{L}$, we minimize the cauchy robust loss function given by 
+\begin{equation}
+    M(\bvec{L}) = \sum_{i}^{m}\log\left[ 1 +  \left(\mathcal{L}_{i} - (\vec{\eta}_{i})^{T} \bvec{L}\bvec{L}^{T} \vec{\eta}_ {i} \right)^{2}\right]
+\end{equation}
+for the $m$ sampled ice models where $\vec{\eta}_{i}$ is the $i$'th sampled set of nuisance parameters at which a log likelihood of $\mathcal{L}_{i}$ was recovered through PPC simulation. 
+This likelihood function, which has been used in previous IceCube analyses~\cite{icecube_lowe}, was chosen such that bad fits far off the true likelihood contours do not negatively effect the fit.  
+The fit, despite running over forty-five parameters, was found to be extremely stable and fast. The fit Hessian $H=\bvec{L}\bvec{L}^{T}$ is show in Figure~\ref{fig:hessian} (left) and the corrlation matrix (right).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/hessian.png}%
+    \includegraphics[width=0.45\linewidth]{figures/covariance.png}
+    \caption{The fit hessian matrix (left), in nuisance parameter space, for the first five amplitudes and first four phases, and the correlation matrix(right) determined by inverting the hessian.}\label{fig:hessian}
+\end{figure}
+
+Using these the expected varriation of ice models can be calculated. 
+Five thousand random ice models were drawn, using the correlation matrix and the fit widths of the amplitudes and phases, and are shown in Figure~\ref{fig:envelope}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/icemodel_smooth.png}
+    \caption{The results of sampling five thousand ice models using the fit correlation matrix and widths for the amplitudes and phases. A solid red line is drawn, below which the fractional shift of the absorption length of 68\% of sampled models lie. Similar lines for 95\% and 99\%. IceCube lies between 1500 and 2500 meters of depth. The bump in the middle lines up with the dust layer in IceCube, and rises at the end are caused by poor constraint due to the physical extent of the detector.}\label{fig:envelope}
+\end{figure}
 
 \subsection{Hole Ice}
 
@@ -91,7 +139,7 @@ The effects of varrying these two parameters is then demonstrated in Figures~\re
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=0.95\linewidth]{./figures/holeice_p1.png}
-        \caption{A sweep of the unified hole ice model $p_0$ parameter.}
+        \caption{A sweep of the unified hole ice model $p_1$ parameter.}
     \end{subfigure}
     \caption{Effects of varrying unified hole ice model parameters. $\eta$ represents angle of photon incidence on the DOM; -1 is the DOM backside, and +1 is the DOM PMT face.}\label{fig:holeiceparmas}
 \end{figure}
