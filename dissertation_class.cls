@@ -244,7 +244,7 @@
 %	COLOURS
 %----------------------------------------------------------------------------------------
 
-\usepackage{xcolor} % Required for specifying custom colours
+\usepackage[table]{xcolor} 
 
 \colorlet{mdtRed}{red!50!black}
 

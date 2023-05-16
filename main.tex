@@ -63,6 +63,8 @@ usenames,dvipsnames
 \usepackage{makeidx}
 
 \usepackage{bm}
+\usepackage[table]{xcolor} 
+
 
 \usetikzlibrary{trees}
 
@@ -263,7 +265,7 @@ usenames,dvipsnames
 \begin{acknowledgements}
     \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
     
-    I would also like to acknowledge UTA OIT, whose countless spent breaking our network connection, forcing open our office door unannoucned, and trying to steal my work laptop were ultimately in vain. Without their tireless efforts I surely would have finished a year sooner than I did. 
+    I would also like to acknowledge UTA OIT, whose countless hours spent breaking our network connection, forcing open our office door unannoucned, and trying to steal my work laptop were ultimately in vain. Without their tireless efforts I surely would have finished a year sooner than I did. 
 
 \end{acknowledgements}
 
@@ -278,9 +280,7 @@ The work presented in this dissertation is as follows:
 
 \textbf{Chapter \ref{chapter:icecube}} will describe the IceCube Neutrino Observatory and the details of its operation. 
 
-\textbf{Chapter \ref{chapter:LI}} will discuss event generation schema for Monte Carlo simulation in IceCube.
-
-\textbf{Chapter~\ref{chapter:gen}} will continue the previous chapter's discussion with a description of the full Monte Carlo simulation procedure and detail the event selections used herein.
+\textbf{Chapter \ref{chapter:LI}} will discuss the event generation schema and Monte Carlo simulation procedure IceCube.
 
 \textbf{Chapter~\ref{chapter:unc}} will summarize all the sources of systematic uncertainty relevant for this analysis.
 
@@ -293,9 +293,8 @@ And finally,\textbf{ Chapter~\ref{chapter:res}} will provide the results of this
 \chapter{The IceCube Neutrino Observatory}\label{chapter:icecube}
 \subfile{icecube.tex}
 \subfile{degg_fat.tex}
-\chapter{LeptonInjector and LeptonWeighter}\label{chapter:LI}
-\subfile{leptons.tex}
 \chapter{Event Generation and Filters}\label{chapter:gen}
+\subfile{leptons.tex}
 \subfile{generation.tex}
 \chapter{Sources of Systematic Uncertainties}\label{chapter:unc}
 \subfile{systematics.tex}

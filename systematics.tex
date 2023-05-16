@@ -1,5 +1,6 @@
 \documentclass[main.tex]{subfiles}
 
+
 %\externalcitedocument{bibfile}
 \begin{document}
 
@@ -14,6 +15,22 @@ more words!
 
 \subsection{Systematic Downsizing}
 
+In this analysis, several sets of nuisance parameters are correlated to various degrees: the astrophysical flux, the cosmic ray flux model and hadronic model, and the absorption and scattering lengths as a functions of depth in IceCube. 
+An new method for (1) fitting these correlated priors in an uncorrelated way and (2) representing the effects with fewer parameters was developed and adopted. 
+
+Considering a set of $n$ nuisance parameters $\vec{x}$, each with mean $\mu$.
+A $n\times n$ matrix, $\Sigma$ defines the positive-definite covariance between these nuisance parameters. 
+If we assume the distribution is jointly normally distributed, then the probability density function defining the odds of a set of nuisance paramters $\vec{y}$ being the ``true'' values is given by
+\begin{equation}
+    P(\vec{y}) = \dfrac{1}{(2\pi)^{n/2}\left|\Sigma\right|^{1/2}}\exp\left[-\tfrac{1}{2}(\vec{y}-\vec{\mu})^{T}\Sigma^{-1}\left(\vec{y}-\vec{\mu}\right)\right]
+\end{equation}
+where $\left|\Sigma\right|$ is the determinant of the covariance matrix $\Sigma$. 
+We then consider the simple coordinate transformation $ \vec{p}\equiv \vec{y}-\vec{\mu}$.
+For consistency with goodness of fits tests and usefulness in minimization applications, we also focus on the log of this likelihood distribution. 
+\begin{equation}
+\mathcal{L} \equiv \log P = -\tfrac{1}{2}\vec{p}^{T}\Sigma^{-1}\vec{p} + C
+\end{equation}
+We 
 
 \section{Applications}
 \subsection{DOM Efficiency}
@@ -113,6 +130,52 @@ Five thousand random ice models were drawn, using the correlation matrix and the
     \includegraphics[width=0.8\linewidth]{figures/icemodel_smooth.png}
     \caption{The results of sampling five thousand ice models using the fit correlation matrix and widths for the amplitudes and phases. A solid red line is drawn, below which the fractional shift of the absorption length of 68\% of sampled models lie. Similar lines for 95\% and 99\%. IceCube lies between 1500 and 2500 meters of depth. The bump in the middle lines up with the dust layer in IceCube, and rises at the end are caused by poor constraint due to the physical extent of the detector.}\label{fig:envelope}
 \end{figure}
+
+The widths on the icemodels were then used in an application of the SnowStorm technique. 
+A purpose-build Monte Carlo sample was prepared generating only events that would yield cascades; since we were not interested in developing a sample to test event selection efficiency, background events were not included. 
+This sample was generated using the same procedure as described in Chapter~\ref{chapter:gen}. 
+Energies were all sampled at according to a power law with a spectral index $\gamma=-2$.
+Sub-samples were prepared spanning different energy regimes and using different numbers of events per file, injection cylinder sizes, and events per model. 
+The full ensemble of event generation parameters are shown in Table~\ref{table:mc}.
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | ccc ccc ccc c}\rowcolor{blue!25}
+            & 1001 & 1002 & 1003 & 1004 & 1005 & 1006 & 1007 & 1008 & 1009 & 1010 \\\hline
+        
+    Flavor  &$\nu_{e}$ &$\nu_{\mu}$ &$\nu_{\tau}$ &$\nu_{e}$ &$\nu_{\tau}$ &$\nu_{e}$ &$\nu_{\mu}$ &$\nu_{\tau}$ &$\nu_{e}$ &$\nu_{\tau}$  \\
+    Current & NC & NC & NC & CC & CC & NC & NC & NC & CC & CC \\
+    Events Per File & \multicolumn{5}{c}{50,000} & \multicolumn{5}{c}{10,000} \\
+    $E_{min}$ [GeV] & \multicolumn{5}{c}{100} & \multicolumn{5}{c}{$5e3$} \\
+    $E_{max}$ [GeV] & \multicolumn{5}{c}{$5e3$} & \multicolumn{5}{c}{$10e6$}\\
+    Zenith Range & \multicolumn{10}{c}{Full Sky}\\
+    Cylinder Height & \multicolumn{10}{c}{1400 m}\\
+    Cylinder Radius & \multicolumn{5}{c}{700 m} & \multicolumn{5}{c}{750 m} \\
+    Sampled $\gamma$ & \multicolumn{10}{c}{-2} \\
+    Events Per Model & \multicolumn{5}{c}{5} & \multicolumn{5}{c}{10} 
+    \end{tabular}
+    \caption{MC generation scecifications for the snowstorm cascades sample}\label{table:mc}
+\end{table}
+
+From these, splits were applied to the full sample and 2D linear gradients were calculated. 
+Photospline~\cite{WHITEHORN20132214} was then used to perform spline fits of the 2D gradients to smooth out MC statistical varriance. 
+A table of spline fits is shown below in Figure\ref{fig:gradients}. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{figures/spline_amp00_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_amp01_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_amp02_gradient.png}\\
+    \includegraphics[width=0.3\linewidth]{figures/spline_amp03_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_amp04_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_phase01_gradient.png}\\
+    \includegraphics[width=0.3\linewidth]{figures/spline_phase02_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_phase03_gradient.png}%
+    \includegraphics[width=0.3\linewidth]{figures/spline_phase04_gradient.png}
+    \caption{Evaluations of the Photospline spline-fits to the 2D gradients as functions of energy and zenith. Left to right from top to bottom: Amplitude 0, Amplitude 1, Amplitude, 2, Amplitude 3, Amplitude 4, Phase 1, Phase 2, Phase 3, Phase 4.}\label{fig:gradients}
+\end{figure}
+
 
 \subsection{Hole Ice}
 
