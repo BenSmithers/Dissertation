@@ -6,14 +6,15 @@
 
 \section{Methods}
 \subsection{Snowstorm}
-While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can be particuarly complex in their relationship between detector performance and reconstructed event rates. 
+While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can have non-trivial effects on the reconstruction of events. 
+These `low-level' sources of systematic uncertainty typically require a dedicated 
 
 A method for efficiently determining the effects of these parametere are discussed at-length in Reference~\cite{Aartsen_2019_snow}.
 
 
 more words! 
 
-\subsection{Systematic Downsizing}
+\subsection{Systematic Downsizing}\label{sect:down}
 
 In this analysis, several sets of nuisance parameters are correlated to various degrees: the astrophysical flux, the cosmic ray flux model and hadronic model, and the absorption and scattering lengths as a functions of depth in IceCube. 
 An new method for (1) fitting these correlated priors in an uncorrelated way and (2) representing the effects with fewer parameters was developed and adopted. 
@@ -30,7 +31,35 @@ For consistency with goodness of fits tests and usefulness in minimization appli
 \begin{equation}
 \mathcal{L} \equiv \log P = -\tfrac{1}{2}\vec{p}^{T}\Sigma^{-1}\vec{p} + C
 \end{equation}
-We 
+We diagonlize this matrix by considering a transformation $U\in SO(N)$ satisfying $A = U\Sigma^{-1}U^{T}$, where $A$ is diagonal. 
+\begin{equation}
+    \mathcal{L} \equiv \log P = -\tfrac{1}{2}\vec{p}^{T} U^{T} U\Sigma^{-1} U^{T} U\vec{p}
+\end{equation}
+or where the primed coordinates are the transformed coordinates,
+\begin{equation}
+    \mathcal{L} \equiv \log P = -\tfrac{1}{2}(\vec{p}')^{T} A \vec{p}'.
+\end{equation}
+Thus we can always rotate a correlated nuisance parameter basis to one where the priors on the parameters are uncorrelated. 
+
+To solve for the transformation, all we really have to do is move some terms around starting from the construction of $A$ and $U$, 
+\begin{equation} 
+    \Sigma U =  U\left[ \begin{array}{cccc}\lambda_{!} & 0 & \ldots & 0 \\
+        0 & \lambda_{2} & \ldots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \ldots & \lambda_{n} \end{array}\right].
+\end{equation}
+By re-wrigin the transformation matrix $U$ as a vector of its column vectors $\eta_{i}$, $U=\left[\begin{array}{ccc}\eta_{1} & \ldots & \eta_{n} \end{array}\right]$, then the equation can be expressed simply as 
+\begin{equation}
+    \Sigma \eta_{i} = \lambda_{i}\eta_{i}.
+\end{equation}
+The column vectros of the transformation matrix are the right eigenvectors of the covariance matrix, and each of the corresponding eigenvalues of the covariance matrix are the diagonals of the new matrix $A$, and are the squares of the widths of the distribution along the axes in the uncorrelated basis. 
+
+We lay out a procedure then for any given covariance matrix
+\begin{enumerate}
+    \item Solve for its eigenvalues and eigenvectors; the values each represent a normal prior width for new, uncorrelated, parameters in the new basis
+    \item The block-matrix of the eigenvectors is the transformation matrix allowing for transforming from the correlated basis to the uncorrelated basis. 
+    \item Fits are performed in the uncorrelated basis - to evaluate effects of sysematic uncertainty we transform whatever point is in question back to the correlated basis and evaluate the effects using the original parametrization. 
+\end{enumerate}
 
 \section{Applications}
 \subsection{DOM Efficiency}
@@ -119,7 +148,7 @@ The fit, despite running over forty-five parameters, was found to be extremely s
     \centering
     \includegraphics[width=0.45\linewidth]{figures/hessian.png}%
     \includegraphics[width=0.45\linewidth]{figures/covariance.png}
-    \caption{The fit hessian matrix (left), in nuisance parameter space, for the first five amplitudes and first four phases, and the correlation matrix(right) determined by inverting the hessian.}\label{fig:hessian}
+    \caption{The fit hessian matrix (left) in nuisance parameter space for the first five amplitudes and first four phases, and the correlation matrix (right) determined by inverting the hessian.}\label{fig:hessian}
 \end{figure}
 
 Using these the expected varriation of ice models can be calculated. 
@@ -133,7 +162,7 @@ Five thousand random ice models were drawn, using the correlation matrix and the
 
 The widths on the icemodels were then used in an application of the SnowStorm technique. 
 A purpose-build Monte Carlo sample was prepared generating only events that would yield cascades; since we were not interested in developing a sample to test event selection efficiency, background events were not included. 
-This sample was generated using the same procedure as described in Chapter~\ref{chapter:gen}. 
+This sample was generated using the same procedure as described in Chapter~\ref{chapter:gen}, starting with LeptonInjector for event generation and LeptonWeight for event weighting~\cite{ABBASI2021108018}. 
 Energies were all sampled at according to a power law with a spectral index $\gamma=-2$.
 Sub-samples were prepared spanning different energy regimes and using different numbers of events per file, injection cylinder sizes, and events per model. 
 The full ensemble of event generation parameters are shown in Table~\ref{table:mc}.
@@ -155,7 +184,7 @@ The full ensemble of event generation parameters are shown in Table~\ref{table:m
     Sampled $\gamma$ & \multicolumn{10}{c}{-2} \\
     Events Per Model & \multicolumn{5}{c}{5} & \multicolumn{5}{c}{10} 
     \end{tabular}
-    \caption{MC generation scecifications for the snowstorm cascades sample}\label{table:mc}
+    \caption{MC generation scecifications for the snowstorm cascades sample. Cylinder height and radius are defined in Ref~\cite{ABBASI2021108018}. The number of events per model refers to the number of MC events simulated before shuffling the amplitudes and phases for the ice model.}\label{table:mc}
 \end{table}
 
 From these, splits were applied to the full sample and 2D linear gradients were calculated. 
@@ -174,6 +203,20 @@ A table of spline fits is shown below in Figure\ref{fig:gradients}.
     \includegraphics[width=0.3\linewidth]{figures/spline_phase03_gradient.png}%
     \includegraphics[width=0.3\linewidth]{figures/spline_phase04_gradient.png}
     \caption{Evaluations of the Photospline spline-fits to the 2D gradients as functions of energy and zenith. Left to right from top to bottom: Amplitude 0, Amplitude 1, Amplitude, 2, Amplitude 3, Amplitude 4, Phase 1, Phase 2, Phase 3, Phase 4.}\label{fig:gradients}
+\end{figure}
+
+Each of these were then implemented in our fitting framework, and the effects in analysis space were calculated. 
+Using the previously calculated covariance matrix and the methods for de-correlating the nuisance parameters from Section~\ref{sect:down}, uncorrelated nuisance parameters were constructed as a simple basis change from the original amplitude/phase basis. 
+Of the nine new parameters, only four were found to have a significant impact on analysis rates. The other five are kept at their central values in fits. 
+The strongest four are shown in Figure~\ref{fig:rotata}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/amp00_rot.png}%
+    \includegraphics[width=0.45\linewidth]{figures/amp01_rot.png}\\
+    \includegraphics[width=0.45\linewidth]{figures/amp03_rot.png}%
+    \includegraphics[width=0.45\linewidth]{figures/amp04_rot.png}
+    \caption{Shape effects from perturbing each of the uncorrelated nuisance parameters by one sigma. Note that although named after phases and amplitudes, perturbing each of these is identical to perturbing a linear combination of all amplitudes and phases simultaneously.}\label{fig:rotata}
 \end{figure}
 
 
@@ -204,6 +247,21 @@ The effects of varrying these two parameters is then demonstrated in Figures~\re
         \includegraphics[width=0.95\linewidth]{./figures/holeice_p1.png}
         \caption{A sweep of the unified hole ice model $p_1$ parameter.}
     \end{subfigure}
+    \caption{Effects of varrying unified hole ice model parameters. $\eta$ represents angle of photon incidence on the DOM; -1 is the DOM backside, and +1 is the DOM PMT face.}\label{fig:holeiceog}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=0.95\linewidth]{./figures/holeice_p0.png}
+        \caption{A sweep of the unified hole ice model $p_0$ parameter.}
+    \end{subfigure}%
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=0.95\linewidth]{./figures/holeice_p1.png}
+        \caption{A sweep of the unified hole ice model $p_1$ parameter.}
+    \end{subfigure}
     \caption{Effects of varrying unified hole ice model parameters. $\eta$ represents angle of photon incidence on the DOM; -1 is the DOM backside, and +1 is the DOM PMT face.}\label{fig:holeiceparmas}
 \end{figure}
 
@@ -215,7 +273,7 @@ The final-level MC is then weighted, one at a time, to the conventional, prompt,
 The snowstorm technique is applied to this MC sample, and the 1D gradients in reconstructed space are shown in Figure FIG. 
 
 \subsection{Atmospheric Neutrino Flux}
-
+\index{neutrino!flux}
 Daemonflux and such
 
 \subsection{Atmospheric Density}
@@ -224,6 +282,94 @@ Daemonflux and such
 
 \subsection{Astrophysical Neutrino Flux}
 
-\subsection{Neutrino-Nucleon Interaction}
+Astrophysical neutrinos are a background to this analysis; it is modeled here as an isotropic, unbroken power law spectrum with equal contributions from each neutrino variety.
+The priors are the same as for the previous track analyses~\cite{Aartsen_2020, Aartsen_2020_prd}, which use the IceCube High-Energy Starting Events sample~\cite{2021hese} to construct a correlated prior for the normalization and spectral index. 
+Constraints are shown in Figure~\ref{fig:hese}, where the spectral index and normalization are defined according to 
+\begin{equation}
+    \dfrac{d N_{\nu}}{dE}  = \Phi_{astro}\left(\dfrac{E_{\nu}}{100\text{ TeV}}\right)^{-2.5 + \Delta_{\gamma_{\text{astro}}} }
+\end{equation}
+were $\Delta_{\gamma_{\text{astro}}}$ represents a shift in the spectral index, and the flux has a normalization normalization $\Phi_{astro}$ at 100TeV of 
+\begin{equation}
+\Phi_{astro} = 0.787\times 10^{-18} \left[\text{GeV}\cdot\text{sr}\cdot\text{s}\cdot\text{cm}^{2}.\right]^{-1}
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/hese.png}
+    \caption{Constraints on the normalization and spectral index of the astrophysical neutrino flux. Contributions to the overal prior are shown from the Diffuse six year sample CITE, the multi-year cascades sample, and from the HESE sample. Figure from Ref~\cite{Aartsen_2020_prd}.}\label{fig:hese}
+\end{figure}
+
+Two new uncorrelated nuisance parameters are constructed following the same procedures of Section~\ref{sect:down}. The effects of perturbing each of these new, uncorrelated, parameters are shown in Figure~\ref{fig:recoastro}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{figures/astro_norm_rotated.png}%
+    \includegraphics[width=0.4\linewidth]{figures/astro_delta_rotated.png}
+    \caption{Effects in analysis space from perturbing the uncorrelated astrophysical nuisance parameters individually by one sigma.}\label{fig:recoastro}
+\end{figure}
+
+
+\subsection{Neutrino-Nucleon Interaction Uncertainty}
+\index{neutrino!cross section}
+\index{neutrino!interactions}
+Neutrio-nucleon cross sections, in the context of this high-energy work, are well beyond the `even remotely' regime of MeV, or even few-GeV, analyses.
+We are well and truly under the rule of the DIS kingdom. 
+The cross section at these energies runs in energy as a power law with a knee near $10^{4}$ GeV as valence quark interaction parton density begins to weaken compared to the sea~\cite{GANDHI199681}.
+
+While the uncertainty was previously found to be inconsequential to the event rate at the detector~\cite{osti_1221354, 2015PhDT94D}, it also manifests as the degree to which high-energy neutrino fluxes are attenuated as they propagate through the Earth ~\cite{Vincent:2017svp, PhysRevD.83.113009, Cooper_Sarkar_2011}. Although previous analyses for tracks had found this to be a not-negligible source of uncertainty~\cite{Aartsen_2020, Aartsen_2020_prd}, this was not the case for the cascades sample where the reconstructed cascade energy is closer to the true energy of the parent neutrino.
+The effects of the uncertainties on the neutrino and antineutrino cross section on reconstructed cascade event rate are shown in Figure\ref{fig:nucross}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/nu_scale.png}
+    \includegraphics[width=0.45\linewidth]{figures/nubar_scale.png}
+    \caption{The effects of neutrino (antineutrino) cross section uncertainty are shown on the left (right). Effect manifests as a sub-percent level disappearance of Earth-crossing events at energies over 10TeV.}\label{fig:nucross}
+\end{figure}
+
+
+\subsection{Cosmic Ray Muon Background}
+
+One of the most difficult sources of background in IceCube comes from the muons forged in the cosmic ray air showers above IceCube. 
+These muons enter IceCube at a rate of about 2 kilohertz, and so over the ten years of livetime for the cascades sample, an estimated $3.15\times 10^{11}$ muons would have entered the volume over a wide range of energies. 
+Although the series of filters are highly effective at cutting these sneaking muons, several still manage to enter in and depost light near the center of IceCube, and pass the event selection criteria. 
+The numbers of cosmogenic muons which pass these cuts, and are mis-identified as neutrino cascades, and the percent of each bin they encompass, is shown in Figure~\ref{fig:muonperc}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/expectation_stacked.png}
+    \caption{A stacked histrogram showing the contributions,  to the total event counts as a function of reconstructed energy, from conventional neutrinos (orange), prompt neutrinos (salmon), astrophysical neutrinos (purple), and cosmic ray muons mis-identified as cascades (deeper purple). The percent of each bin which is made of CR muons is show as a black dashed line.}\label{fig:muonperc}
+\end{figure}
+
+The distribution of these muon events in reconstructed energy and zenith is shown in Figure\ref{fig:muonmuon}, left.
+Due to the large number of events necessary to simulate to recover MC-statsitically significant muon rates, a Gaussian kernel density estimate (KDE) is used to approximate the expeted distribution that would likely lead to the simulated MC sample. 
+The exptected distribution of events is shown after the KDE smoothing is applied in Figure~\ref{fig:muonmuon}, right. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/muons_nokde.png}%
+    \includegraphics[width=0.45\linewidth]{figures/kde_muons.png}
+    \caption{2D heatmaps showing the expected number of muons after ten years of livetime in the analysis binning. Rates are shown before (left) and after (right) the kernel density smoothing is applied.}\label{fig:muonmuon}
+\end{figure}
+
+Uncertainty on these muons is extrapolated from the original MC statistical error. 
+The same KDE smoothing procedure is carried out on the sum of the squares of the weights in each bin; the resulting error and the ratio betwen the error and means are shown in Figure~\ref{fig:muonmuonerr}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/kde_muons_error.png}%
+    \includegraphics[width=0.45\linewidth]{figures/kde_muons_error_ratio.png}
+    \caption{2D heatmaps showing the KDE-smoothed MC statistical error for the muons (left) and the ratio of this value to the mean calculated from the KDE-smoothed muon rates (right).}\label{fig:muonmuonerr}
+\end{figure}
+
+The overall normalization of the muon rate is allowed to float freely in fits with a 20\% prior width chosen to match that of the neutrino fluxes, and the per-bin error on the muons is considered large enough to account for the varriance possible from MC statistical error.
+The shape effect from allowing the atmospheric muon scale to float is shown in Figure~\ref{fig:muon_shape}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/atm_muon_scale.png}
+    \caption{The shape-only effect of increasing the CR muon normalization by 20\%. This manifests as an increase in event rates at 1-3 TeV across all zeniths; apparent suppression at high energies is an artefact of this being a shape-only plot.}\label{fig:muon_shape}
+\end{figure}
+
 
 \end{document}
