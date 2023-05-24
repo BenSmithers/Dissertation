@@ -19,7 +19,7 @@ These five values are
     \item 100.0eV$^{2}$ - a larger mass-squared splitting where fast oscillations will dominate the signal. 
 \end{enumerate}
 
-\section{Likelihood Metric}
+\section{Likelihood Metric}\label{sect:llh_metric}
 
 The likelihood used in this analysis is defined as the probability of observing a given set of data, or pseudodata, assuming some physics hypothesis.
 It is quantified as 
@@ -65,9 +65,50 @@ A series of tests were performed to validate the implementation of the nuisance 
 Pseudo-experimental results, or `realizations,' are first calculated by perturbing each nuisance parameter some amount, individually, and getting the expected event rates without additional statistical variation applied. 
 This is done for each nuisance parameter allowed to float in the fit, for various amounts chosen in the allowed range given by the parameters' priors. 
 Fits are then carried out to each of these realizations.
-The results are tabulated below in Figure FIG. 
+
+The results are tabulated below in two figures: in Figure~\ref{fig:ir_nopriorpert} the results are shown where the prior on the nuisance parameter is left at its original value; in Figure~\ref{fig:ir_priorpert} the prior is changed to the value of the injected nuisance parameter. 
+
+In Figure~\ref{fig:ir_nopriorpert}, the flatter a parameter is then the more tightly-constrained its prior is. 
+
+\begin{figure}
+    \centering 
+    \includegraphics[width=0.7\linewidth]{figures/inject_recover_syst.png}
+    \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. }\label{fig:ir_nopriorpert}
+\end{figure}
+
+
+\begin{figure}
+    \centering 
+    \includegraphics[width=0.7\linewidth]{figures/inject_recover_syst_prior.png}
+    \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. Priors are adjusted in each fit to match the injected values.}\label{fig:ir_priorpert}
+\end{figure}
 
 \subsection{Asimov Sensitivity}
+
+First, a single realization was generated without applying statistical varriation on the per-bin expectation. 
+This is the Asimov realization. 
+Fits were performed for this simulated observation and test scores were calculated for each one following the metrics defined in Section~\ref{sect:llh_metric}.
+The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for the fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_sense}. 
+These results are plotted, superimposed against other experiment's sensitivities, in Figure~\ref{fig:asimov_compare}. 
+Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$, where unfortunately sensitivity for this analysis has been obseved to be at its worst. 
+To provide a similar comparison, we also include the 90\% confidence level senstivity contours with two degrees of freedom at $\Delta m_{41}^{2}=$ 4.5 eV$^{2}$ as well in the right panel of Figure~\ref{fig:asimov_compare}.
+
+The sensitivities here are observed to be worse than those predicted earlier in Chapter~\ref{chapter:sense}, though this is not surprising. 
+Previous predictions used very approximate representation of the nuisance parameters present in IceCube. 
+In addition to this, the muon background was not included in the previous sensitivity calculations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/cascade_mcllheff_final_Realization_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis.}\label{fig:asimov_sense}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/comparison.png}%
+    \includegraphics[width=0.45\linewidth]{figures/comparison_45.png}%
+    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:asimov_compare}
+\end{figure}
 
 
 
@@ -84,7 +125,7 @@ The bundles are
     \item Muon: the CR muon background\footnote{Because of the large, extra, error introduced by the muon background, for this systematic impact test a special realization is generated and fit to where there no muon contribution is added at all.}
     \item Normalization (aeff\_scale): overall normalization
 \end{enumerate}
-These sensitivities are shown, for 90\% CL and 3 degrees of freedom in Figure~\ref{fig:impact}
+These sensitivity contours are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}
 
 \begin{figure}
     \centering
@@ -92,5 +133,33 @@ These sensitivities are shown, for 90\% CL and 3 degrees of freedom in Figure~\r
     \caption{The sensitivity contours for fixing each bundle of nuisance parameters. Contours are shown at 90\% CL and 3DOF for various mass-squared splittings; from left to right: 1.0eV$^{2}$, 4.5eV$^{2}$, 10.0eV$^{2}$, and 100.0eV$^{2}$.}\label{fig:impact}
 \end{figure}
 
+\subsection{Signal Inject-Recover}
+
+Various points were chosen along the Asimov 90\% CL thresholds to test the fitters ability to recover constraints of sterile-neutrino signal-like measurements. 
+Two each were chosen along the contours at 1.0, 4.5, 10, and 100 eV$^{2}$. 
+Additionally, one more point was chosen off-grid. 
+Each of these points are listed in Table~\ref{table:injected_signals}.
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | cccc}\rowcolor{blue!25}
+            Realization Name & $\theta_{14}$ & $\theta_{24}$ & $\theta_{34}$ & $\Delta m_{41}^{2}$ [eV$^{2}$] \\
+            RealIR\_0 & 0.0 & 0.492 & 0.104 & 1.0 \\
+            RealIR\_1 & 0.0 & 0.685 & 0.505 & 1.0 \\
+            RealIR\_2 & 0.0 & 0.310 & 0.234 & 4.5 \\
+            RealIR\_3 & 0.0 & 0.171 & 0.324 & 4.5 \\
+            RealIR\_4 & 0.0 & 0.147 & 0.110 & 10.0 \\
+            RealIR\_5 & 0.0 & 0.171 & 0.324 & 10.0 \\
+            RealIR\_6 & 0.0 & 0.147 & 0.132 & 100 
+    \end{tabular}
+    \caption{Sterile neutrino mixing angles at which Asimov realizations were generated.}\label{table:injected_signals}
+\end{table}
+
+Then, we ran a full fit-scan on an Asimov realization generated for each of these simulated signals. 
+The contours are shown in the Figure FIG. 
+
+
+\textit{Discussion of the constraints}
 
 \end{document}
