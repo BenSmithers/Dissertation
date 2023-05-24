@@ -62,7 +62,7 @@ We lay out a procedure then for any given covariance matrix
 \end{enumerate}
 
 \section{Applications}
-\subsection{DOM Efficiency}
+\subsection{DOM Efficiency}\label{subsect:domeff}
 
 To evaluate the effects of varrying the DOM efficiency on reconstructed event rates, a Monte Carlo sample was generated following the Snowstorm method for low-level systematic uncertainties.
 
@@ -112,9 +112,11 @@ PPC simulations were performed by perturbing the amplitudes and phases for the f
 PPC simulations were also performed by perturbing various combinations of these modes. 
 These PPC simulations were used, in conjunction with the measured flasher data, to quantify the likelihood of the observed data assuming different ice models,
 
-For each amplitude and phase, these likelihoods were calculated for icemodels where the amplitudes of the first five fourier modes and the first fourier phases were shifted. 
-These values were shited large amounts first, from which an approximate minimum was determined. 
+For each amplitude and phase, these likelihoods were calculated for icemodels where the the first five fourier amplitudes and the first four fourier phases were shifted. 
+These values were shited large amounts first, from which an approximate minimum and width was determined. 
 Then, more granular PPC simulations were carried out by varrying these amplitudes and phases about the approximate centers. 
+Off-axis simulations were also carried out by shifting every possible combination of nuisance parameters, either both positively or both negatively, by varrying amounts. 
+
 
 For each amplitude and phase a quadratic fit was then done to the log likelihood distributions, 
 \begin{equation}
@@ -127,19 +129,19 @@ For a correlated set of nuisance parameters $\vec{\eta}$, the prior penalty of t
 \begin{equation}
     \mathcal{L} = \vec{\eta}^{T} \Sigma^{-1} \vec{\eta} + C
 \end{equation} 
-where $C$ is a constant prefactor to normalize the distribution and $\Sigma$ is the covariance.
-The inverse of the covariance matrix, $\Sigma^{-1}$, is also known as the Hessian matrix, and so to fit to the covariance it is easiest to fit first to the Hessian. 
+where $C$ is a constant prefactor to normalize the distribution and $\Sigma$ is the covariance matrix.
+The inverse of the covariance matrix, $\Sigma^{-1}$ is also known as the Hessian matrix; in determining the covariance it is easiest to first directly fit to the Hessian, and then to invert the Hessian to get the covariance matrix.
 In order for the prior penalty function to normalizable, both the covariance matrix and the hessian must be real-valued and positive semi-definite: all eigenvalues and its determinant must be greater than or equal to zero. 
-A consequence of this is that the Hessian can be written as 
+A consequence of this, and the use of a Cholesky decomposition, is that the Hessian can be written as the matrix product of a lower-diagonal matrix and its transpose:
 \begin{equation}
     \Sigma^{-1} = H = LL^{T},
 \end{equation} 
-where $L$ is a lower-diagonal matrix. 
+where $L$ is some lower-diagonal matrix. 
 We can therefore parametrize any Hessian matrix $H$ using values occupying the lower-diagonal of such a matrix $L$. This takes $n(n-1)/2$ values, where $n$ is the rank of the covariance. 
 
-For a given lower-diagonal matrix $\bvec{L}$, we minimize the cauchy robust loss function given by 
+We use the Cauchy robust loss function as a metric for the fits, in which we minimize the lower-diagonal matrix $\bvec{L}$,
 \begin{equation}
-    M(\bvec{L}) = \sum_{i}^{m}\log\left[ 1 +  \left(\mathcal{L}_{i} - (\vec{\eta}_{i})^{T} \bvec{L}\bvec{L}^{T} \vec{\eta}_ {i} \right)^{2}\right]
+    M(\bvec{L}) = \sum_{i}^{m}\log\left[ 1 +  \left(\mathcal{L}_{i} - \tfrac{1}{2}(\vec{\eta}_{i})^{T} \bvec{L}\bvec{L}^{T} \vec{\eta}_ {i} \right)^{2}\right]
 \end{equation}
 for the $m$ sampled ice models where $\vec{\eta}_{i}$ is the $i$'th sampled set of nuisance parameters at which a log likelihood of $\mathcal{L}_{i}$ was recovered through PPC simulation. 
 This likelihood function, which has been used in previous IceCube analyses~\cite{icecube_lowe}, was chosen such that bad fits far off the true likelihood contours do not negatively effect the fit.  
@@ -270,7 +272,7 @@ The angular acceptance of the DOMs in CLSim is then manually adjusted according 
 The remainder of the MC simulation chain is then performed.
 
 The final-level MC is then weighted, one at a time, to the conventional, prompt, and astrophysical neutrino fluxes. 
-The snowstorm technique is applied to this MC sample, and the 1D gradients in reconstructed space are shown in Figure FIG. 
+The snowstorm technique is applied to this MC sample, and the 1D gradients in reconstructed space are shown in Figure~\ref{fig:holeiceparmas}. 
 
 \subsection{Atmospheric Neutrino Flux}
 \index{neutrino!flux}
@@ -278,7 +280,7 @@ Daemonflux and such
 
 \subsection{Atmospheric Density}
 
-\subsection{Keon-nuclei Total Cross Section}
+\subsection{Kaon-nucleon Total Cross Section}
 
 \subsection{Astrophysical Neutrino Flux}
 
@@ -295,7 +297,7 @@ were $\Delta_{\gamma_{\text{astro}}}$ represents a shift in the spectral index, 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/hese.png}
+    \includegraphics[width=0.6\linewidth]{figures/hese.png}
     \caption{Constraints on the normalization and spectral index of the astrophysical neutrino flux. Contributions to the overal prior are shown from the Diffuse six year sample CITE, the multi-year cascades sample, and from the HESE sample. Figure from Ref~\cite{Aartsen_2020_prd}.}\label{fig:hese}
 \end{figure}
 
@@ -373,5 +375,75 @@ The shape effect from allowing the atmospheric muon scale to float is shown in F
     \caption{The shape-only effect of increasing the CR muon normalization by 20\%. This manifests as an increase in event rates at 1-3 TeV across all zeniths; apparent suppression at high energies is an artefact of this being a shape-only plot.}\label{fig:muon_shape}
 \end{figure}
 
+The possibility of using a set of cuts was investigated as well. 
+Multiple additional reconstructed quantities are available to us, beyond just energy and zenith, with which cuts can be applied. 
+The track and cascade boosted decision-tree scores, reconstructed depth, and the reconstructed `contained-ness' of the events all provide extra leverage with which cosmic ray muons and true neutrino events can be discriminated.
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c|cc}\rowcolor{blue!25}
+        Parameter & Minimum & Maximum \\\hline
+        $\cos\theta_{reco}$ & -1.0 & 0.0 \\
+        $z_{reco}$ & n/a & -300 \\
+        BDT-Track & n/a & 0.02 \\
+        BDT-Cascade & 0.2 & 0.75
+    \end{tabular}
+    \caption{A series of cuts capable of removing all of the CR muon background.}\label{tab:cut_table}
+\end{table}
+
+A series of cuts, listed in Table~\ref{tab:cut_table}, were found cabable of cutting all simulated CR muons. 
+The required cuts were found to be too aggressive and would cut too much of the signal away for an analysis to be performed. 
+The number of events, before and after cuts are applied, is shown in Figure~\ref{fig:cut_figure}.
+Only 13\% of the original neutrino sample passed all cuts. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/zenith_only_cut.png}%
+    \includegraphics[width=0.45\linewidth]{figures/all_cuts.png}
+    \caption{The number of events over the full 10 years of livetime showing the contributions to the total event rate from all even populations. On the left, only a cut on the reconstructed zenith is applied such that $\cos\theta_{reco}<0$. On the right, the full set of cuts listed in Table~\ref{tab:cut_table} is applied. }\label{fig:cut_figure}
+\end{figure}
+
+\subsection{Normalization}
+
+A parameter allowing for the overall normalization of the entire neutrino flux is also allowed to float. It is given a conservative 20\% prior driven by a number of effects: livetime O(<1\%), ice density O(<1\%), volume O(9\%)~\cite{Sandrock_2020}, and the neutrino-ice cross section O(10\%)~\cite{candido2023neutrino}.
+
+\subsection{All Systematic Uncertainties}
+
+A table showing all of the included sysematics, their central values, and the prior widths, are included in Table~\ref{table:nutrition}.
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | ccc}\rowcolor{blue!25}
+        {\large Parameter} & {\large Center} & {\large Prior} & {\large Boundary} \\\hline
+        \multicolumn{4}{c}{Conventional Flux} \\\hline
+        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4.0, 4.0] \\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]\\
+        GSF\_rotated\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        GSF\_rotated\_2$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        GSF\_rotated\_3$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        GSF\_rotated\_6$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        he\_K$+$\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        vhe3\_p\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        vhe3\_$\pi+$\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        \multicolumn{4}{c}{Astrophysical Flux} \\\hline
+        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]\\
+        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]\\
+        \multicolumn{4}{c}{Detector} \\\hline
+        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_rotated\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_rotated\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_rotated\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_rotated\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058]\\
+        \multicolumn{4}{c}{Muons} \\\hline
+        muon norm & 1.0 & $1.0\pm0.2$ & [0,2]\\
+        \multicolumn{4}{c}{Normalization} \\\hline
+        norm & 1.0 & $1.0\pm0.2$ & [0,2]
+    \end{tabular}
+    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients, Daemonflux, and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ widths determined from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$, $\dag$, or $\ddag$.}\label{table:nutrition}
+\end{table}
 
 \end{document}
