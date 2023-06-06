@@ -7,12 +7,33 @@
 \section{Methods}
 \subsection{Snowstorm}
 While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can have non-trivial effects on the reconstruction of events. 
-These `low-level' sources of systematic uncertainty typically require a dedicated 
+These `low-level' sources of systematic uncertainty typically, and historically, required a dedicated MC sample where the parameter was perturbed by some fixed, discrete, amount. 
+This method becomes intractable when multiple, highly correlated, sources of systematic uncertainty are present. 
+To address this, a new method for efficiently determining the effects of these parameters was developed, and is discussed at-length in Reference~\cite{Aartsen_2019_snow}.
+%This is called the \textit{Snowstorm}\footenote{The technique formerly known as \textit{MultiSim} method.
 
-A method for efficiently determining the effects of these parameters are discussed at-length in Reference~\cite{Aartsen_2019_snow}.
+Snowstorm relies on two underlying assumptions
+\begin{itemize}
+    \item The effects of systematic uncertainty are small enough that that they can be treated perturbatively 
+    \item MC statistical error is small compared to the data
+\end{itemize}
+In this context, one can sum over a Monte Carlo ensemble with correlating to a different set of nuisance parameters $\vec{\eta}$, which are distributed according to a prior function $P(\vec{\eta})$.
+We also require that this prior function is normalized and symmetric for each nuisance parameter $\eta_{i}$, such that 
+\begin{align}
+    P(\eta_{i}, \vec{\eta}_{j\neq i}) &= P(-\eta_{i},\vec{\eta}_{j\neq i}) & &\forall i\\
+    \int d^{N}\eta P(\vec{\eta}) &= 1
+\end{align}
+We explicitly choose a prior function for the nuisance parameters that is a product of equal-width Gaussian functions:
+\begin{equation}
+    P(\vec{\eta}) = \prod_{i} \dfrac{1}{\sigma \sqrt{2\pi}} e^{-\eta_{i}^{2}/2\sigma^{2}}.
+\end{equation}
 
+WRITE more
 
-more words! 
+Two Monte Carlo samples were generated to evaluate the effects of various sources of systematic uncertainty on analysis space. 
+In one, a sample was generated while allowing the amplitudes and phases, for a Fourier series describing the depth-dependence of the absorption length and scattering length, to vary. 
+This is described in detail in Subsection~\ref{sec:bulk}.
+In the other sample the DOM efficiency and both unified hole ice parameters were allowed to vary. 
 
 \subsection{Systematic Downsizing}\label{sect:down}
 
@@ -90,7 +111,7 @@ A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figu
 \end{figure}
 
 
-\subsection{Bulk Ice}
+\subsection{Bulk Ice}\label{sec:bulk}
 
 The bulk ice in the ice is characterised by uncertainties in the absorption and scattering length. 
 Initially, every ten meter section of the ice was assigned an absorption length and a scattering length with some uncertainty. 
@@ -281,6 +302,24 @@ Daemonflux and such
 \subsection{Atmospheric Density}
 
 \subsection{Kaon-nucleon Total Cross-Section}
+
+The majority of the neutrino flux at the energies relevant to this analysis come from the decays of Kaons, as shown in Figure~\ref{fig:parentparty}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{./figures/parent_party.png}
+    \caption{Contribution of different parent particles to the total atmospheric neutrino fluxes as functions of energy. The contributions to up-going neutrinos are shown on the left, and horizontal neutrinos are on the right. Figure from Ref~\cite{Aartsen_2020_prd}}\label{fig:parentparty}
+\end{figure}
+
+After the creation of a kaon it can either decay or inelastically scatter with the nucleons in the air. 
+Such interactions would down-scatter the kaon to a lower energy in addition to creating other mesons. 
+The relative probabilities of these can and do have a direct impact on the expected shape of the neutrino flux coming out of these cosmic ray air showers. 
+
+Unfortunately, though, the total cross-section for $K^{\pm}$-nucleons has not been measured above the lower end of our energy spectrum, 310GeV~\cite{PhysRevD.98.030001}. 
+Cross-section measurements have been done at higher energies using proton-proton collisions however, and one can extrapolate a kaon-nucleon cross-section through a Glauber~\cite{PhysRev.100.242, GLAUBER1970135} and Gribov-Regge~\cite{Gribov:1967vfb} multiple scattering formalism. 
+
+A direct extrapolation of the uncertainty on the total kaon-nuclei cross-section of ~4\%, which we conservatively extrapolate out to a value of $\pm 7.5$\%. 
+Future proton-Oxygen collisions in Run 3 at the LHC could constrain the uncertainty in this cross-section, however~\cite{Dembinski2020dam}.
 
 \subsection{Astrophysical Neutrino Flux}
 
