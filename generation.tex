@@ -4,7 +4,7 @@
 
 \begin{document}
 
-\section{Event Simulation}
+\section{Event Generation}
 
 \subsection{Photon Propagation}
 
@@ -21,43 +21,5 @@ The online filter
 \paragraph{Level 2}
 
 The offline filter 
-
-
-\subsection{Cascade Event Selection}
-
-\paragraph{Topological Splitting}
-
-Before further processing and reconstruction is done on events, filter is applied to reduce the cosmic ray muon background while maintaining atmospheric signals as efficiently as possible. 
-The first step of this process implements a topological triggering which distinguishes events between coincident and non-coincident events; the later of which are discarded. 
-After this, events are classified as either contained within the detector or ``through going." For the cascades sample only those events contained within the detector are considered. 
-
-Contained events must satisfy several criteria:
-\begin{itemize}
-    \item The depth of the first detected light must be greater than 70 meters from the outer edge of IceCube
-    \item The first detected light must not be the outer layer of IceCube
-\end{itemize}
-
-\begin{enumerate}
-    \item The number of topological splits must be one; coincident events are discarded
-    \item The event must be contained 
-\end{enumerate}
-
-\paragraph{Final Level Filtering}
-
-This final level event filter was developed and published in Ref~\cite{2018PhDT17N}.
-
-The monopod reconstruction algorithm is then run on events which survive the topological splitting cuts. 
-This algorithm, in addition to calculating a reconstructed energy, interaction vertex, and direction, calculates a  reduced likelihood for the fit; the smaller the reduced log-likelihood is the better. 
-Events for which the reduced algorithm fail, or are poor quality, are discarded. 
-A poor quality reconstruction is one with a reduced log-likelihood of greater than 9.1.
-Events within the IceCube dust-layer must have either 
-
-Strict containment based on the reconstruction of the vertex coordinates from Monopod. 
-
-Tighter coordinates cut at thetop and bottom of the detector. For those just outside an inner, fiducial, volume, we keep events only if they are well-reconstructed with a reduced log-likelihood<7.5. 
-
-Finally, we cut those events with very large, negative, photon delay times. Such large delay times are common for detector triggers resulting from uncorrelated bundles of atmospheric cosmic ray muons. 
-
-
 
 \end{document}
