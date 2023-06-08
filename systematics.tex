@@ -110,6 +110,13 @@ A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figu
     \caption{The predicted number of events in reconstructed space for a bin centered at $\log E_{\nu}^{reco}=3.6$ and $\cos\theta_{\nu}^{reco}=0.25$ as a function of the DOM efficiency. The MC data are represented by orange dots, and the spline fit is the trend in blue. The gray shaded region represent the extents of the spline, and the red bands represents prior-allowed region.}\label{fig:domeff_fit}
 \end{figure}
 
+The effects on overall reconstructed even rates are shown in Figure~\ref{fig:domeff_analysis} for tracks (left) and cascades (right). 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/systematics/domeff.png}
+    \caption{The effects of perturbing the DOM efficiency on expected numbers of tracks (left) and cascades (right).}\label{fig:domeff_analysis}
+\end{figure}
 
 \subsection{Bulk Ice}\label{sec:bulk}
 
@@ -249,25 +256,28 @@ The hole ice represents a bubbly, refrozen region of ice around the DOMs.
 The bubbles, which formed during the refreezing, greatly decrease the scattering length of light. 
 This has the effect of changing the light-acceptance of the DOMs as a function of photon incident angle. 
 A plethora of different angular acceptance curves existed from various different calibration studies done to understand this region of the ice; and work was carried out to approximate these different curves and the space they spanned. 
-Spline-fits were carried out using seven support points and by forcing the acceptance to zero at the DOM backside (opposite the PMT). 
+Two separate hole ice models were used for the tracks and cascades; although it is expected that there are correlations between the priors, we expect that an uncorrelated fit to be a conservative approach in this context.  
+
+\paragraph{Cascades}
+
+For the cascades, spline-fits were carried out using seven support points and by forcing the acceptance to zero at the DOM backside (opposite the PMT). 
 This resulted in six free, correlated, parameters needed to describe the acceptance curve. 
 A principal component analysis was carried out, and it was found that all acceptance curves span a phase space of lower dimensionality. 
 Only two components were needed to describe the space of angular acceptance curves, and those were named $p_{0}$ and $p_{1}$.
+This is called the Unified Hole Ice Model.
+The impacts of perturbing each one, individually, are demonstrated in Figure~\ref{fig:holeiceog}. 
 In doing so, a small amount of error is introduced, though the overall uncertainty on the hole ice that remains is far greater than the introduced error. 
-
-By construction, these parameters' priors are independent.
-The effects of varying these two parameters is then demonstrated in Figures~\ref{fig:holeiceparmas}.
 
 \begin{figure}
     \centering
     \begin{subfigure}{.45\textwidth}
         \centering
-        \includegraphics[width=0.95\linewidth]{./figures/holeice_p0.png}
+        \includegraphics[width=0.95\linewidth]{./figures/holeice_p0_sweep.png}
         \caption{A sweep of the unified hole ice model $p_0$ parameter.}
     \end{subfigure}%
     \begin{subfigure}{.45\textwidth}
         \centering
-        \includegraphics[width=0.95\linewidth]{./figures/holeice_p1.png}
+        \includegraphics[width=0.95\linewidth]{./figures/holeice_p1_sweep.png}
         \caption{A sweep of the unified hole ice model $p_1$ parameter.}
     \end{subfigure}
     \caption{Effects of varying unified hole ice model parameters. $\eta$ represents angle of photon incidence on the DOM; -1 is the DOM backside, and +1 is the DOM PMT face.}\label{fig:holeiceog}
@@ -275,25 +285,52 @@ The effects of varying these two parameters is then demonstrated in Figures~\ref
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.45\textwidth}
+    \begin{subfigure}{.48\textwidth}
         \centering
-        \includegraphics[width=0.95\linewidth]{./figures/holeice_p0.png}
+        \includegraphics[width=0.95\linewidth]{./figures/systematics/holeice_p0.png}
         \caption{A sweep of the unified hole ice model $p_0$ parameter.}
     \end{subfigure}%
-    \begin{subfigure}{.45\textwidth}
+    \begin{subfigure}{.48\textwidth}
         \centering
-        \includegraphics[width=0.95\linewidth]{./figures/holeice_p1.png}
+        \includegraphics[width=0.95\linewidth]{./figures/systematics/holeice_p1.png}
         \caption{A sweep of the unified hole ice model $p_1$ parameter.}
     \end{subfigure}
     \caption{Effects of varying unified hole ice model parameters. $\eta$ represents angle of photon incidence on the DOM; -1 is the DOM backside, and +1 is the DOM PMT face.}\label{fig:holeiceparmas}
 \end{figure}
 
-For each batch of ten simulated MC events these parameters $p_{0}$ and $p_{1}$ are randomly sampled from their priors. 
-The angular acceptance of the DOMs in CLSim is then manually adjusted according to the new hole ice model, and the photon propagation is then carried out. 
-The remainder of the MC simulation chain is then performed.
+Like the DOM Efficiency, a SnowStorm MC ensemble was prepared for the cascades sample in which the hole ice parameters $p_{0}$ and $p_{1}$ were allowed to vary. 
+For each batch of ten simulated MC events these parameters $p_{0}$ and $p_{1}$ are randomly sampled uniformly from the ranges $p_{0}\in\left[-0.84, 0.3\right]$ and $p_{1}\in\left[-0.134, 0.05\right]$. 
+The angular acceptance of the DOMs in CLSim is then manually adjusted according to the new angular acceptance and the photon propagation is then carried out. 
+The remainder of the MC simulation chain is then performed as usual.
 
-The final-level MC is then weighted, one at a time, to the conventional, prompt, and astrophysical neutrino fluxes. 
-The snowstorm technique is applied to this MC sample, and the 1D gradients in reconstructed space are shown in Figure~\ref{fig:holeiceparmas}. 
+The SnowStorm technique is applied to this MC sample using the cutting technique described in Ref~\cite{Aartsen_2019_snow}, and the 2D analysis gradients are constructed. 
+These are shown in Figure~\ref{fig:holeiceparmas}. 
+
+\paragraph{Tracks}
+
+The track sample uses a previous implementation originally developed for Ref~\cite{Aartsen_2020_prd}.
+Several MC samples were generated according to an angular acceptance model parametrized by 
+\begin{equation}
+    \mathcal{A}(\eta) = 0.34\left(1+ 1.5\cos\eta - \cos^{3}\eta/2\right) + p_{1}\cos\eta\left(\cos^{2}\eta - 1\right)^{3} + p_{2}\exp\left(10(\cos\eta - 1.0)\right)
+\end{equation}
+where $\mathcal{A}$ is the relative acceptance of the DOMs as a function of $eta$, the angle of photon incidence on the DOM. 
+This is plotted for various values of $p_{1}$ and $p_{2}$ in Figure~\ref{fig:forwardholceice}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/forward_holeice.png}
+    \caption{The hole ice parametrization of the MSU hole ice model. The H2 model is an earlier model used and developed internally.}\label{fig:forwardholceice}
+\end{figure}
+
+A nominal sample was generated using $p_{1}=0.3$ and $p_{2}=-1.0$, and then support points were generated at $p_{2}$ values of -5, -3, -1, 0.5, and 2.
+A 3D spline-fit was carried out over $p_{2}$, $\log E$, and $\cos\theta$; the $p_{1}$ parameter was observed to have a negligible effect on reconstructed rates. 
+The effects of perturbing this parameter on the reconstructed rates are shown in Figure~\ref{fig:track_hole}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/systematics/hole_ice_scale.png}
+    \caption{The effects of perturbing the track sample's hole ice parameter on the track sample (left) and cascades sample (right).}\label{fig:track_hole}
+\end{figure}
 
 \subsection{Atmospheric Neutrino Flux}
 \index{neutrino!flux}
@@ -321,6 +358,12 @@ Cross-section measurements have been done at higher energies using proton-proton
 A direct extrapolation of the uncertainty on the total kaon-nuclei cross-section of ~4\%, which we conservatively extrapolate out to a value of $\pm 7.5$\%. 
 Future proton-Oxygen collisions in Run 3 at the LHC could constrain the uncertainty in this cross-section, however~\cite{Dembinski2020dam}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/systematics/kaon_scale.png}
+    \caption{The effects in analysis space on tracks (left) and cascades (right) after perturbing the kaon-nucleon cross-section by 7.5\%.}\label{fig:kaon}
+\end{figure}
+
 \subsection{Astrophysical Neutrino Flux}
 
 Astrophysical neutrinos are a background to this analysis; it is modeled here as an isotropic, unbroken power law spectrum with equal contributions from each neutrino variety.
@@ -340,14 +383,14 @@ were $\Delta_{\gamma_{\text{astro}}}$ represents a shift in the spectral index, 
     \caption{Constraints on the normalization and spectral index of the astrophysical neutrino flux. Contributions to the overall prior are shown from the Diffuse six-year sample CITE, the multi-year cascades sample, and from the HESE sample. Figure from Ref~\cite{Aartsen_2020_prd}.}\label{fig:hese}
 \end{figure}
 
-Two new uncorrelated nuisance parameters are constructed following the same procedures of Section~\ref{sect:down}. The effects of perturbing each of these new, uncorrelated, parameters are shown in Figure~\ref{fig:recoastro}.
+Two new uncorrelated nuisance parameters are constructed following the same procedures of Section~\ref{sect:down}. The effects of perturbing each of these new, uncorrelated, parameters are shown in Figure~\ref{fig:recoastro} with tracks on the left and cascades on the right.
 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.4\linewidth]{figures/astro_norm_rotated.png}%
-    \includegraphics[width=0.4\linewidth]{figures/astro_delta_rotated.png}
-    \caption{Effects in analysis space from perturbing the uncorrelated astrophysical nuisance parameters individually by one sigma.}\label{fig:recoastro}
+    \includegraphics[width=0.8\linewidth]{figures/systematics/astro_norm_rotated.png}\\
+    \includegraphics[width=0.8\linewidth]{figures/systematics/astro_delta_rotated.png}
+    \caption{Effects in analysis space for tracks (left) and cascades (right) from perturbing the uncorrelated astrophysical nuisance parameters (top and bottom) individually by one sigma. }\label{fig:recoastro}
 \end{figure}
 
 
@@ -365,9 +408,9 @@ Because the effects are so small, we elected to fix the uncertainty of the neutr
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{figures/nu_scale.png}
-    \includegraphics[width=0.45\linewidth]{figures/nubar_scale.png}
-    \caption{The effects of neutrino (antineutrino) cross-section uncertainty are shown on the left (right). Effect manifests as a sub-percent level disappearance of Earth-crossing events at energies over 10TeV.}\label{fig:nucross}
+    \includegraphics[width=0.7\linewidth]{figures/systematics/nu_scale.png} \\
+    \includegraphics[width=0.7\linewidth]{figures/systematics/nubar_scale.png}
+    \caption{The effects of neutrino (antineutrino) cross-section uncertainty are shown on the top (bottom) for tracks (left) and cascades (right). Effect manifests as a sub-percent level disappearance of Earth-crossing events at energies over 10TeV.}\label{fig:nucross}
 \end{figure}
 
 
@@ -417,6 +460,11 @@ The shape effect from allowing the atmospheric muon scale to float is shown in F
 The possibility of using a set of cuts was investigated as well. 
 Multiple additional reconstructed quantities are available to us, beyond just energy and zenith, with which cuts can be applied. 
 The track and cascade boosted decision-tree scores, reconstructed depth, and the reconstructed `contained-ness' of the events all provide extra leverage with which cosmic ray muons and true neutrino events can be discriminated.
+A series of cuts, listed in Table~\ref{tab:cut_table}, were found capable of cutting all simulated CR muons out of the cascades sample.
+The required cuts were found to be so aggressive that the remaining signal neutrinos would be insufficient to have enough statistics to allow for studying the sterile neutrino signal.
+The number of events, before (left) and after (right) the extra set of cuts were applied, is shown in Figure~\ref{fig:cut_figure}.
+Only 13\% of the original neutrino sample passed all cuts. 
+Because of this, these extra cuts are not applied in this analysis. 
 
 \begin{table}
     \centering
@@ -431,10 +479,6 @@ The track and cascade boosted decision-tree scores, reconstructed depth, and the
     \caption{A series of cuts capable of removing all of the CR muon background.}\label{tab:cut_table}
 \end{table}
 
-A series of cuts, listed in Table~\ref{tab:cut_table}, were found capable of cutting all simulated CR muons. 
-The required cuts were found to be too aggressive and would cut too much of the signal away for an analysis to be performed. 
-The number of events, before and after cuts are applied, is shown in Figure~\ref{fig:cut_figure}.
-Only 13\% of the original neutrino sample passed all cuts. 
 
 \begin{figure}
     \centering
@@ -455,34 +499,38 @@ A table showing parameterizations of all included systematic uncertainties, thei
     \centering
     \rowcolors{2}{gray!25}{white}
     \begin{tabular}{c | ccc}\rowcolor{blue!25}
-        {\large Parameter} & {\large Center} & {\large Prior} & {\large Boundary} \\\hline
+        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}} \\\hline
         \multicolumn{4}{c}{Conventional Flux} \\\hline
         Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4.0, 4.0] \\
         Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]\\
-        GSF\_rotated\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        GSF\_rotated\_2$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        GSF\_rotated\_3$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        GSF\_rotated\_6$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        he\_K$+$\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        vhe3\_p\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        vhe3\_$\pi+$\_rotated$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_0$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_9$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_12$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_18$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_19$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_20$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
+        daemon\_23$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
         \multicolumn{4}{c}{Astrophysical Flux} \\\hline
         astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]\\
         astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]\\
         \multicolumn{4}{c}{Detector} \\\hline
+        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]\\
         holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
         holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_rotated\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_rotated\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_rotated\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_rotated\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
+        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
         DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058]\\
         \multicolumn{4}{c}{Muons} \\\hline
         muon norm & 1.0 & $1.0\pm0.2$ & [0,2]\\
         \multicolumn{4}{c}{Normalization} \\\hline
         norm & 1.0 & $1.0\pm0.2$ & [0,2]
     \end{tabular}
-    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients, Daemonflux, and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ widths determined from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$, $\dag$, or $\ddag$.}\label{table:nutrition}
+    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients, Daemonflux, and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ widths determined from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$,$**$ $\dag$, or $\ddag$.}\label{table:nutrition}
 \end{table}
 
 \end{document}
