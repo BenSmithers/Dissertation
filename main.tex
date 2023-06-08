@@ -189,14 +189,14 @@ usenames,dvipsnames
 \supervisor{Dr. Benjamin J.P. \textsc{Jones}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
 \earneddegree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{Benjamin \textsc{Smithers}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\author{Benjamin Randolph \textsc{Smithers}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Neutrino Physics} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
 \keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
 \university{\href{https://www.uta.edu/}{University of Texas at Arlington}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{https://www.uta.edu/physics/}{Department of Physics}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{\href{nures.uta.edu}{University of Texas at ARlington}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\group{\href{nures.uta.edu}{University of Texas at Arlington}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
 \faculty{\href{https://www.uta.edu/academics/schools-colleges/science}{College of Science}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 
@@ -250,10 +250,12 @@ usenames,dvipsnames
 \begin{abstract}
     \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 
-    The IceCube Neutrino Observatory is a cubic-kilometer-scale neutrino observatory built near the Amundsen–Scott South Pole Station in Antarctica;
-    it uses a gigaton of instrumented ice to search for the Cherenkov light emitted by the daughter particles of deep inelastic scattering interactions occurring inside and around the detector from neutrinos of both astrophysical and atmospheric origin. 
-    For eV$^{2}$-scale sterile neutrino models, matter-effects yield resonant $\bar{\nu}_{\mu}\to\bar{\nu}_{s}$ oscillations for TeV-scale up-going neutrinos. 
-    For certain combinations of mixing angles, this can also yield $\bar{\nu}_{\mu}\to\bar{\nu}_{\tau}$ oscillations a strong signature of $\bar{\nu}_{\tau}$ appearance; this presents an ideal signature with which we can search for indicators of sterile neutrino oscillations. 
+    The IceCube Neutrino Observatory is a cubic-kilometer-scale neutrino observatory built using a gigaton of instrumented ice near the Amundsen–Scott South Pole Station in Antarctica;
+    it measures the Cherenkov light emitted by the daughter particles of deep inelastic scattering interactions occurring inside and around the detector from neutrinos of both astrophysical and atmospheric origin. 
+    For eV$^{2}$-scale sterile neutrino models, matter-effects can yield resonant $\bar{\nu}_{\mu}\to\bar{\nu}_{s}$ oscillations for TeV-scale up-going neutrinos. 
+    For certain combinations of mixing angles, this is expected to yield resonant $\bar{\nu}_{\mu}\to\bar{\nu}_{\tau}$ oscillations at the same energies and zeniths as the $\nu_{\mu}$ disappearance.
+    This superimposed $\nu_{\mu}$ disappearance and $\nu_{\tau}$ appearance presents itself as an ideal signature with which we can search for indications of sterile neutrino oscillations. 
+
     This dissertation presents the development of novel techniques for quantifying new sources of detector uncertainty, new simulation methods, calculations of the detector's sensitivity to these processes, and applies each of these in a multi-channel analysis searching for signs of both the resonant muon neutrino disappearance alongside the tau neutrino appearance. 
 
     We find `these results' which are now presented in this second paragraph of the abstract. 
@@ -279,13 +281,15 @@ The work presented in this dissertation is as follows:
 
 \textbf{Chapter \ref{chapter:icecube}} will describe the IceCube Neutrino Observatory and the details of its operation. 
 
-\textbf{Chapter \ref{chapter:gen}} will discuss the event generation schema and Monte Carlo simulation procedure IceCube.
+\textbf{Chapter \ref{chapter:gen}} will discuss the event generation schema and Monte Carlo simulation procedure IceCube~\cite{ABBASI2021108018}.
 
 \textbf{Chapter~\ref{chapter:unc}} will summarize all the sources of systematic uncertainty relevant for this analysis.
 
-\textbf{Chapter~\ref{chapter:sense}} will provide the approximations of the expected sensitivities for this analysis. 
+\textbf{Chapter~\ref{chapter:sense}} will provide the approximations of the expected sensitivities for this analysis~\cite{PhysRevD.105.052001}. 
 
 And finally,\textbf{ Chapter~\ref{chapter:res}} will provide the results of this analysis. 
+
+Chapter entries with citations refer to the papers in which the work discussed was published.
 
 \subfile{introduction.tex}
 
@@ -307,6 +311,6 @@ And finally,\textbf{ Chapter~\ref{chapter:res}} will provide the results of this
 % \subfile{bibfile.tex}
 \bibliography{main}
 
-\printindex
+%\printindex
 
 \end{document}

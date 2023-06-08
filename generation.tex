@@ -22,4 +22,15 @@ The online filter
 
 The offline filter 
 
+\subsection{Level 3 - Cascades}
+
+The level 3 cascade filter is used to reduce the large number of triggered background events upon which more complicated event reconstructions must be run. 
+The first step is to identify single events and coincident events; only single events are kept. 
+Large numbers of cosmic ray air showers yield large quantities of down-going muons; by removing any events with topologically separated features, we cut down on background cosmic ray muons tremendously. 
+
+Background muon events also enter into the detector from above, while the signal cascades start from within.
+The next step for the cascades filter is to then identify which events are fully contained within the detector and which are not; uncontained (through-going) events are discarded. 
+This also tremendously reduces the background in the sample. 
+The cascades reconstruction algorithm, Monopod, is then run on the events that survive for use in future cuts. 
+
 \end{document}
