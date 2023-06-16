@@ -31,9 +31,24 @@ We explicitly choose a prior function for the nuisance parameters that is a prod
 WRITE more
 
 Two Monte Carlo samples were generated to evaluate the effects of various sources of systematic uncertainty on analysis space. 
-In one, a sample was generated while allowing the amplitudes and phases, for a Fourier series describing the depth-dependence of the absorption length and scattering length, to vary. 
+In one, a sample was generated while allowing the amplitudes and phases, for a Fourier series describing the depth-dependence of the absorption length and scattering length, to vary amounts shown in Table TABLE. 
 This is described in detail in Subsection~\ref{sec:bulk}.
-In the other sample the DOM efficiency and both unified hole ice parameters were allowed to vary. 
+In the other sample the DOM efficiency, both unified hole ice parameters were allowed to vary, a parameter effecting ice anisotropy, and two parameters effecting bulk absorption and scattering lengths were allowed to vary. The anisotropy, bulk absorption, and bulk scattering gradients were not used in this analysis. 
+Priors used in this sample are shown in Table~\ref{table:snowstorm2}. 
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | ccc}\rowcolor{blue!25}
+        Systematic & Sampling Distribution & Range & Comments \\\hline
+        Scattering & uniform & [0.9,1.1] & bulk effect, not used\\
+        Absorption & uniform & [0.9,1.1] & bulk effect, not used\\
+        Anisotropy Scale & uniform & [0,2] & equal to 0-15\%, not used \\
+        DOM Efficiency & uniform & [0.9, 1.1] & values shifted down by 0.27 \\
+        Unified HoleIce & uniform & \shortstack{p0 $\in$ [-0.84, 0.3] \\ p1 $\in$ [-0.134, 0.05]} & 
+    \end{tabular}
+    \caption{A table listing all SnowStorm systematic perturbations and their ranges used in the nuisance parameter MC set.}\label{table:snowstorm2}
+\end{table}
 
 \subsection{Systematic Downsizing}\label{sect:down}
 
@@ -150,10 +165,24 @@ For each amplitude and phase a quadratic fit was then done to the log likelihood
 \begin{equation}
     \mathcal{L}(\eta_{i}) = A_{i}\eta_{i}^{2} + B_{i}\eta_{i} + C_{i}
 \end{equation}
-where $\eta_{i}$ is for any one amplitude or phase. These fits are shown in Figure FIG. 
+where $\eta_{i}$ is for any one amplitude or phase. These fits are shown in Figure~\ref{fig:linearfit} after being normalized by the minimum likelihood found in each fit, and were carried out to verify that these nuisance parameters are normally distributed about the minima. 
 A similar scan was then done for combinations of nuisance parameters by shifting each possible pairing of them by amounts proportional to the widths of the nuisance parameters. 
 
-For a correlated set of nuisance parameters $\vec{\eta}$, the prior penalty of the likelihood function is equal to 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Amp_0_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Amp_1_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Amp_2_llhfunc.png}\\
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Amp_3_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Amp_4_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Phs_1_llhfunc.png}\\
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Phs_2_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Phs_3_llhfunc.png}%
+    \includegraphics[width=0.3\linewidth]{figures/ice_fits/Phs_4_llhfunc.png}
+    \caption{The first five amplitude fits and the first four phase fits for the plus-mode Fourier series decomposition. `Shift Value' corresponds to the difference of the best fit value from the PPC simulations to the previous best-fit value for the parameter. The black line at 0.5 $\Delta LLH$ represents the $1\sigma$ uncertainty band.}\label{fig:linearfit}
+\end{figure}
+
+For a normally-distributed, correlated, set of nuisance parameters $\vec{\eta}$, the prior penalty of the likelihood function is equal to 
 \begin{equation}
     \mathcal{L} = \vec{\eta}^{T} \Sigma^{-1} \vec{\eta} + C
 \end{equation} 
