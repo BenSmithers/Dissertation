@@ -72,6 +72,29 @@ It uses an additional set of cuts
     \item Discard events with $\cos\theta_{\mu}^{reco}>0.05$.
 \end{enumerate}
 
+
+\subsection{Fast Monte Carlo, Event Merging}
+
+Approximately one thousand years of MC events were simulated for the track sample in this analysis.
+This is in the ballpark of twenty-five billion events; directly reweighting all of these events for every minimizer step was found to be computationally intractable. 
+To alleviate these issues, a ``Fast Monte Carlo'' algorithm was developed to merge events into meta events, which themselves would be reweighted in fits. 
+
+Events are first weighted according to a flux hypothesis, and the contributions to an event's conventional, prompt, and astrophysical weight are all calculated and stored separately. 
+Events are then binned, in reconstructed quantities, into a fine grid whose bin widths are a fraction of the normal analysis bin widths; this fraction is defined as the \textit{fastmode scaling}.
+As an example, a fastmode scaling of 0.5 would use twice as many bins along each fit axis, and a scaling of 0.1 would use 10 times as many bins along each fit axis. 
+
+
+Events within each of these fine bins are then merged into meta-events; the separate flux-weights are added directly, and a weighted-average is done for analysis quantities like energy and zenith.
+The weighted average is calculated according to Equation~\eqref{eq;weighted_fm} for analysis quantity $A$ in fastmode bin $\alpha$.
+\begin{equation}\label{eq;weighted_fm}
+A_{meta}^{\alpha} = \dfrac{\sum_{i}^{n} A_{\alpha, i} \left(w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}\right) }{\sum_{i}^{n} w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}}
+\end{equation}
+The sum is carried out over all $n$ events in a fastmode bin. 
+These meta-events are then saved with their summed flux-weights and weighted-average analysis quantities.
+This procedure is carried out for each tested physics hypothesis, although it is only applied to the track sample. 
+A fastmode scaling of 0.1 was used in this analysis and values smaller than 0.25 have been found to produce stable results. 
+
+
 \section{Likelihood Metric}\label{sect:llh_metric}
 
 The likelihood used in this analysis is defined as the probability of observing a given set of data, or pseudo-data, assuming some physics hypothesis.
