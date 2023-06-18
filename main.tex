@@ -106,17 +106,6 @@ usenames,dvipsnames
 \defaultaddspace=.5em
 }
 
-
-% Python environment
-\lstnewenvironment{python}[1][]
-{
-\pythonstyle
-\lstset{#1}
-}
-{}
-
-
-
 \geometry{
 	paper=letterpaper, % Change to letterpaper for US letter
 	inner=2.5cm, % Inner margin
@@ -125,15 +114,6 @@ usenames,dvipsnames
 	top=1.5cm, % Top margin
 	bottom=1.5cm, % Bottom margin
 }
-
-% Python for external files
-\newcommand\pythonexternal[2][]{{
-\pythonstyle
-\lstinputlisting[#1]{#2}}}
-
-% Python for inline
-\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
-
 
 \newcommand{\as}[1]{\textcolor{Magenta}{{[\bf AS:\@ #1]}}}
 \newcommand{\ca}[1]{\textcolor{RoyalBlue}{{[\bf CA:\@ #1]}}}
@@ -198,6 +178,7 @@ usenames,dvipsnames
 \department{\href{https://www.uta.edu/physics/}{Department of Physics}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{nures.uta.edu}{University of Texas at Arlington}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
 \faculty{\href{https://www.uta.edu/academics/schools-colleges/science}{College of Science}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
 
 
 \makeindex
@@ -303,7 +284,7 @@ Chapter entries with citations refer to the papers in which the work discussed w
 \subfile{systematics.tex}
 \chapter{Sterile Neutrino Oscillation Sensitivities}\label{chapter:sense}
 \subfile{sensitivity.tex}
-\chapter{Results of Cascade Analysis}\label{chapter:res}
+\chapter{Joint Sterile Analysis}\label{chapter:res}
 \subfile{final_analysis.tex}
 
 % \subfile{appendix.tex}

@@ -19,6 +19,36 @@
 \newcommand{\boostpython}{\texttt{boost-python}}
 \newcommand{\nusim}{\texttt{NUSIM}}
 
+\newcommand\pythonstyle{\lstset{
+    language=Python,
+    basicstyle=\footnotesize,
+    otherkeywords={self},             % Add keywords here
+    keywordstyle=\color{deepblue},
+    emph={MyClass,__init__},          % Custom highlighting
+    emphstyle=\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    %frame=tb,                         % Any extra options here
+    showstringspaces=false            % 
+}}
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand{\pythonexternal}[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
 
 \begin{document}
 
@@ -613,18 +643,23 @@ These differences between the ranged and volume injection mean that the physical
 Finally, the approximation used in Eq.~\ref{eq:approx_weight} can be obtained by expanding the depth and interaction terms for a vanishing product of the interaction cross section and column depth.
 For the column depths and cross sections used in \LeptonInjector{}, this approximation remains valid for sub $\si\ZeV$ neutrino energies.
 
-\section{Generation Example\label{sec:example_generation}}
+\section{Code Examples}
+
+\subsection{Generation Example\label{sec:example_generation}}
 
 This \Python example is included in the \LeptonInjector{} source code.
-It creates an Injector in Ranged mode for producing CC muon-neutrino events of initial energy between $\SI{1000}\GeV$ to $\SI{100000}\GeV$, and outputs the data to an \hdf~file. 
-%\pythonexternal{examples/inject_example.py}
+It creates an Injector in Ranged mode for producing CC muon-neutrino events of initial energy between $\SI{1000}\GeV$ to $\SI{100000}\GeV$, and outputs the data to an \hdf~file.
 
-\section{Weighting Example\label{sec:example_weighting}}
+\pythonexternal{examples/inject_example.py}
+
+
+\subsection{Weighting Example\label{sec:example_weighting}}
 
 The following \Python example is included in \LeptonWeighter{}.
-It reads a set of generated events and computes the weights of for a given neutrino cross sections and fluxes.
+It reads a set of generated events and computes the weights of for a given neutrino cross-sections and fluxes.
 The result is stored in an HDF5 file for later usage.
-%\pythonexternal{./examples/weighting_example_python.py}
+
+\pythonexternal{./examples/weighting_example_python.py}
 
 
 \end{document}
