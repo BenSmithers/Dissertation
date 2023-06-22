@@ -92,10 +92,24 @@ Through oscillations we can only measure the absolute of the difference of the m
 This also suggests that, since oscillations have been observed, at minimum two of the neutrino masses must be non-zero. 
 Oscillations will also depend on the energy $E$ of the neutrinos involved and the baseline $L$ over which they travel. \index{neutrino!baseline}
 
+\subsection{Higher Neutrino Numbers}
+
+In general, we can relate a flavor and mass eigenstates by 
+\begin{equation}
+    \braket{\nu_{\alpha}} = \sum_{i} U_{\alpha i}^{*}\braket{\nu_{i}}
+\end{equation}
+where $U$ is the neutral lepton mixing matrix.
+For antineutrinos the relation is the same, although $U\to U^{*}$. 
+In the cases with a number of neutrinos greater than three, we parametrize $U$ as a product of complex rotations parametrized by angles $\theta_{ij}$ and phases $\delta_{ij}$, 
+\begin{equation}
+    U(\theta_{ij}, \delta_{ij}) = R_{N-1,N}R_{N-2,N}\ldots R_{45}R_{34}R_{24}R_{15}R_{34}R_{24}R_{14}R_{23}R_{13}R_{12}
+\end{equation}
+as discussed in Ref~\cite{Arguelles:2020hss}
 
 \subsection{Neutrino Interactions}
 \index{neutrino!interactions}
 Discuss neutrino interactions at medium to high energies. Deep Inelastic Scattering
+
 
 \subsection{Matter Effects on Neutrion Oscillations}
 \index{neutrino!matter effect}
@@ -148,50 +162,59 @@ The rate of energy loss
 \end{equation}
 
 \subsection{Neutrino Propagation}
+In addition to neutirno oscillation, several other phenomena effect the full description of the neutrino flux as it propagates through the Earth. 
+These include, but are not limited to, neutrino flux attenuation as neutrinos interact in the Earth, the process where charged tau leptons produced through neutrino-nucleon interactions decay to produce lower energy tau neutrinos called tau regeneration, and Glashow resonance interactions~\cite{PhysRev.118.316}.  
 
+This section  describes the methods of determining propagation of neutrino fluxes from Earth-surface fluxes to in-IceCube fluxes. 
+Here, we summarize the procedures described also in Reference~\cite{arguelles2021nusquids}.
+
+The neutrino flux is described as a function of energy $E$ and location $x$ for neutrino flavor $\alpha$ using the density matrix formalism in the weak-interaction flavor-eigenstate basis as 
+\begin{equation}
+    \rho(E,x) = \sum_{\alpha} \phi_{\alpha}(E,x) \ket{\nu_{\alpha}}\bra{\nu_{\alpha}}.
+\end{equation}
+where $\phi_{\alpha}$ specifies the neutrino flux of the flavor $\alpha$. 
 The evolution of the system is described by the von Neumann equation
 \begin{equation}\label{eq:evol}
     \dfrac{\partial\rho (E,x)}{\partial x} = -i\left[ H(E,x), \rho(E,x)\right],
 \end{equation}
 where $H$ is the Hamiltonian for the whole system. 
-$H$ can be approximated, exactly so in many situations, as 
+$H$ can be approximated, in the case of small perturbations, as
 \begin{equation}
     H(E,x) = H_{0}(E) + H_{1}(E,x)
 \end{equation}
-where $H_{0}$ is the term giving vacuum neutrino oscillations and $H_{1}$ is an additional matter-effect term. 
+where $H_{0}$ is the term giving vacuum neutrino oscillations, which can be solved exactly, and $H_{1}$ is an additional term incorporating matter-effects.
 These are, for neutrinos,
 \begin{align}
-    H_{0}(E) &= \dfrac{1}{2E} \text{diag}\left( 0, \Delta m_{21}^{2}, \Delta m_{31}^{2}\right),  \\
-    H_{1}(E,x) &= \sqrt{2}G_{F} N_{e}(x) U_{PMNS}^{\dag} \text{diag}\left( 1,0,0\right) U_{PMNS},
+    H_{0}(E) &= \dfrac{1}{2E} \left(\begin{array}{ccc} 0 & 0 & 0\\ 0 & \Delta m_{21}^{2} & 0 \\ 0 & 0 & \Delta m_{31}^{2}\end{array}\right)  \\
+    H_{1}(E,x) &= \sqrt{2}G_{F} N_{e}(x) U_{PMNS}^{\dag} \left(\begin{array}{ccc}1&0&0 \\ 0 &0 & 0 \\ 0 & 0 & 0 \end{array}\right) U_{PMNS},
 \end{align}
-where $G_{F}$ is the Fermi constant, $U_{PMNS}$ is the PMNS neutrino mixing matrix,$N_{e}$ is the electron number density at position $x$, and the $\Delta m^{2}$ terms are the mass-squared splittings.  
-Since the evolution of the vacuum component can be soled analytically, it is more convenient to do the numerical evolution of the system in the interaction basis. 
-So, we transform the density matrix and the mass-effect term as 
+where $G_{F}$ is the Fermi constant, $U_{PMNS}$ is the PMNS neutrino mixing matrix, $N_{e}$ is the electron number density at position $x$, and the $\Delta m^{2}$ terms are the mass-squared splittings.  
+Since the evolution of the vacuum component can be soled analytically, it is more convenient to evolve of the system in the interaction basis. 
+So, we transform the density matrix and the mass-effect terms as 
 \begin{align}
     \rho_{1}(E,x) &= e^{-i H_{0}x}\rho(E,x) e^{-iH_{0}x}. \\
     H_{I,1}(E,x)&= e^{-i H_{0}x} H_{1}(E,x) e^{-iH_{0}x}.
 \end{align}
 Similarly to Equation~\eqref{eq:evol}, the evolution in the interaction basis is dependent on the matter-effect term,
-\begin{equation}
+\begin{equation}\label{eq:mattermod}
     \dfrac{\partial_{1}\rho (E,x)}{\partial x} = -i\left[ H_{I,1}(E,x), \rho(E,x)\right].
 \end{equation}
-
-Evolution of the fluxes will be additionally modified via incoherent neutrino-nucleon interactions as well as tau-regeneration. 
-The attenuation of the fluxes follow 
-\begin{align}
+We require a series of additional terms that modify Eq~\eqref{eq:mattermod} to account for the effects which do not preserve neutrino number and energy. 
+The first of which is the attenuation of the fluxes from neutrino-Earth interactions, which follow 
+\begin{align}\label{eq:nu_evol}
     \Gamma(E,x) &= \dfrac{1}{2}\sum\limits_{\alpha\in(e,\mu,\tau)} \dfrac{\Pi_{\alpha}(E,x) }{\lambda_{NC}^{\alpha}(E,x) + \lambda_{CC}^{\alpha} (E,x)} \\
-    \bar{\Gamma}(E,x) &= \dfrac{1}{2}\sum_{\alpha\in(e,\mu,\tau)} \dfrac{\bar{\Pi}_{\alpha(E,x)}}{\bar{\lambda}_{NC}^{\alpha}(E,x) + \bar{\lambda}_{CC}^{\alpha}(E,x) + \bar{\lambda}_{GR}^{\alpha}(E,x) }
+    \bar{\Gamma}(E,x) &= \dfrac{1}{2}\sum_{\alpha\in(e,\mu,\tau)} \dfrac{\bar{\Pi}_{\alpha(E,x)}}{\bar{\lambda}_{NC}^{\alpha}(E,x) + \bar{\lambda}_{CC}^{\alpha}(E,x) + \bar{\lambda}_{GR}^{\alpha}(E,x) }\label{eq:nubar_evol}
 \end{align}
-where $\Pi_{\alpha}$ is the
+where $\Pi_{\alpha}$ is a neutrino projector onto the flavor $\alpha\in\left\lbrace e,\mu\tau\right\rbrace$, $\nu_{CC}^{\alpha}$ ($\nu_{NC}^{\alpha}$) is the charged (neutral) current neutrino interaction length given by $1/\left[ N_{nuc}(x)\sigma^{\alpha}_{CC(NC)}(E) \right]$~\cite{Formaggio:2013kya, Gandhi:1995tf, Beacom:2019pzs, Zhou:2019vxt, Cooper_Sarkar_2011}, and $\bar{\lambda}_{GR}^{e}$ is the mean free path due to the Glashow Resonance $1/\left[ N_{e}(x)\sigma^{e}_{GR}(E) \right]$~\cite{PhysRev.118.316}. 
 
-We also account for tau regeneration, Glashow resonance interactions, neutrino-antineutrino coupling, and low-energy neutrino re-injection from neutral current interactions following the functional forms for neutrinos $F$ and antineutrinos $\bar{F}$ given by 
+We also account for tau regeneration, neutrino-antineutrino coupling, and low-energy neutrino re-injection from neutral current interactions following the functional forms for neutrinos $F$ and antineutrinos $\bar{F}$ given by 
 \begin{equation}\begin{split}
     F\left[\rho,\bar{\rho}, E, x\right] &= \sum\limits_{\alpha} \Pi_{\alpha}(E,x)\int\limits_{E}^{\infty}\dfrac{\text{Tr}\left[ \Pi(E_{\nu_{\alpha}},x)\rho(E_{\nu_{\alpha}}, x) \right]}{\lambda_{NC}^{\alpha}(E_{\nu_{\alpha}}, x) } \dfrac{\partial N_{NC}^{\alpha}(E_{\nu_{\alpha}}, E)}{\partial E} dE_{\nu_{\alpha}} \\ 
     &+\Pi_{\tau}(E,x) \int\limits_{E}^{\infty}\int\limits{E_{\tau}}^{\infty} \dfrac{\text{Tr}\left[ \Pi(E_{\nu_{\tau}},x)\rho(E_{\nu_{\tau}}, x) \right]}{\lambda_{NC}^{\tau}(E_{\nu_{\tau}}, E) } \dfrac{\partial N_{NC}^{\tau}(E_{\nu_{\tau}}, x)}{\partial E} \\
     &\times \dfrac{\partial N_{dec}^{all}(E_{\tau}, E)}{\partial E} dE_{\nu_{\tau}}dE_{\tau} \\
     &+\left[ \text{Br}\left(\tau^{-} \to \bar{\nu}_{e}\right)\Pi_{e}(E,x)\int\limits_{E}^{\infty}\int\limits_{E_{\tau}}^{\infty} \dfrac{\text{Tr}\left[ \bar{\Pi}(E_{\nu_{\tau}},x)\bar{\rho}(E_{\nu_{\tau}}, x) \right]}{\bar{\lambda}_{NC}^{\tau}(E_{\bar{\nu}_{\tau}}, x) }\right.  \\
     &+ \left. \text{Br}\left(\tau^{-} \to \bar{\nu}_{\mu}\right)\Pi_{\mu}(E,x)\int\limits_{E}^{\infty}\int\limits_{E_{\tau}}^{\infty} \dfrac{\text{Tr}\left[ \bar{\Pi}(E_{\nu_{\tau}},x)\bar{\rho}(E_{\nu_{\tau}}, x) \right]}{\bar{\lambda}_{NC}^{\tau}(E_{\bar{\nu}_{\tau}}, x) } \right] \\
-    &\times \dfrac{\partial \bar{N}_{CC}^{\tau}(E_{\bar{\nu}_{\tau}}, E)}{\partial E} \dfrac{\partial\bar{N}_{dec}^{lep} (E_{\tau}, E)}{\partial E} dE_{\bar{\nu}_{\tau}} dE_{\tau}     
+    &\times \dfrac{\partial \bar{N}_{CC}^{\tau}(E_{\bar{\nu}_{\tau}}, E)}{\partial E} \dfrac{\partial\bar{N}_{dec}^{lep} (E_{\tau}, E)}{\partial E} dE_{\bar{\nu}_{\tau}} dE_{\tau}
 \end{split}\end{equation}
 and 
 \begin{equation}\begin{split}
@@ -212,6 +235,11 @@ Interaction rates in these functionals for neutral current, charged current, and
     \dfrac{\bar{N}_{GR}^{e} (E_{\bar{\nu}_{e}}, E)}{\partial E} &= \dfrac{1}{\sigma_{GR}^{e}(E_{\bar{\nu}_{e}})} \dfrac{\partial\sigma_{GR}^{e}(E_{\bar{\nu}_{e}}, E_{e})}{\partial E}.
 \end{align}
 The tau decay distributions for the leptonic-only modes ($N_{dec}^{lep}$) and for all-modes ($N_{dec}^{all}$) are given by 
+\begin{align}
+    \dfrac{\partial N_{dec}^{lep}(E_{\tau}, E)}{\partial E} &= \dfrac{1}{\bar{\Gamma}_{lep}^{\tau}(E_{\tau})} \dfrac{\partial\bar{\Gamma}_{lep}^{\tau}(E_{\tau},E)}{\partial E} \\
+    \dfrac{\partial N_{dec}^{all}(E_{\tau}, E)}{\partial E} &= \dfrac{1}{\bar{\Gamma}_{all}^{\tau}(E_{\tau})} \dfrac{\partial\bar{\Gamma}_{all}^{\tau}(E_{\tau},E)}{\partial E} 
+\end{align}
 
-
+These systems are implemented within the \texttt{nuSQuIDS} framework~\cite{arguelles:2015nu, arguelles2021nusquids}, which implements Equations~\eqref{eq:nu_evol}-\eqref{eq:nubar_evol} to numerically propagate the state-density matrix along a neutrino fluxes' baseline. 
+Different neutrino oscillation parameters can be specified, along with various other new physics scenarios, if desired.
 \end{document}
