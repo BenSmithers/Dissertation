@@ -527,37 +527,37 @@ A table showing parameterizations of all included systematic uncertainties, thei
 \begin{table}
     \centering
     \rowcolors{2}{gray!25}{white}
-    \begin{tabular}{c | ccc}\rowcolor{blue!25}
-        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}} \\\hline
-        \multicolumn{4}{c}{Conventional Flux} \\\hline
-        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4.0, 4.0] \\
-        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]\\
-        daemon\_0$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_9$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_12$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_18$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_19$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_20$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        daemon\_23$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]\\
-        \multicolumn{4}{c}{Astrophysical Flux} \\\hline
-        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]\\
-        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]\\
-        \multicolumn{4}{c}{Detector} \\\hline
-        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]\\
-        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]\\
-        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058]\\
-        \multicolumn{4}{c}{Muons} \\\hline
-        muon norm & 1.0 & $1.0\pm0.2$ & [0,2]\\
-        \multicolumn{4}{c}{Normalization} \\\hline
-        norm & 1.0 & $1.0\pm0.2$ & [0,2]
+    \begin{tabular}{c | cccc}\rowcolor{blue!25}
+        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} \\ \hline
+        \multicolumn{5}{c}{Conventional Flux} \\\hline
+        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4.0, 4.0] & Both\\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both \\
+        daemon\_0$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_9$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_12$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_18$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_19$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_20$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        daemon\_23$^{*}$ & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
+        \multicolumn{5}{c}{Astrophysical Flux} \\\hline
+        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both\\
+        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both\\
+        \multicolumn{5}{c}{Detector} \\\hline
+        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks \\
+        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4] & Tracks\\
+        ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]& Tracks \\
+        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both \\
+        \multicolumn{5}{c}{Muons} \\\hline
+        muon norm & 1.0 & $1.0\pm0.2$ & [0,2] & Cascades\\
+        \multicolumn{5}{c}{Normalization} \\\hline
+        norm & 1.0 & $1.0\pm0.2$ & [0,2] & Both
     \end{tabular}
     \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients, Daemonflux, and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ widths determined from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$,$**$ $\dag$, or $\ddag$.}\label{table:nutrition}
 \end{table}
