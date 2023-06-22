@@ -58,6 +58,12 @@ This allows for the characterization of the gain of each D-Egg PMT at light leve
 A 10 MHz clock and the IRIB-B GPS time signals are split and fed into each of the MFHs to synchronize their internal clocks to UTC.
 This allows for conversion of the internal D-Egg timestamps to UTC using the standard IceCube Reciprocal Active Pulsing (RAPCal) method~\cite{ABBASI2009294}.
 
+Data readouts for the PMTs are triggered in two ways: an Analog-to-Digital Converter (ADC) counts trigger, and a Finite Impulse Response (FIR) trigger. 
+In the former, the analog current from the waveform is discretized into a time-dependent number of counts. 
+Generally single-electron events are then used to calibrate the number of ADC counts to a physical quantity.
+Then, a threshold number of ADC counts measured is used as a trigger to indicate when an event occurs in the PMT. 
+FIR triggering uses a rolling-average of the raw waveform before the ADC conversion happens. 
+This smooths out the waveform and typically yields a lower dark rate.
 
 \subsection{Quick Monitoring}
 
@@ -69,14 +75,62 @@ Mainboard electronics on the D-Eggs broaden these pulses to an approximate ampli
 As such, a trigger threshold of 2.0mV is typically used.
 
 To calculate the gain, a charge distribution is first constructed from the read-out SPE waveforms by integrating from ten bins before the peak to fifteen bins after it.
-A Gaussian is then fitted to the charge histogram, whose peak corresponds to the PMT voltage at a given set high-toltage. An example SPE waveform and charge distribution is shown in Figure~FIG.
-This procedure is repeated at varrying high voltages until the calculated gain is within $\pm 2\%$ of $10^{7}$.
+A Gaussian is then fitted to the charge histogram, whose peak corresponds to the PMT voltage at a given set high-voltage. An example SPE waveform and charge distribution is shown in Figure~FIG.
+This procedure is repeated at varying high voltages until the calculated gain is within $\pm 2\%$ of $10^{7}$.
 A typical high voltage found is around 1500V. 
 
 \subsection{Analyses}
 
-Once the measurements are taken, data are transfered from the local DAQ PC to the grappa server system in Chiba. Several analyses are then performed. 
-First, a fit is performed to check for a linear relationship between gain and the set PMT high-voltage.  
-The dark-rate of the PMTs is then 
+Once the measurements are taken, data are transferred from the local DAQ PC to the grappa server system in Chiba. Several analyses are then performed, as described in Ref~\cite{degg}. 
+
+The most important of these is the gain analysis. 
+We verify that each PMT is capable of reaching a gain of 1e7 at a high voltage between 1-2 kV. 
+In addition to that, we verify a linear relationship exists between the high voltage and the log of the gain. 
+An example of a good high-voltage versus gain relationship is shown in Figure~\ref{fig:degg_gain_curve}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/gain_curve_SQ0650.pdf}
+    \caption{The gain fit for DEgg \texttt{DEgg2021-3-109}'s lower PMT, \texttt{SQ0650}. Data are shown in blue diamonds and the fit is shown in orange.}\label{fig:degg_gain_curve}
+\end{figure}
+
+Dark noise rates are also verified to be within acceptable bounds.
+Dark noise describes any events that trigger the detector and which do not originate from an external photon hitting the detector. 
+The sources of these photons are thermionic cathode emissions, PMT afterpulses, and any radioactive processes within the glass pressure vessel. 
+These have been observed to be highly dependent on temperature. 
+
+Two triggering methods are used; one uses a simple ADC triggering and the other uses the FIR-filtered triggering. Test are done for each D-Egg to verify that the dark noise rates do not ever exceed 10 MHz, and it should not consistently exceed 10kHz.
+For the FIR-smoothed rates, we verify that the trigger rate does not exceed 5kHz. 
+Figure~\ref{fig:dark_rate} shows examples of good and bad dark rates. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{./figures/dark_rate_SQ0784.pdf}%
+    \includegraphics[width=0.45\linewidth]{./figures/dark_rate_SQ0969.pdf}
+    \caption{Histograms showing the dark rates for PMTs \texttt{SQ0784} (left) and \texttt{SQ0969} (right). Dark rates are abnormally high for PMT \texttt{SQ0969}.}\label{fig:dark_rate}
+\end{figure}
+
+We also measure the linearity of the D-Egg response when compared to a known amount of injected light. 
+By using the D-Egg filter wheels, the amount of light incident on the PMTs can be set to nine different settings ranging from 2.5\% to 100\%. 
+The test laser intensity was also calibrated such that a 5\% filter corresponds to an observed signal of few 10s of PMTs. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/SQ0514_NPE_ideal_vs_observed.pdf}
+    \caption{Linearity of the charge-response for PMT \texttt{SQ0514}. Measurements are shown as blue dots and a linear fit is shown as a dotted line. This is an example of a good linearity relationship.}
+\end{figure}
+
+One additional analysis is performed to test the ability of the D-Eggs to distinguish between the light from a charged tau lepton and its decay product. 
+This requires being able to separately identifying two PMT pulses separated by only a few nano-seconds. 
+To emulate a tau-like signal, a function generator creates two picosecond bursts separated by 20 nanoseconds. 
+The generator creates then waits one microsecond before creating another burst of pulses. 
+A peak-finding algorithm is then run 5000 digitized waveforms and the separation of the fit peaks are verified to be consistent with 20 nanoseconds and any error within half of the width mainboard timing bins.
+An example good PMT response to this double-pulse test is shown in Figure~\ref{fig:double_pulse}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/ave_wf_bl_sub_every_wf_DEgg2021-3-082_SQ1016.pdf}
+    \caption{Averaged waveform of 5000 double-pulse signal tests for PMT \texttt{SQ1016}. A fit peak-separation of 18 nanoseconds; this is consistent with the injected 20 nanosecond signal separation to within half the width of the mainboard timing bins.}\label{fig:double_pulse}
+\end{figure}
 
 \end{document}
