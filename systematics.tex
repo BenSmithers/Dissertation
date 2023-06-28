@@ -248,7 +248,7 @@ The full ensemble of event generation parameters are shown in Table~\ref{table:m
 
 From these, splits were applied to the full sample and 2D linear gradients were calculated. 
 Photospline~\cite{WHITEHORN20132214} was then used to perform spline fits of the 2D gradients to smooth out MC statistical variance. 
-A table of spline fits is shown below in Figure\ref{fig:gradients}. 
+A table of spline fits is shown below in Figure~\ref{fig:gradients}. 
 
 \begin{figure}
     \centering
@@ -363,9 +363,113 @@ The effects of perturbing this parameter on the reconstructed rates are shown in
 
 \subsection{Atmospheric Neutrino Flux}
 \index{neutrino!flux}
-Daemonflux and such
+Previous studies, in particular the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, have used an uncertainty on the normalization and spectral index for the cosmic ray flux, and modeled uncertainties on the production of pions and kaons in the air showers using the Barr parametrization~\cite{PhysRevD.74.094009}. 
+In this analysis, we now use the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (DaemonFlux) model, which incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results, as both our baseline flux prediction and as a method of parametrizing uncertainties in our flux prediction. 
+This model implements parameters effecting particle production rates of protons, neutrons, $\pi^{\pm}$, and $K^{\pm}$ at four different energy scales, along with six parameters from a principal component analysis of a global spline fit of the cosmic ray flux. 
+From the fits to the data, a correlated prior is determined for the full ensemble of 24 parameters, as shown in Figure~\ref{fig:daemon_cor}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/daemon_cov.png}
+    \caption{The correlation between the parameters used in the DaemonFlux model.}\label{fig:daemon_cor}
+\end{figure}
+
+For this analysis, the effects of perturbing each of these 24 parameters are evaluated after a one-sigma from their central values.
+From these perturbed fluxes and the central expectations, we extract the flux-gradients for each of these parameters.
+These neutrino flux gradients are then evolved using nuSQuIDS to get the full-flavor gradient flux at IceCube. 
+The effects of perturbing each parameter, independently, is shown for the cascades sample assuming no sterile neutrino in Figure~\ref{fig:daemon_grads}.
+It is observed that only a small subset of all 24 parameters were relevant for this analysis. 
+The procedures described in Section~\ref{sect:down} were first carried out to identify the strongest parameters in the uncorrelated basis. 
+Random expectations were then sampled from the full DaemonFlux ensemble, and fits were carried out while allowing the $n$, strongest, uncorrelated parameters to float. 
+The distributions of the resulting $\Delta LLH$ values of these fits were logged after running over a thousand fits for both cascades and tracks, separately, and are shown in Figure~\ref{fig:daemon_number} for tracks (left) and cascades (right). 
+
+It was also observed that the same parameters had the strongest effects on both the track and cascade expectations, and that only 7 parameters are necessary to sufficiently span the expectation-space; eight were used to be conservative. 
+As an additional check, fits were carried out using two different numbers of free parameters while injecting different sterile neutrino signals. 
+These results are shown in Table~\ref{tab:daemonfluxfit}
+
+The effects of pertubing the eight strongest parameters by one sigma are shown for both tracks and cascades in Figures~\ref{fig:daemon_analysis_one} and~\ref{fig:daemon_analysis_two}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/all_grads.png}
+    \caption{Shape-effect of perturbing each of the 24 DaemonFlux nuisance parameters by one-sigma in analysis space. Plots here are showing the effects on the cascades sample; the effects on the track sample have been observed to be extremely similar.}\label{fig:daemon_grads}
+\end{figure}
+
+\begin{figure}
+    \centering 
+    \includegraphics[width=0.45\linewidth]{figures/daemon/results_track.png}%
+    \includegraphics[width=0.45\linewidth]{figures/daemon/results.png}
+    \caption{Fit accuracy as a function of free parameters used to a randomly sampled DaemonFlux expectation; tracks are shown on the left and cascades on the right}\label{fig:daemon_number}
+\end{figure}   
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{l|cccccc}\rowcolor{blue!25}
+        & $\theta_{24}$ [rad] & $\theta_{34}$ [rad] & $\Delta m_{41}^{2}$ [eV$^{2}$]  & 7 Params BF LLH & 14 Params BF LLH & ratio \\
+        Null    & 0.0 & 0.0 & 0.0 & 4.6e-20 & 4.6e-20 & 1.0  \\
+        Extreme & 2.13e-1 & 1.82e-1 & 4.5 & 20.76 & 19.54 & 1.06 \\
+        Moderate & 2.13e-1 & 1.82e-1 & 1.0 & 13.42 & 12.62 & 1.06 \\
+        Mild & 2.54 & 9.22e-2 & 1.0 & 3.19 & 3.00 & 1.06 \\
+        Near-Null & 5.31e-2 & 3.16e-2 & 1.0 & 0.0216 & 0.0200 & 1.08
+    \end{tabular}
+    \caption{Results from fitting to an Asimov MC realization assuming different sterile neutrino hypotheses while using seven and fourteen DaemonFlux parameters.}\label{tab:daemonfluxfit}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_0.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_1.png}\\
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_9.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_12.png}
+    \caption{The shape-effect of perturbing four of the strongest uncorrelated DaemonFlux parameters for tracks and cascades.}\label{fig:daemon_analysis_one}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_18.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_19.png}\\
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_20.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/daemon_23.png}
+    \caption{The shape-effect of perturbing four more of the strongest uncorrelated DaemonFlux parameters for tracks and cascades.}\label{fig:daemon_analysis_two}
+\end{figure}
 
 \subsection{Atmospheric Density}
+
+During air shower evolution, the delicate balance between kaon production, re-interaction, and decay heavily influence the energy spectrum of the resulting neutrinos. 
+The local atmospheric conditions of the temperature, density, and pressure all influence this balance; an effect that has previously been studied in the neutrino spectrum by IceCube~\cite{heix2019seasonal,abbasi2023observation}. 
+We incorporate an uncertainty on the atmospheric density by perturbing the Earth's atmospheric temperature within the ranges specified by NASA's Atmospheric InfraRed Sounder (AIRS) \textbf{CITE} satellite data. 
+This satellite provides an open-source dataset for the temperature profile of the atmospheric as a function of atmospheric depth and location. 
+We evaluate the variation in the temperature of the atmosphere over a whole year in a $1^{\circ}\times1^{\circ}$ grid across the Earth's surface. 
+The standard deviation of the predictions from all models are then calculated as functions of zenith and energy. 
+This standard deviation is shown for muon and electron neutrinos in Figure~\ref{fig:airs_raw}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/airs_grid_var.png}
+    \caption{The variance in predicted atmospheric models for various neutrino fluxes before nuSQuIDS propagation. From the top left, going clockwise, $\nu_{e}$, $\bar{\nu}_{e}$, $\nu_{\mu}$, and $\bar{\nu}_{\mu}$. }\label{fig:airs_raw}
+\end{figure}
+
+This is then used as the atmospheric density uncertainty after being forced through zero near $\cos\theta_{z}=-0.7$ to account for the temperature offset between the Northern and Southern hemispheres. 
+Figure~\ref{fig:airs_grid} shows the effect on neutrino fluxes after forcing it through zero at the equator.
+This effect is calculated as a gradient effecting the neutrino flux, and it is then evolved through the Earth for each sterile neutrino model to propagate the effects into other neutrino flavors. 
+The effects of this nuisance parameter, and this source of systematic uncertainty, is shown in Figure~\ref{fig:airs_reco}.
+
+The 1976 United States Standard atmosphere~\cite{united1976u} was also used as a baseline for cross-checks, and it was found to lie within the allowed envelope. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/airs_grid.png}
+    \caption{The effect of the atmospheric uncertainty parameter on predicted neutrino fluxes before nuSQuIDS propagation. This is after forcing the effect through zero at the equator, and implementing opposite effects in the opposite hemispheres. From the top left, going clockwise, $\nu_{e}$, $\bar{\nu}_{e}$, $\nu_{\mu}$, and $\bar{\nu}_{\mu}$.}\label{fig:airs_grid}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/systematics/airs_scale.png}
+    \caption{Effects of the atmospheric uncertainty on reconstructed event rates for tracks (left) and cascades (right).}\label{fig:airs_reco}
+\end{figure}
+
+
+
 
 \subsection{Kaon-nucleon Total Cross-Section}
 
@@ -414,13 +518,40 @@ were $\Delta_{\gamma_{\text{astro}}}$ represents a shift in the spectral index, 
 
 Two new uncorrelated nuisance parameters are constructed following the same procedures of Section~\ref{sect:down}. The effects of perturbing each of these new, uncorrelated, parameters are shown in Figure~\ref{fig:recoastro} with tracks on the left and cascades on the right.
 
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{figures/systematics/astro_norm_rotated.png}\\
     \includegraphics[width=0.8\linewidth]{figures/systematics/astro_delta_rotated.png}
     \caption{Effects in analysis space for tracks (left) and cascades (right) from perturbing the uncorrelated astrophysical nuisance parameters (top and bottom) individually by one sigma. }\label{fig:recoastro}
 \end{figure}
+
+From Figure~\ref{fig:recoastro} it is evident that the astrophysical neutrinos contribute far more strongly to the cascade sample than to the tracks sample.
+To demonstrate why this is the case, consider the fluxes and cross-sections contributing to each event morphology.
+
+\begin{align}
+    \text{Tracks} &\propto \Phi_{\nu_{\mu}}\times \sigma_{\nu_{\mu}}^{CC} \\
+    \text{Cascades} &\propto \Phi_{\nu_{\mu}}\times \sigma_{\nu_{\mu}}^{NC}  + \sum_{\alpha\in (e,\tau)}\Phi_{\nu_{\alpha}}\times\left( \sigma_{\nu_{\alpha}}^{CC} +  \sigma_{\nu_{\alpha}}^{NC}\right)
+\end{align}
+
+For conventional fluxes, the electron and tau components are almost negligible. 
+Whereas we can reasonably expect a 1-1-1 flavor ratio for the astrophysical neutrino flux. 
+These contributions are demonstrated, to reasonable approximation, in Table~\ref{tab:astro_stuff}.
+Since efficiencies are equivalent regardless of neutrino origin, these expressions are also consistent with total event rates. 
+In the case of cascades, it is evident that the astrophysical neutrinos will contribute a proportionally greater amount to the total event rate. 
+
+
+\begin{table}
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c|c|c}\rowcolor{blue!25}
+        & \textbf{Tracks} & \textbf{Cascades} \\
+    \textbf{Conv} & $ \Phi_{\nu_{\mu}}^{conv}\times \sigma_{\nu_{\mu}}^{CC}$ & $\Phi_{\nu_{\mu}}^{conv}\times \sigma_{\nu_{\mu}}^{NC}$ \\[10pt]
+    \textbf{Astro}    & $\Phi_{\nu_{\mu}}^{astr}\times \sigma_{\nu_{\mu}}^{CC}$ & $\Phi_{\nu_{\mu}}^{astro}\times \sigma_{\nu_{\mu}}^{NC}  + \sum\limits_{\alpha\in (e,\tau)}\Phi_{\nu_{\alpha}}^{astro}\times\left( \sigma_{\nu_{\alpha}}^{CC} +  \sigma_{\nu_{\alpha}}^{NC}\right)$
+    \end{tabular}
+    \caption{Taaaaable words}\label{tab:astro_stuff}
+\end{table}
+
 
 
 \subsection{Neutrino-Nucleon Interaction Uncertainty}
@@ -456,7 +587,7 @@ The numbers of cosmogenic muons which pass these cuts, and are misidentified as 
     \caption{A stacked histogram showing the contributions,  to the total event counts as a function of reconstructed energy, from conventional neutrinos (orange), prompt neutrinos (salmon), astrophysical neutrinos (purple), and cosmic ray muons misidentified as cascades (deeper purple). The percent of each bin which is made of CR muons is show as a black dashed line.}\label{fig:muonperc}
 \end{figure}
 
-The distribution of these muon events in reconstructed energy and zenith is shown in Figure\ref{fig:muonmuon}, left.
+The distribution of these muon events in reconstructed energy and zenith is shown in Figure~\ref{fig:muonmuon}, left.
 Due to the large number of events necessary to simulate to recover MC-statistically significant muon rates, a Gaussian kernel density estimate (KDE) is used to approximate the expected distribution that would likely lead to the simulated MC sample. 
 The expected distribution of events is shown after the KDE smoothing is applied in Figure~\ref{fig:muonmuon}, right. 
 
