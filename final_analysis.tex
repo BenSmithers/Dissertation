@@ -12,11 +12,11 @@ Sterile neutrino points are chosen uniformly over $\left|U_{\mu 4}\right|^{2}=\s
 A 16 by 16 grid in the unitary mixing matrix elements, and five discrete mass-squared splittings are explored. 
 These five values are 
 \begin{enumerate}
-    \item 1.0eV$^{2}$ - a commonly chosen value used in sterile oscillations studies. 
+    \item 1.0eV$^{2}$ - a commonly chosen value used in sterile oscillations studies~\cite{Aartsen_2017_dc, PhysRevD.91.052019, PhysRevD.105.052001}. 
     \item 3.5eV$^{2}$ - a value close to the best-fit point from BEST~\cite{barinov2021results}
     \item 4.5eV$^{2}$ - a value close to the eight-year IceCube through-going track analysis~\cite{Aartsen_2020, Aartsen_2020_prd}
     \item 10.0eV$^{2}$ - an intermediate value between those above, and larger mass-squared splitting
-    \item 100.0eV$^{2}$ - a larger mass-squared splitting where fast oscillations will dominate the signal. 
+    \item 100.0eV$^{2}$ - a larger mass-squared splitting where fast oscillations will dominate the signal
 \end{enumerate}
 
 \section{Event Selections}
@@ -82,6 +82,14 @@ It uses an additional set of cuts
     \item Discard events with $\cos\theta_{\mu}^{reco}>0.05$.
 \end{enumerate}
 
+With these event selections, we strong appearance and disappearance signatures are possible. Two possible signatures of sterile neutrino oscillations using these event samples are shown in Figure~\ref{fig:sterile_signature} in analysis space. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/meows_bf_nofit.png}%
+    \includegraphics[width=0.45\linewidth]{figures/with_th34_nofit.png}
+    \caption{Two signatures of sterile neutrinos in reconstructed space. On the left, the expected disappearance for tracks (left) and cascades (right) for a sterile neutrino model with $\sin^{2}(2\theta_{24})=0.1$ and $\Delta m_{41}^{2}=4.5$ eV$^{2}$. The same is shown on the right but with $\sin^{2}(2\theta_{34})=0.05$.}\label{fig:sterile_signature}
+\end{figure}
 
 \section{Fast Monte Carlo, Event Merging}
 
@@ -97,7 +105,7 @@ As an example, a fastmode scaling of 0.5 would use twice as many bins along each
 Events within each of these fine bins are then merged into meta-events; the separate flux-weights are added directly, and a weighted-average is done for analysis quantities like energy and zenith.
 The weighted average is calculated according to Equation~\eqref{eq;weighted_fm} for analysis quantity $A$ in fastmode bin $\alpha$.
 \begin{equation}\label{eq;weighted_fm}
-A_{meta}^{\alpha} = \dfrac{\sum_{i}^{n} A_{\alpha, i} \left(w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}\right) }{\sum_{i}^{n} w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}}
+A_{meta}^{\alpha} = \dfrac{\sum_{i}^{n} A_{\alpha, i} \left(w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}\right) }{\sum_{i}^{n} \left(w_{\alpha, i}^{conv} + w_{\alpha,i}^{prompt} + w_{\alpha,i}^{astro}\right)}
 \end{equation}
 The sum is carried out over all $n$ events in a fastmode bin. 
 These meta-events are then saved with their summed flux-weights and weighted-average analysis quantities.
@@ -147,6 +155,20 @@ where $\vec{\Theta}_{min}$ is the sterile hypothesis that maximizes the likeliho
 \section{Tests}
 
 A series of tests were performed to validate the implementation of the nuisance parameters and verify the performance of the fitting framework. 
+
+\subsection{Previous Results Cross-Check}
+
+Using only the track sample, we verified we were able to recover similar sensitivities to the original eight-year sensitivity published in References~\cite{Aartsen_2020} and~\cite{Aartsen_2020_prd}. 
+To do this, additional fluxes, gradients, and Fast MC, were generated in logarithmic steps in $\sin^{2}(2\theta_{14})$ and $\Delta m_{41}^{2}$ space.
+An Asimov sensitivity scan, fitting only to the track sample, was then carried out in this space; the resulting sensitivities are shown in Figure~\ref{fig:comparison} with the previous sensitivities overlain. 
+
+TODO: update the plot when the new comparison is done with all of the new machinery! 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/2d_compare_llh.png}
+    \caption{The 90\% CL sensitivity contours for two degrees of freedom, using only the track sample, as determined for this analysis (orange) and the original 8-year tracks sample (purple).}\label{fig:comparison}
+\end{figure}
 
 \subsection{Inject-Recover Systematic Tests}
 
@@ -254,7 +276,11 @@ Each of these points are listed in Table~\ref{table:injected_signals}.
 Then, we ran a full fit-scan on an Asimov realization generated for each of these simulated signals. 
 The contours are shown in the Figure FIG. 
 
-
 \textit{Discussion of the constraints}
+
+
+\section{Results}
+
+\section{Conclusions}
 
 \end{document}

@@ -100,6 +100,8 @@ We lay out a procedure then for any given covariance matrix
 \section{Applications}
 \subsection{DOM Efficiency}\label{subsect:domeff}
 
+\paragraph{Cascades}
+
 To evaluate the effects of varying the DOM efficiency on reconstructed event rates, a Monte Carlo sample was generated following the Snowstorm method for low-level systematic uncertainties.
 
 For each batch of ten simulated MC events the DOM efficiency is sampled from its prior. 
@@ -118,14 +120,24 @@ Events can then be reweighted to a new DOM efficiency by evaluating the spline $
     w' = w + w\times \mathcal{S}(\log E_{\nu}^{reco}, \cos\theta_{\nu}^{reco}, \mathcal{D}_{OM})
 \end{equation}
 
-A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figure~\ref{fig:domeff_fit}.
+A slice of the full 3D fit for the conventional neutrino fluxes is shown in Figure~\ref{fig:domeff_fit}, and the effects on overall reconstructed even rates are shown for cascades on the right of Figure~\ref{fig:domeff_analysis}.
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/atmConv_logE_3.6_cosz_-0.25.png}
+    \includegraphics[width=0.75\linewidth]{figures/atmConv_logE_3.6_cosz_-0.25.png}
     \caption{The predicted number of events in reconstructed space for a bin centered at $\log E_{\nu}^{reco}=3.6$ and $\cos\theta_{\nu}^{reco}=0.25$ as a function of the DOM efficiency. The MC data are represented by orange dots, and the spline fit is the trend in blue. The gray shaded region represent the extents of the spline, and the red bands represents prior-allowed region.}\label{fig:domeff_fit}
 \end{figure}
 
-The effects on overall reconstructed even rates are shown in Figure~\ref{fig:domeff_analysis} for tracks (left) and cascades (right). 
+
+
+
+\paragraph{Tracks}
+
+For the track sample, discrete Monte Carlo samples were generated for DOM efficiencies of 1.23, 1.25, 1.27, 1.30, and 1.33. 
+For each DOM Efficiency, a 2D spline was done to the expected number of events in the sample at the central expectation. 
+Each of these splines was then stacked into a 3D spline, which allows for the continuous sampling of the event rate as a function of zenith, energy, and DOM efficiency. 
+The effects on overall reconstructed even rates are shown for tracks on the left of Figure~\ref{fig:domeff_analysis}.
+
+Both tracks and cascades were observed to be effected nearly identically by the uncertainty in DOM efficiency. 
 
 \begin{figure}
     \centering
@@ -252,29 +264,31 @@ A table of spline fits is shown below in Figure~\ref{fig:gradients}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.3\linewidth]{figures/spline_amp00_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_amp01_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_amp02_gradient.png}\\
-    \includegraphics[width=0.3\linewidth]{figures/spline_amp03_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_amp04_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_phase01_gradient.png}\\
-    \includegraphics[width=0.3\linewidth]{figures/spline_phase02_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_phase03_gradient.png}%
-    \includegraphics[width=0.3\linewidth]{figures/spline_phase04_gradient.png}
-    \caption{Evaluations of the Photospline~\cite{WHITEHORN20132214} spline-fits to the 2D gradients as functions of energy and zenith. Left to right from top to bottom: Amplitude 0, Amplitude 1, Amplitude, 2, Amplitude 3, Amplitude 4, Phase 1, Phase 2, Phase 3, Phase 4.}\label{fig:gradients}
+    \includegraphics[width=0.24\linewidth]{figures/spline_amp00_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_amp01_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_amp02_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_amp03_gradient.png}\\
+    \includegraphics[width=0.24\linewidth]{figures/spline_amp04_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_phase01_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_phase02_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_phase03_gradient.png}\\
+    \includegraphics[width=0.24\linewidth]{figures/spline_phase04_gradient.png}%
+    \includegraphics[width=0.24\linewidth]{figures/spline_phase05_gradient.png}%
+    \caption{Evaluations of the Photospline~\cite{WHITEHORN20132214} spline-fits to the 2D gradients as functions of energy and zenith. Left to right from top to bottom: Amplitude 0, Amplitude 1, Amplitude, 2, Amplitude 3, Amplitude 4, Phase 1, Phase 2, Phase 3, Phase 4, and Phase 5.}\label{fig:gradients}
 \end{figure}
 
 Each of these were then implemented in our fitting framework, and the effects in analysis space were calculated. 
 Using the previously calculated covariance matrix and the methods for de-correlating the nuisance parameters from Section~\ref{sect:down}, uncorrelated nuisance parameters were constructed as a simple basis change from the original amplitude/phase basis. 
-Of the nine new parameters, only four were found to have a significant impact on analysis rates. The other five are kept at their central values in fits. 
-The strongest four are shown in Figure~\ref{fig:rotata}.
+Of the ten new parameters, only five were found to have a significant impact on analysis rates. The other five are kept at their central values in fits. 
+The strongest five are shown in Figure~\ref{fig:rotata}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{figures/amp00_rot.png}%
-    \includegraphics[width=0.45\linewidth]{figures/amp01_rot.png}\\
-    \includegraphics[width=0.45\linewidth]{figures/amp03_rot.png}%
-    \includegraphics[width=0.45\linewidth]{figures/amp04_rot.png}
+    \includegraphics[width=0.45\linewidth]{figures/systematics/ice_0.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/ice_1.png}\\
+    \includegraphics[width=0.45\linewidth]{figures/systematics/ice_3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/systematics/ice_5.png}\\
+    \includegraphics[width=0.45\linewidth]{figures/systematics/ice_6.png}
     \caption{Shape effects from perturbing each of the uncorrelated nuisance parameters by one sigma. Note that although named after phases and amplitudes, perturbing each of these is identical to perturbing a linear combination of all amplitudes and phases simultaneously.}\label{fig:rotata}
 \end{figure}
 
@@ -649,7 +663,9 @@ Because of this, these extra cuts are not applied in this analysis.
 
 \subsection{Normalization}
 
-A parameter allowing for the overall normalization of the entire neutrino flux is also allowed to float. It is given a conservative 20\% prior driven by a number of effects: livetime O(<1\%), ice density O(<1\%), volume O(9\%)~\cite{Sandrock_2020}, and the neutrino-ice cross-section O(10\%)~\cite{candido2023neutrino}.
+A parameter allowing for the overall normalization of the entire neutrino flux is also allowed to float. 
+It is given a conservative 20\% prior driven by a number of effects: livetime O(<1\%), ice density O(<1\%), volume O(9\%)~\cite{Sandrock_2020}, and the neutrino-ice cross-section O(10\%)~\cite{candido2023neutrino}. 
+This normalization does not effect the cosmic ray muon background; it has an independent normalization factor. 
 
 \subsection{All Systematic Uncertainties}
 
@@ -680,7 +696,8 @@ A table showing parameterizations of all included systematic uncertainties, thei
         holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
         ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
         ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
-        ice\_4$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
+        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
         ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
         ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4] & Tracks\\
         ice\_grad\_0\_rotated$^{**}$ & 0.0 & $0\pm 1.0$ & [-4,4]& Tracks \\

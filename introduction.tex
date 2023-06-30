@@ -32,16 +32,20 @@ Of particular interest to neutrino telescopes, matter effects can result in the 
 \subsection{Neutrino oscillations}
 \index{neutrino!oscillations}
 
-First, a review of how these oscillations happen is of merit. From the solar neurino problem CITE it is understood that neutrinos oscillate, and from that we understand they have mass. To understand \textit{why} that is the case we consider that the neutrinos mass and flavor eigenstates are not identical. That there is some unitary matrix, 
+First, a review of how these oscillations happen is of merit. 
+For decades, now, it has been well understood that the neutrinos have multiple distinct flavor and mass eigenstates.
+A consequence of this is that a neutrino prepared in a definite eigenstate will oscillate through different superpositions of its mass eigenstates, and when the flavor is measured after some time it may be observed to be in a distinct flavor eigenstate from that in which it was created. 
+To understand \textit{why} that is the case we consider that there is some unitary matrix, 
 \begin{equation}
     U_{\text{PMNS}} = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right)
 \end{equation}
-which allows for transformations from the mass basis to the flavor basis, such that
+which allows for rotations from the mass basis to the flavor basis, such that
 \begin{equation}
     \left(\begin{array}{ccc} \nu_{e} & \nu_{\mu} & \nu_{\tau} \end{array}\right)  = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right) \left(\begin{array}{c} \nu_{1} \\ \nu_{2} \\ \nu_{3} \end{array}\right).
 \end{equation}
 where $\nu_{i}$, $i\in\left(1,2,3\right)$ is in the mass basis and $i\in\left(e,\mu\tau\right)$ is in the flavor basis. 
-We can, in general then, express a stationary state in one basis in terms of the other basis:
+This is called the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix.
+We can, in general then, express a stationary state in the flavor basis in terms of the mass basis:
 \begin{equation}\label{eq:nunu}
     \ket{\nu_{e}} = U_{e1} \ket{\nu_{1}} + U_{e2} \ket{\nu_{2}} + U_{e3}\ket{\nu_{3}}.
 \end{equation}

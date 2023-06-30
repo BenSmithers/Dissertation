@@ -11,7 +11,7 @@ usenames,dvipsnames
 % \usepackage[margin=1.0in]{geometry}
 
 \usepackage[square,numbers,comma]{natbib}
-\bibliographystyle{acm}
+\bibliographystyle{unsrtnat}
 \renewcommand\bibname{References}
 % \setcitestyle{authoryear, open={(},close={)},citesep={,},aysep=}
 
@@ -262,11 +262,11 @@ The work presented in this dissertation is as follows:
 
 \textbf{Chapter \ref{chapter:icecube}} will describe the IceCube Neutrino Observatory and the details of its operation. 
 
+\textbf{Chapter~\ref{chapter:sense}} will provide the approximations of the expected sensitivities for this analysis~\cite{PhysRevD.105.052001}. 
+
 \textbf{Chapter \ref{chapter:gen}} will discuss the event generation schema and Monte Carlo simulation procedure IceCube~\cite{ABBASI2021108018}.
 
 \textbf{Chapter~\ref{chapter:unc}} will summarize all the sources of systematic uncertainty relevant for this analysis.
-
-\textbf{Chapter~\ref{chapter:sense}} will provide the approximations of the expected sensitivities for this analysis~\cite{PhysRevD.105.052001}. 
 
 And finally,\textbf{ Chapter~\ref{chapter:res}} will provide the results of this analysis. 
 
@@ -277,19 +277,20 @@ Chapter entries with citations refer to the papers in which the work discussed w
 \chapter{The IceCube Neutrino Observatory}\label{chapter:icecube}
 \subfile{icecube.tex}
 \subfile{degg_fat.tex}
+\chapter{Sterile Neutrino Oscillation Sensitivities}\label{chapter:sense}
+\subfile{sensitivity.tex}
 \chapter{Event Generation and Filters}\label{chapter:gen}
 \subfile{leptons.tex}
 \subfile{generation.tex}
 \chapter{Sources of Systematic Uncertainties}\label{chapter:unc}
 \subfile{systematics.tex}
-\chapter{Sterile Neutrino Oscillation Sensitivities}\label{chapter:sense}
-\subfile{sensitivity.tex}
 \chapter{Joint Sterile Analysis}\label{chapter:res}
 \subfile{final_analysis.tex}
 
 % \subfile{appendix.tex}
 
 % \subfile{bibfile.tex}
+
 \bibliography{main}
 
 %\printindex
