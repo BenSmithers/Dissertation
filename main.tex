@@ -15,9 +15,7 @@ usenames,dvipsnames
 \renewcommand\bibname{References}
 % \setcitestyle{authoryear, open={(},close={)},citesep={,},aysep=}
 
-
 % \addbibresource{main.bib}
-
 
 %\usepackage[caption=false]{subfig}
 \usepackage{graphicx}
@@ -55,6 +53,7 @@ usenames,dvipsnames
 \usepackage{footmisc}
 
 \usepackage{ragged2e}
+\usepackage[toc,page]{appendix}
 
 % you shall not pass!
 \usepackage{placeins}
@@ -247,7 +246,7 @@ usenames,dvipsnames
 \begin{acknowledgements}
     \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
     
-    I would also like to acknowledge the UTA Office of Information Technology, whose countless hours spent breaking their own network, ignoring open tickets on their own ticketing system, seeding their contact pages with fake contact information, organizing demonstrations of their vast and incalculable incompetence, and attempting to steal and sabotage my work laptop were ultimately, and thankfully, a fruitless endeavor. Without their tiresome efforts I surely would have finished a year sooner than I did. 
+    I would also like to acknowledge the UTA Office of Information Technology, whose countless hours spent breaking their own network, designing failure as a feature, ignoring open tickets on their own ticketing system, seeding their contact pages with fake contact information, organizing demonstrations of their vast and incalculable incompetence, and attempting to steal and sabotage my work laptop were ultimately, and thankfully, a fruitless endeavor. Without their tiresome efforts I surely would have finished a year sooner than I did. 
 
 \end{acknowledgements}
 
@@ -290,8 +289,15 @@ Chapter entries with citations refer to the papers in which the work discussed w
 % \subfile{appendix.tex}
 
 % \subfile{bibfile.tex}
-
+\addcontentsline{toc}{chapter}{Works Cited}
 \bibliography{main}
+
+\begin{appendices}
+
+    \chapter{Appendix}\label{chapter:appendix}
+    \subfile{appendix.tex}
+    
+\end{appendices}
 
 %\printindex
 

@@ -375,7 +375,7 @@ The effects of perturbing this parameter on the reconstructed rates are shown in
     \caption{The effects of perturbing the track sample's hole ice parameter on the track sample (left) and cascades sample (right).}\label{fig:track_hole}
 \end{figure}
 
-\subsection{Atmospheric Neutrino Flux}
+\subsection{Atmospheric Neutrino Flux}\label{sec:daemon_sense}
 \index{neutrino!flux}
 Previous studies, in particular the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, have used an uncertainty on the normalization and spectral index for the cosmic ray flux, and modeled uncertainties on the production of pions and kaons in the air showers using the Barr parametrization~\cite{PhysRevD.74.094009}. 
 In this analysis, we now use the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (DaemonFlux) model, which incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results, as both our baseline flux prediction and as a method of parametrizing uncertainties in our flux prediction. 
@@ -385,6 +385,17 @@ From the fits to the data, a correlated prior is determined for the full ensembl
     \centering
     \includegraphics[width=0.7\linewidth]{figures/daemon_cov.png}
     \caption{The correlation between the parameters used in the DaemonFlux model.}\label{fig:daemon_cor}
+\end{figure}
+
+One important thing of note regarding this new flux model is the model prediction for the charge ratio. 
+The fractional difference in the fluxes from the old fluxmodel, which used a Hillas-Gaisser H3a model~\cite{GAISSER2012801}  with the Sybill2.3c interaction model~\cite{Riehn:2017mfm}, to the new DaemonFlux one, is shown in Figure~\ref{fig:fractional_diff}. 
+From this figure we can see that DaemonFlux predicts a smaller $\bar{\nu}$ flux. 
+Since the signature of the sterile neutrino oscillations is a disappearance of $\bar{\nu}_{\mu}$, we expect a suppresion our predicted sensitivity from this change.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/flux_plot_manyratio.png}
+    \caption{The fractional difference between the old flux model and the new flux model. Red represents a smaller flux. It is apparent that the new model predicts a smaller $\bar{\nu}$ flux.}\label{fig:fractional_diff}
 \end{figure}
 
 For this analysis, the effects of perturbing each of these 24 parameters are evaluated after a one-sigma from their central values.
@@ -451,7 +462,7 @@ The effects of pertubing the eight strongest parameters by one sigma are shown f
 
 During air shower evolution, the delicate balance between kaon production, re-interaction, and decay heavily influence the energy spectrum of the resulting neutrinos. 
 The local atmospheric conditions of the temperature, density, and pressure all influence this balance; an effect that has previously been studied in the neutrino spectrum by IceCube~\cite{heix2019seasonal,abbasi2023observation}. 
-We incorporate an uncertainty on the atmospheric density by perturbing the Earth's atmospheric temperature within the ranges specified by NASA's Atmospheric InfraRed Sounder (AIRS) \textbf{CITE} satellite data. 
+We incorporate an uncertainty on the atmospheric density by perturbing the Earth's atmospheric temperature within the ranges specified by NASA's Atmospheric InfraRed Sounder (AIRS)~\cite{airs_ref} satellite data. 
 This satellite provides an open-source dataset for the temperature profile of the atmospheric as a function of atmospheric depth and location. 
 We evaluate the variation in the temperature of the atmosphere over a whole year in a $1^{\circ}\times1^{\circ}$ grid across the Earth's surface. 
 The standard deviation of the predictions from all models are then calculated as functions of zenith and energy. 
@@ -678,7 +689,6 @@ A table showing parameterizations of all included systematic uncertainties, thei
         {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} \\ \hline
         \multicolumn{5}{c}{Conventional Flux} \\\hline
         Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4.0, 4.0] & Both\\
-        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both \\
         daemon\_0$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
         daemon\_1$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
         daemon\_9$^{*}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both\\
@@ -690,6 +700,10 @@ A table showing parameterizations of all included systematic uncertainties, thei
         \multicolumn{5}{c}{Astrophysical Flux} \\\hline
         astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both\\
         astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both\\
+        \multicolumn{5}{c}{Cross Sections} \\\hline
+        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both \\
+        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.0, 1.5]& Both \\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both \\
         \multicolumn{5}{c}{Detector} \\\hline
         hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks \\
         holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4,4]&Cascades\\
