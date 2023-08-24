@@ -167,40 +167,36 @@ Using the new nuisance parameter implementations and Daemonflux gradients, we ev
 The resulting sensitivities are shown in Figure~\ref{fig:comparison} (right) with the previous sensitivities overlain. 
 As mentioned in Section~\ref{sec:daemon_sense}, the observed sensitivities using DaemonFlux are worse than the older 8-year sensitivities. 
 
+As a means of verifying suspicions that the charge-ratio is responsible for the hit to the expected sensitivity. I now will write about the check where I made the charge ratio smaller 
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{figures/2d_compare_llh.png}%
-    \includegraphics[width=0.45\linewidth]{figures/no_bubbles.png}
-    \caption{The 90\% CL sensitivity contours for two degrees of freedom, using only the track sample, as determined for this analysis (orange) and the original 8-year tracks sample (purple).}\label{fig:comparison}
+    \includegraphics[width=0.6\linewidth]{figures/track_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof2.png}
+    \caption{The 90\% CL sensitivity contours for two degrees of freedom, using only the track sample, as determined for this analysis (yellow) and the original 8-year tracks sample (green).}\label{fig:comparison}
 \end{figure}
 
 \subsection{Inject-Recover Systematic Tests}
 
-Pseudo-experimental results, or `realizations,' are first calculated by perturbing each nuisance parameter some amount, individually, and getting the expected event rates without additional statistical variation applied. 
-This is done for each nuisance parameter allowed to float in the fit, for amounts across the whole range given by the parameters' priors. 
+Pseudo-experimental results, or `realizations,' are first calculated by perturbing all nuisance parameters within their priors, simultaneously, and getting the expected event rates without additional statistical variation applied. 
 Fits are then carried out to each of these realizations.
 
-The results are tabulated below in two figures: in Figure~\ref{fig:ir_nopriorpert} the results are shown where the prior on the nuisance parameter is left at its original value; in Figure~\ref{fig:ir_priorpert} the prior is changed to the value of the injected nuisance parameter. 
-For the most part, in Figure~\ref{fig:ir_priorpert}, the exact value injected is recovered by the fitter. 
-In a few cases, notably for the \texttt{aeff\_scale} and \texttt{astro\_norm\_rotated} parameters, there are misfits when the injected parameter pulls near the edge of the range of the parameter.
-Given this only happens for large deviation, it is not of concern. 
-Another feature of note occurs for
-The parameters show a systematic deviation that increases as the injected parameter is further from the nominal value. 
-The parameter most strongly exhibiting this effect is \texttt{vhe3\_piplus\_rot}, where at high, positive, perturbation the fit value is systematically lower; the converse is true for a negative perturbation. 
-This effect appears consistent with a minor bias that can be introduced by the effective likelihood function\footnote{See the discussion in Section~\ref{sect:llh_metric}} in cases of large MC statistical error.  
+The results are tabulated below in two figures: in Figure~\ref{fig:ir_nopriorpert} the results are shown where the priors on the nuisance parameters are left at their original value, and in Figure~\ref{fig:ir_priorpert} the priors are changed to the value of the injected nuisance parameter. 
+In Figure~\ref{fig:ir_priorpert}, the injected values are all recovered. 
 
-In Figure~\ref{fig:ir_nopriorpert}, the flatter a parameter is then the more tightly-constrained its prior is. 
+In Figure~\ref{fig:ir_nopriorpert}, the flatter the trend is then the more tightly-constrained its prior is compared to the shape effects caused by the nuisance parameter itself. 
+Conversely, parameters which recover injected
+The cross section uncertainty and Barr-Z parameters are observed to have a minor effect on the fitting. 
 
 \begin{figure}
     \centering 
-    \includegraphics[width=0.7\linewidth]{figures/inject_recover_syst.png}
-    \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. }\label{fig:ir_nopriorpert}
+    \includegraphics[width=0.7\linewidth]{figures/syst_ir_shuffle_nofix.png}
+    \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. A shaded gray region demonstrates the $1\sigma$ prior width on the nuisance parameter's prior.}\label{fig:ir_nopriorpert}
 \end{figure}
 
 
 \begin{figure}
     \centering 
-    \includegraphics[width=0.7\linewidth]{figures/inject_recover_syst_prior.png}
+    \includegraphics[width=0.7\linewidth]{figures/update_inject_recover_syst_prior.png}
     \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. Priors are adjusted in each fit according to the injected values.}\label{fig:ir_priorpert}
 \end{figure}
 
@@ -218,16 +214,16 @@ In addition to this, the newer flux model predicts a higher charge ratio, result
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/true_sensitivity_Realization_Asimov_sterile_0_cl0.9_dof3.png}
+    \includegraphics[width=0.7\linewidth]{figures/joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.95_dof3}
     \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis.}\label{fig:asimov_sense}
 \end{figure}
 
 \begin{figure}
     \centering
+    \includegraphics[width=0.45\linewidth]{figures/pheno_joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/comparison.png}
     \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:asimov_compare}
 \end{figure}
-
 
 
 \subsection{Systematic Impact Tests}
@@ -259,6 +255,8 @@ Additionally, three more points were chosen off-grid at various points.
 Of those three, one was selected as the recovered best-fit point from the 8-year track analysis. 
 Each of these points are listed in Table~\ref{table:injected_signals}.
 Then, we ran a full fit-scan on an Asimov realization generated for each of these simulated signals. 
+Injected values are recovered in all cases where a signal is injected at a grid-point. 
+For the cases where a signal is injected near a grid point, the best fit is sufficiently close.
 
 \begin{table}
     \centering
@@ -279,15 +277,41 @@ Then, we ran a full fit-scan on an Asimov realization generated for each of thes
     \caption{Sterile neutrino mixing angles at which Asimov realizations were generated. Entries marked with $\dag$ were generated off of the grid used for fit scans.}\label{table:injected_signals}
 \end{table}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_0_sterile_1_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_1_sterile_1_cl0.9_dof3.png}
+    \caption{To be added later}
+\end{figure}
 
-\textit{Discussion of the constraints}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_2_sterile_4_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_3_sterile_4_cl0.9_dof3.png}
+    \caption{To be added later}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_5_sterile_1_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_6_sterile_1_cl0.9_dof3.png}
+    \caption{To be added later}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_8_sterile_7_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_9_sterile_4_cl0.9_dof3.png}
+    \caption{To be added later}
+\end{figure}
 
 \section{Unblinding Procedure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/Proposed_unblinding_plan.jpg.png}
-    \caption{The unblinding procedure used in this analysis.}\label{fig:unblind}
+    \includegraphics[width=0.7\linewidth]{figures/unblinding.png}
+    \caption{The unblinding procedure used in this analysis and expected probabilities of satisfying the stop condition.}\label{fig:unblind}
 \end{figure}
 
 The unblinding procedure used in this analysis is shown in Figure~\ref{fig:unblind}. 
