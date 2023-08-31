@@ -9,16 +9,29 @@
 While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can have non-trivial effects on the reconstruction of events. 
 These `low-level' sources of systematic uncertainty typically, and historically, required a dedicated MC sample where the parameter was perturbed by some fixed, discrete, amount. 
 This method becomes intractable when multiple, highly correlated, sources of systematic uncertainty are present. 
-To address this, a new method for efficiently determining the effects of these parameters was developed, and is discussed at-length in Reference~\cite{Aartsen_2019_snow}.
-%This is called the \textit{Snowstorm}\footenote{The technique formerly known as \textit{MultiSim} method.
+Such is the case for the scattering and absorption lengths as a function of depth in IceCube, which are influenced by many forms of optical impurity. 
+To address this, a new method for efficiently determining the effects of these parameters was developed for IceCube analyses: SnowStorm\footnote{The name SnowStorm reflects the idea that each event in the sample is distinct, like each snowflake in a snowstorm~\cite{Aartsen_2019_snow}}. 
+It is discussed at-length in Reference~\cite{Aartsen_2019_snow}.
+Several Snowstorm implementations are used in this analysis, and so it is introduced in the section that follows. 
 
-Snowstorm relies on two underlying assumptions
-\begin{itemize}
-    \item The effects of systematic uncertainty are small enough that that they can be treated perturbatively 
-    \item MC statistical error is small compared to the data
-\end{itemize}
-In this context, one can sum over a Monte Carlo ensemble with correlating to a different set of nuisance parameters $\vec{\eta}$, which are distributed according to a prior function $P(\vec{\eta})$.
-We also require that this prior function is normalized and symmetric for each nuisance parameter $\eta_{i}$, such that 
+Snowstorm relies on two underlying assumptions which are generally the same for most commonly used methods of systematic uncertainty estimation.
+First, it assumes the effects of systematic uncertainty are sufficiently small such as to be treated perturbatively. 
+Second, it assumes that the Monte Carlo statistical uncertainty is small compared to the data.
+
+We consider some set of parameters $\vec{\eta}$, called ``nuisance parameters,'' which are imperfectly known and yet contribute to the predicted final event rates. 
+We wish to, given some choice of $\vec{\eta}$, calculate a predicted event rate $\psi_{\vec{\rho}, \vec{\eta}}(E_{\alpha})$, where a central prediction is denoted $\psi_{\vec{\rho}, \vec{0}}(E_{\alpha})$.
+
+A SnowStorm Monte Carlo ensemble consists of a single sample where every constituent event draws a unique set of nuisance parameters $\vec{\eta}$ from prior constraints. 
+By careful manipulation of this SnowStorm ensemble it can then be possible to extract the effects of these variations on analysis-space. 
+A SnowStorm ensemble's distinction from classical MC methods for systematic uncertainty evaluation is shown in Figure~\ref{fig:snostorm_grad}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{./figures/wacky_snowstorm.png}
+    \caption{On the left: an illustration of the difference between the classical systematic uncertainty implementation of discrete Monte Carlo samples (red squares) and the single SnowStorm ensemble (blue dots). On the right: }\label{fig:snostorm_grad}
+\end{figure}
+
+We first require that tje prior function describing the nuisance parameters $\vec{\eta}$ is normalized and symmetric for each $\eta_{i}$, such that 
 \begin{align}
     P(\eta_{i}, \vec{\eta}_{j\neq i}) &= P(-\eta_{i},\vec{\eta}_{j\neq i}) & &\forall i\\
     \int d^{N}\eta P(\vec{\eta}) &= 1
@@ -27,14 +40,50 @@ We explicitly choose a prior function for the nuisance parameters that is a prod
 \begin{equation}
     P(\vec{\eta}) = \prod_{i} \dfrac{1}{\sigma \sqrt{2\pi}} e^{-\eta_{i}^{2}/2\sigma^{2}}.
 \end{equation}
+The effects of these nuisance parameters on analysis space can be calculted, in principle, if we know the gradients about the central distribution:
+\begin{equation}\label{eq:supersnow}
+    \psi_{\vec{\rho}, \vec{\eta}} = \psi_{\vec{\rho}, \vec{0}}(E_{\alpha}) + \vec{\eta}\cdot\vec{\nabla}_{\eta}\left[\psi_{\vec{\rho}, \vec{\eta}}(E_{\alpha})\right]_{\vec{\eta}=0} + \mathcal{O}(\eta^{2}).
+\end{equation}
+Since we have assumed that the effects are sufficiently small, we can neglect the higher-order terms. 
+This can be verified by considering the integrated prediction of the SnowStorm sample:
+\begin{align}
+    \psi_{\vec{\rho}}^{SnowStorm} &= \int d \vec{\eta} P(\vec{\eta})\left[ \psi_{\vec{\rho}, \vec{0}} + \vec{\eta}\cdot\vec{\nabla}_{\eta}\left[\psi_{\vec{\rho}, \vec{\eta}} \right]_{\vec{\eta}=0} + \mathcal{O}(\eta^{2}) \right] \\
+    &= \psi_{\vec{\rho}, \vec{0}}  + \int d\vec{\eta} P(\eta)\mathcal{O}(\eta^{2})
+\end{align}
+If the non-linear term here is smaller than the available statistical uncertainty, then this test passes, and so Equation~\eqref{eq:supersnow} reduces to
+\begin{align} 
+\psi_{\vec{\rho}, \vec{\eta}}&= \psi_{\vec{\rho}, \vec{0}} + \vec{\eta}\cdot\vec{G}_{\vec{\rho}} & \vec{G}_{\vec{\rho}}&\equiv \vec{\nabla}_{\eta}\left[\psi_{\vec{\rho}, \vec{\eta}}\right]_{\vec{\eta} =\vec{0}}
+\end{align}
 
-WRITE more
+From the single SnowStorm ensemble, the method used for gradient extraction involves the sub-division of the full ensemble by cutting it along different directions.
+For example, to extract the the $\eta_{i}$ gradient, we divide it along the $\eta_{i}=0$ plane into sub-samples $\psi_{\vec{\rho}}^{i+}$ and $\psi_{\vec{\rho}}^{i-}$, which each encode the predictions:
+\begin{align} 
+    \psi_{\vec{\rho}}^{i+} &= \int_{0}^{\infty}d\eta_{i} \int_{-\infty}^{\infty} d^{N-1} \eta P(\vec{\eta})\left[ \psi_{\vec{\rho}, \vec{0}} + \vec{\eta}\cdot\vec{G}_{\vec{\rho}} \right] \\
+    \psi_{\vec{\rho}}^{i-} &= \int_{-\infty}^{0}d\eta_{i} \int_{-\infty}^{\infty} d^{N-1} \eta P(\vec{\eta})\left[ \psi_{\vec{\rho}, \vec{0}} + \vec{\eta}\cdot\vec{G}_{\vec{\rho}} \right] 
+\end{align}
+By symmetry, the integrals along directions other than $i$ give no contribution. The integration then yields
+\begin{equation}
+    \psi_{\vec{\rho}}^{i\pm} = \dfrac{1}{2} \psi_{\vec{\rho}, \vec{0}} \pm \dfrac{\sigma}{\sqrt{2\pi}}G_{\vec{\rho}, i},
+\end{equation}
+from which we can extract the gradient in that direction
+\begin{equation}
+    G_{\vec{\rho}, i} = \dfrac{1}{\sigma}\sqrt{\dfrac{\pi}{2}}\left(\psi_{\vec{\rho}}^{i+} - \psi_{\vec{\rho}}^{i-} \right).
+\end{equation} 
+By then cutting the ensemble along each direction sequentially, the full gradient vector can be extracted completely. 
+
 
 Two Monte Carlo samples were generated to evaluate the effects of various sources of systematic uncertainty on analysis space. 
-In one, a sample was generated while allowing the amplitudes and phases, for a Fourier series describing the depth-dependence of the absorption length and scattering length, to vary amounts shown in Table TABLE. 
-This is described in detail in Subsection~\ref{sec:bulk}.
-In the other sample the DOM efficiency, both unified hole ice parameters were allowed to vary, a parameter effecting ice anisotropy, and two parameters effecting bulk absorption and scattering lengths were allowed to vary. The anisotropy, bulk absorption, and bulk scattering gradients were not used in this analysis. 
-Priors used in this sample are shown in Table~\ref{table:snowstorm2}. 
+In one, a sample was generated while allowing the amplitudes and phases, for a Fourier series describing the depth-dependence of the absorption length and scattering length, to vary amounts shown in Figure~\ref{fig:ice_param_widths}. 
+A full description of this and the process of extracting these widths from calibration is described in detail in Subsection~\ref{sec:bulk}, and the priors widths used in the generation of this SnowStorm MC sample are shown in Table~\ref{table:snowstorm2}. 
+In the other sample the DOM efficiency (Section~\ref{subsect:domeff}), both unified hole ice parameters (Section~\ref{sec:hole_ice}), a parameter effecting ice anisotropy, and two parameters effecting bulk absorption and scattering lengths were allowed to vary. 
+The anisotropy, bulk absorption, and bulk scattering gradients were not used in this analysis. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/ice_amplitudes.png}
+    \includegraphics[width=0.7\linewidth]{figures/ice_phases.png}
+    \caption{The widths of the phases and amplitudes, as determined from calibration data, for a Fourier series describing the depth-dependence of absorption length and scattering length in ice at IceCube.}\label{fig:ice_param_widths}
+\end{figure}
 
 \begin{table}
     \centering
@@ -44,7 +93,7 @@ Priors used in this sample are shown in Table~\ref{table:snowstorm2}.
         Scattering & uniform & [0.9,1.1] & bulk effect, not used\\
         Absorption & uniform & [0.9,1.1] & bulk effect, not used\\
         Anisotropy Scale & uniform & [0,2] & equal to 0-15\%, not used \\
-        DOM Efficiency & uniform & [0.9, 1.1] & values shifted down by 0.27 \\
+        DOM Efficiency & uniform & [0.9, 1.1] &  \\
         Unified HoleIce & uniform & \shortstack{p0 $\in$ [-0.84, 0.3] \\ p1 $\in$ [-0.134, 0.05]} & 
     \end{tabular}
     \caption{A table listing all SnowStorm systematic perturbations and their ranges used in the nuisance parameter MC set.}\label{table:snowstorm2}
@@ -53,11 +102,12 @@ Priors used in this sample are shown in Table~\ref{table:snowstorm2}.
 \subsection{Systematic Downsizing}\label{sect:down}
 
 In this analysis, several sets of nuisance parameters are correlated to various degrees: the astrophysical flux, the cosmic ray flux model and hadronic model, and the absorption and scattering lengths as functions of depth in IceCube. 
-A new method for (1) fitting these correlated priors in an uncorrelated way and (2) representing the effects with fewer parameters was developed and adopted. 
+PISA~\cite{pisa}, the fitting framework used for this analysis, is incompatible with correlated priors due to the details of its construction. 
+To account for this, a new method for (1) fitting these correlated priors in an uncorrelated way and (2) representing the effects with fewer parameters was developed and adopted. 
 
-Considering a set of $n$ nuisance parameters $\vec{x}$, each with mean $\mu$.
-An $n\times n$ matrix, $\Sigma$ defines the positive-definite covariance between these nuisance parameters. 
-If we assume the distribution is jointly normally distributed, then the probability density function defining the odds of a set of nuisance parameters $\vec{y}$ being the ``true'' values is given by
+Consider a set of $n$ nuisance parameters $\vec{x}$ with means $\vec{\mu}$.
+A positive-definite, $n\times n$, matrix $\Sigma$ defines the covariance between the nuisance parameters. 
+If we assume the distribution is jointly normally distributed, then the probability density function defining the propability of a set of nuisance parameters $\vec{y}$ being the ``true'' values is given by
 \begin{equation}
     P(\vec{y}) = \dfrac{1}{(2\pi)^{n/2}\left|\Sigma\right|^{1/2}}\exp\left[-\tfrac{1}{2}(\vec{y}-\vec{\mu})^{T}\Sigma^{-1}\left(\vec{y}-\vec{\mu}\right)\right]
 \end{equation}
@@ -67,7 +117,7 @@ For consistency with goodness of fits tests and usefulness in minimization appli
 \begin{equation}
 \mathcal{L} \equiv \log P = -\tfrac{1}{2}\vec{p}^{T}\Sigma^{-1}\vec{p} + C
 \end{equation}
-We diagonalize this matrix by considering a transformation $U\in SO(N)$ satisfying $A = U\Sigma^{-1}U^{T}$, where $A$ is diagonal. 
+We diagonalize this matrix by considering a transformation $U\in SO(N)$ satisfying $A = U\Sigma^{-1}U^{T}$, where $A$ is a diagonal matrix with $1/\lambda_{i}$'s on the diagonal. 
 \begin{equation}
     \mathcal{L} \equiv \log P = -\tfrac{1}{2}\vec{p}^{T} U^{T} U\Sigma^{-1} U^{T} U\vec{p}
 \end{equation}
@@ -76,14 +126,15 @@ or where the primed coordinates are the transformed coordinates,
     \mathcal{L} \equiv \log P = -\tfrac{1}{2}(\vec{p}')^{T} A \vec{p}'.
 \end{equation}
 Thus, we can always rotate a correlated nuisance parameter basis to one where the priors on the parameters are uncorrelated. 
-
-To solve for the transformation, all we really have to do is move some terms around starting from the construction of $A$ and $U$, 
-\begin{equation} 
-    \Sigma U =  U\left[ \begin{array}{cccc}\lambda_{!} & 0 & \ldots & 0 \\
+To solve for the transformation, all we have to do is move some terms around starting from the construction of $A$ and $U$, 
+\begin{align} 
+    A &= U\Sigma^{-1}U^{T}\\
+    A^{-1}&= U^{T} \Sigma U \\
+    \Sigma U &=  U\left[ \begin{array}{cccc}\lambda_{1} & 0 & \ldots & 0 \\
         0 & \lambda_{2} & \ldots & 0 \\
         \vdots & \vdots & \ddots & \vdots \\
         0 & 0 & \ldots & \lambda_{n} \end{array}\right].
-\end{equation}
+\end{align}
 By re-writing the transformation matrix $U$ as a vector of its column vectors $\eta_{i}$, $U=\left[\begin{array}{ccc}\eta_{1} & \ldots & \eta_{n} \end{array}\right]$, then the equation can be expressed simply as 
 \begin{equation}
     \Sigma \eta_{i} = \lambda_{i}\eta_{i}.
@@ -97,7 +148,51 @@ We lay out a procedure then for any given covariance matrix
     \item Fits are performed in the uncorrelated basis - to evaluate effects of systematic uncertainty we transform whatever point is in question back to the correlated basis and evaluate the effects using the original parametrization. 
 \end{enumerate}
 
-\section{Applications}
+\section{Analysis Applications}
+
+
+A table showing parameterization of all included systematic uncertainties, their central values, their prior widths, the event morphologies they apply to, and notes about the implementation are included in Table~\ref{table:nutrition}.
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | ccccc}\rowcolor{blue!25}
+        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} & {\large \textbf{Implementation}}\\ \hline
+        \multicolumn{6}{c}{Conventional Flux} \\\hline
+        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4, 4] & Both &  Spline\\
+        Barr WM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Barr WP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Barr YM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Barr YP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Barr ZM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Barr ZP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
+        Spectral Shift $\Delta \gamma$ & 0.0 & $0.0\pm0.25$ & [-4, 4]& Both &  \\
+        Normalization $\Phi_{conv}$ & 1.0 & $1.0\pm0.4$ & [0, 4] & Both & \\
+        \multicolumn{6}{c}{Astrophysical Flux} \\\hline
+        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both & \\
+        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both & \\
+        \multicolumn{6}{c}{Cross Sections} \\\hline
+        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both & Spline \\
+        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both & Spline \\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both &  nuSQuIDS Gradient\\
+        \multicolumn{6}{c}{Detector} \\\hline 
+        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks & \\
+        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
+        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
+        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
+        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
+        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
+        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
+        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
+        ice\_grad\_0\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4] & Tracks & \\
+        ice\_grad\_1\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4]& Tracks & \\
+        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both & Spline \\
+        \multicolumn{6}{c}{Muons} \\\hline
+        Normalization $\Phi_{muon}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Cascades & \\        
+    \end{tabular}
+    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ priors calculated from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$, $\dag$, or $\ddag$.}\label{table:nutrition}
+\end{table}
+
 \subsection{DOM Efficiency}\label{subsect:domeff}
 
 \paragraph{Cascades}
@@ -137,12 +232,10 @@ For each DOM Efficiency, a 2D spline was done to the expected number of events i
 Each of these splines was then stacked into a 3D spline, which allows for the continuous sampling of the event rate as a function of zenith, energy, and DOM efficiency. 
 The effects on overall reconstructed even rates are shown for tracks on the left of Figure~\ref{fig:domeff_analysis}.
 
-Both tracks and cascades were observed to be effected nearly identically by the uncertainty in DOM efficiency. 
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{figures/systematics/domeff.png}
-    \caption{The effects of perturbing the DOM efficiency on expected numbers of tracks (left) and cascades (right).}\label{fig:domeff_analysis}
+    \caption{The effects of perturbing the DOM efficiency on expected numbers of tracks (left) and cascades (right). The shape effect is not shown here to demonstrate how the DOM efficiency in cascades is mostly a normalization effect}\label{fig:domeff_analysis}
 \end{figure}
 
 \subsection{Bulk Ice}\label{sec:bulk}
@@ -163,11 +256,11 @@ To calibrate these amplitudes and phases and to determine the covariance between
 These use the 12 on-board LEDs mounted in the housings of each DOM. 
 The LEDs on all DOMs of string 63 are flashed, and then the measured light throughout IceCube, minus string 63, is logged. 
 Then, PPC simulations were carried out for various, perturbed, ice models were performed. 
-PPC simulations were performed by perturbing the amplitudes and phases for the first four modes in the Fourier series expansion of the depth dependence of absorption and scattering in the bulk ice.
+PPC simulations were performed by perturbing the amplitudes and phases for the first five modes in the Fourier series expansion of the depth dependence of absorption and scattering in the bulk ice.
 PPC simulations were also performed by perturbing various combinations of these modes. 
 These PPC simulations were used, in conjunction with the measured flasher data, to quantify the likelihood of the observed data assuming different ice models,
 
-For each amplitude and phase, these likelihoods were calculated for icemodels where the first five Fourier amplitudes and the first four Fourier phases were shifted. 
+For each amplitude and phase, these likelihoods were calculated for icemodels where the first five Fourier amplitudes and the first five Fourier phases were shifted. 
 These values were shifted large amounts first, from which an approximate minimum and width was determined. 
 Then, more granular PPC simulations were carried out by varying these amplitudes and phases about the approximate centers. 
 Off-axis simulations were also carried out by shifting every possible combination of nuisance parameters, either both positively or both negatively, by varying amounts. 
@@ -177,7 +270,8 @@ For each amplitude and phase a quadratic fit was then done to the log likelihood
 \begin{equation}
     \mathcal{L}(\eta_{i}) = A_{i}\eta_{i}^{2} + B_{i}\eta_{i} + C_{i}
 \end{equation}
-where $\eta_{i}$ is for any one amplitude or phase. These fits are shown in Figure~\ref{fig:linearfit} after being normalized by the minimum likelihood found in each fit, and were carried out to verify that these nuisance parameters are normally distributed about the minima. 
+where $\eta_{i}$ is for any one amplitude or phase. These fits are shown in Figure~\ref{fig:linearfit} after being normalized by the minimum likelihood found in each fit, and were carried out to verify that these nuisance parameters are normally distributed about the minima.
+The widths of each of these distributions are shown in Figure~\ref{fig:ice_param_widths}. 
 A similar scan was then done for combinations of nuisance parameters by shifting each possible pairing of them by amounts proportional to the widths of the nuisance parameters. 
 
 \begin{figure}
@@ -293,7 +387,7 @@ The strongest five are shown in Figure~\ref{fig:rotata}.
 \end{figure}
 
 
-\subsection{Hole Ice}
+\subsection{Hole Ice}\label{sec:hole_ice}
 
 The hole ice represents a bubbly, refrozen region of ice around the DOMs. 
 The bubbles, which formed during the refreezing, greatly decrease the scattering length of light. 
@@ -390,7 +484,7 @@ So, we allow for a conservative 40\% uncertainty on the conventional flux normal
 
 We also parametrize an uncertainty on the shape of the conventional neutrino flux, which has been measured to approximately follow a power-law with an energy dependence of $E^{-2.65}$, with a spectral shift $\Delta \gamma$,
 \begin{equation}
-\Phi(E, \Delta gamma) = \Phi(E)\left(\dfrac{E}{E_{0}}\right)^{-\Delta\gamma}
+\Phi(E, \Delta \gamma) = \Phi(E)\left(\dfrac{E}{E_{0}}\right)^{-\Delta\gamma}
 \end{equation}
 where the pivot $E_{0}=2.2$TeV has been chosen to approximately preserve the normalization. 
 Existing measurements of the cosmic ray flux are shown in Table~\ref{tab:spectral}. 
@@ -407,7 +501,7 @@ Existing measurements of the cosmic ray flux are shown in Table~\ref{tab:spectra
     \caption{Measurements of the slope of the cosmic ray flux from several experiments.}\label{tab:spectral}
 \end{table}
 
-More recently, calculations have shown a softening in the cosmic ray spectrum at energies above 10TeV\cite{LIPARI2020102441}. 
+More recently, calculations have shown a softening in the cosmic ray spectrum at energies above 10TeV~\cite{LIPARI2020102441}. 
 To account for this, and previous measurements, we use a prior width on $\Delta \gamma$ of 0.25. 
 
 \begin{figure}
@@ -417,7 +511,7 @@ To account for this, and previous measurements, we use a prior width on $\Delta 
 \end{figure}
 
 
-Like in the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, parametrize the uncertainty in the production of pions and kaons in air showers using the model developed by Barr et. al.~\cite{PhysRevD.74.094009} (refered to as the Barr Parametrization from here on). 
+Like in the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, we parametrize the uncertainty in the production of pions and kaons in air showers using the model developed by Barr et. al.~\cite{PhysRevD.74.094009} (refered to as the Barr Parametrization from here on). 
 
 Our nominal flux predictions use the Hillas-Gaisser H3a~\cite{GAISSER2012801} cosmic ray flux model. 
 This model is broken into five distinct mass-range populations: p, He, CNO, Fe, and MgSi; each of which correlate to a range of cosmic ray masses. 
@@ -434,11 +528,11 @@ In the lab frame with the target at rest,
     x = \dfrac{ 2M_{p}^{2} - p_{4}^{2}}{2M_{p}^{2}}
 \end{equation}
 where $p_{4}$ is the vector four-momentum of the hadronic component. 
-Regions in this phase-space with similar constraints are established, and enumerated, shown in Figure FIG from Ref~\cite{PhysRevD.74.094009}. 
+Regions in this phase-space with similar constraints are established, and indexed, shown in Figure~\ref{fig:bar_letters} from Ref~\cite{PhysRevD.74.094009}. 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{./figures/barr_letters.png}
-    \caption{Uncertainty regions for the Barr parametrization.}
+    \caption{Uncertainty regions for the Barr parametrization.}\label{fig:bar_letters}
 \end{figure}
 The uncertainties with in each region are fully correlated, and fully uncorrelated between different regions.
 Due to the strong effect of the charge ratio on this signal's analysis, we double the number of parameters in order to independently effect mesons and anti-mesons. 
@@ -456,7 +550,7 @@ As shown in References~\cite{Aartsen_2020, Aartsen_2020_prd, axani2020sterile}, 
 \end{figure}
 
 
-\subsection{Atmospheric Neutrino Flux}\label{sec:daemon_sense}
+\subsection{DaemonFlux}\label{sec:daemon_sense}
 \index{neutrino!flux}
 Previous studies, in particular the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, have used an uncertainty on the normalization and spectral index for the cosmic ray flux, and modeled uncertainties on the production of pions and kaons in the air showers using the Barr parametrization~\cite{PhysRevD.74.094009}. 
 In this analysis, we now use the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (DaemonFlux) model, which incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results, as both our baseline flux prediction and as a method of parametrizing uncertainties in our flux prediction. 
@@ -539,7 +633,7 @@ The effects of pertubing the eight strongest parameters by one sigma are shown f
     \caption{The shape-effect of perturbing four more of the strongest uncorrelated DaemonFlux parameters for tracks and cascades.}\label{fig:daemon_analysis_two}
 \end{figure}
 
-\subsection{Atmospheric Density}
+\subsection{Atmospheric Density}\label{sec:atm_dense}
 
 During air shower evolution, the delicate balance between kaon production, re-interaction, and decay heavily influence the energy spectrum of the resulting neutrinos. 
 The local atmospheric conditions of the temperature, density, and pressure all influence this balance; an effect that has previously been studied in the neutrino spectrum by IceCube~\cite{heix2019seasonal,abbasi2023observation}. 
@@ -577,7 +671,7 @@ The 1976 United States Standard atmosphere~\cite{united1976u} was also used as a
 
 
 
-\subsection{Kaon-nucleon Total Cross-Section}
+\subsection{Kaon-nucleon Total Cross-Section}\label{sec:kaon_loss}
 
 The majority of the neutrino flux at the energies relevant to this analysis come from the decays of Kaons, as shown in Figure~\ref{fig:parentparty}.
 
@@ -603,7 +697,7 @@ Future proton-Oxygen collisions in Run 3 at the LHC could constrain the uncertai
     \caption{The effects in analysis space on tracks (left) and cascades (right) after perturbing the kaon-nucleon cross-section by 7.5\%.}\label{fig:kaon}
 \end{figure}
 
-\subsection{Astrophysical Neutrino Flux}
+\subsection{Astrophysical Neutrino Flux}\label{sec:astro_flux}
 
 Astrophysical neutrinos are a background to this analysis; it is modeled here as an isotropic, unbroken power law spectrum with equal contributions from each neutrino variety.
 The priors are the same as for the previous track analyses~\cite{Aartsen_2020, Aartsen_2020_prd}, which use the IceCube High-Energy Starting Events sample~\cite{2021hese} to construct a correlated prior for the normalization and spectral index. 
@@ -619,7 +713,7 @@ were $\Delta_{\gamma_{\text{astro}}}$ represents a shift in the spectral index, 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{figures/hese.png}
-    \caption{Constraints on the normalization and spectral index of the astrophysical neutrino flux. Contributions to the overall prior are shown from the Diffuse six-year sample CITE, the multi-year cascades sample, and from the HESE sample. Figure from Ref~\cite{Aartsen_2020_prd}.}\label{fig:hese}
+    \caption{Constraints on the normalization and spectral index of the astrophysical neutrino flux. Contributions to the overall prior are shown from the IceCube Northern tracks sample~\cite{stettner2019measurement}, the multi-year cascades sample~\cite{Aartsen_2020_cascades}, and from the IceCube high-energy starting events sample~\cite{2021hese}. Figure from Ref~\cite{Aartsen_2020_prd}.}\label{fig:hese}
 \end{figure}
 
 Two new uncorrelated nuisance parameters are constructed following the same procedures of Section~\ref{sect:down}. The effects of perturbing each of these new, uncorrelated, parameters are shown in Figure~\ref{fig:recoastro} with tracks on the left and cascades on the right.
@@ -814,9 +908,8 @@ A parameter allowing for the overall normalization of the entire neutrino flux i
 It is given a conservative 20\% prior driven by a number of effects: livetime O(<1\%), ice density O(<1\%), volume O(9\%)~\cite{Sandrock_2020}, and the neutrino-ice cross-section O(10\%)~\cite{candido2023neutrino}. 
 This normalization does not effect the cosmic ray muon background; it has an independent normalization factor. 
 
+\iffalse
 \subsection{All Systematic Uncertainties}
-
-A table showing parameterizations of all included systematic uncertainties, their central values, and the prior widths, are included in Table~\ref{table:nutrition}.
 
 \begin{table}
     \centering
@@ -859,5 +952,6 @@ A table showing parameterizations of all included systematic uncertainties, thei
     \end{tabular}
     \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients, Daemonflux, and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ widths determined from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$,$**$ $\dag$, or $\ddag$.}\label{table:nutrition}
 \end{table}
+\fi
 
 \end{document}
