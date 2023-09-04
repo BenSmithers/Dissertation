@@ -8,10 +8,9 @@
 \subsection{Snowstorm}
 While some sources of systematic uncertainty can be easily addressed through re-weighting, such as uncertainties on cosmic ray fluxes, others can have non-trivial effects on the reconstruction of events. 
 These `low-level' sources of systematic uncertainty typically, and historically, required a dedicated MC sample where the parameter was perturbed by some fixed, discrete, amount. 
-This method becomes intractable when multiple, highly correlated, sources of systematic uncertainty are present. 
-Such is the case for the scattering and absorption lengths as a function of depth in IceCube, which are influenced by many forms of optical impurity. 
-To address this, a new method for efficiently determining the effects of these parameters was developed for IceCube analyses: SnowStorm\footnote{The name SnowStorm reflects the idea that each event in the sample is distinct, like each snowflake in a snowstorm~\cite{Aartsen_2019_snow}}. 
-It is discussed at-length in Reference~\cite{Aartsen_2019_snow}.
+This method becomes intractable when multiple, highly correlated, sources of systematic uncertainty are present, such as in the case of the dust concentration as a function of depth in IceCube, which is discussed in Reference~\cite{Aartsen_2013}. 
+The dust, or any optical impurities, influence the scattering and absorption length of light in ice and can therefore have complicated effects on reconstructed energy and direction of events.
+To address these particularly complex source of systematic uncertainty, a new method for efficiently determining the effects of these parameters was developed for IceCube analyses and published in Reference~\cite{Aartsen_2019_snow}: SnowStorm\footnote{The name SnowStorm reflects the idea that each event in the sample is distinct, like each snowflake in a snowstorm.}
 Several Snowstorm implementations are used in this analysis, and so it is introduced in the section that follows. 
 
 Snowstorm relies on two underlying assumptions which are generally the same for most commonly used methods of systematic uncertainty estimation.

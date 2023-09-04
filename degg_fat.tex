@@ -14,7 +14,7 @@ Two new optical sensors will be installed in Upgrade: the Multi-PMT Digital Opti
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/ICUpgradeLayout_V4b.jpg}
+    \includegraphics[width=0.7\linewidth]{figures/ICUpgradeLayout_V4b.jpg}
     \caption{A top-down view of the planned installation locations of IceCube Upgrade strings relative to existing IceCube and DeepCore strings.}
     \label{fig:upgrade_layout}
 \end{figure}
@@ -95,7 +95,26 @@ A typical high voltage found is around 1500V.
 
 \subsection{Analyses}
 
-Once the measurements are taken, data are transferred from the local DAQ PC to the grappa server system in Chiba. Several analyses are then performed, as described in Ref~\cite{degg}. 
+Once the measurements are taken, data are transferred from the local DAQ PC to the grappa server system in Chiba. Several analyses are then performed, as described in Ref.~\cite{degg}. 
+Tests are then ran on the results of these analyses, which are enumerated in Table TAB. 
+
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c|cc}\rowcolor{blue!25}
+        Quantity & Temperature & Criteria\\\hline
+        HV at 1e7 Gain & Various & $1000\leq x \leq 2000$ \\
+        darknoise max & Various & $x \leq 4000$ \\
+        darknoise $\delta t$ & Various & $x \leq 3.5$ \\        
+        timing resolution & Various & $x \leq 3.5$ \\
+        $Q_{obs}/Q_{ideal}$ at 200pe & -20, -5 & $0.6\leq x$ \\
+        $I_{obs}/I_{ideal}$ at 200pe & -20, -5 & $0.6\leq x$ \\
+        double pulse separation & -20 & $x \leq 4000$ \\
+        double pulse peak-to-valley & -20, -5 & $1.5\leq x\leq 2.0$ \\
+        double pulse peak-to-valley 2 & -20, -5 & $1.75\leq x\leq 2.8$ \\
+    \end{tabular}
+    \caption{The tests ran}
+\end{table}
 
 The most important of these is the gain analysis. 
 We verify that each PMT is capable of reaching a gain of 1e7 at a high voltage between 1-2 kV. 
