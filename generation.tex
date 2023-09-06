@@ -4,21 +4,14 @@
 
 \begin{document}
 
-\section{Photon Propagation}
+\section{Continued Simulation}
 
-After the event selection generated particles are propagated in-ice using PROPOSAL~\cite{Koehne:2013gpa} and photon propagation is simulated using CLSim. 
-
-\section{Detector Simulation}
-
-\section{Filters}
-
-\subsection{Level 1}
-
-The online filter
-
-\subsection{Level 2}
-
-The offline filter 
+After the event selection generated particles are propagated and their energy losses simulated in-ice using PROPOSAL~\cite{Koehne:2013gpa}.
+Low energy cascades are represented as stationary light sources, while those above 1TeV are elongated along the cascade trajectory. 
+Photon propagation, the most expensive simulation step, is done using CLSim~\cite{CLSim}. 
+The detector and electronics response to light is then simulated using proprietary software. 
+This accounts for DOM noise, wavelength and angular acceptance of the PMTs, and the signal digization process.
+From here, MC and data are treated identically: the detector trigger is ran, a simple filter is applied, and a basic reconstruction is carried out on the passing events. 
 
 \subsection{Level 3 - Cascades}
 
