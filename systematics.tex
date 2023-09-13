@@ -604,12 +604,13 @@ As shown in References~\cite{Aartsen_2020, Aartsen_2020_prd, axani2020sterile}, 
 \end{figure}
 
 
-\subsection{DaemonFlux}\label{sec:daemon_sense}
+\subsection{Alternative Conventional Flux Uncertainty}\label{sec:daemon_sense}
 \index{neutrino!flux}
 Previous studies, in particular the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, have used an uncertainty on the normalization and spectral index for the cosmic ray flux, and modeled uncertainties on the production of pions and kaons in the air showers using the Barr parametrization~\cite{PhysRevD.74.094009}. 
-In this analysis, we now use the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (DaemonFlux) model, which incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results, as both our baseline flux prediction and as a method of parametrizing uncertainties in our flux prediction. 
-This model implements parameters effecting particle production rates of protons, neutrons, $\pi^{\pm}$, and $K^{\pm}$ at four different energy scales, along with six parameters from a principal component analysis of a global spline fit of the cosmic ray flux. 
-From the fits to the data, a correlated prior is determined for the full ensemble of 24 parameters, as shown in Figure~\ref{fig:daemon_cor}.
+An alternative model for conventional flux uncertainties, the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (daemonflux) model was also inestigated. 
+Daemonflux incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results to estimate total uncertainty on a gobal spline fit~\cite{dembinski2017datadriven} to the coscmic ray flux and the resulting neutrino flux. 
+This model implements parameters effecting particle production rates of protons, neutrons, $\pi^{\pm}$, and $K^{\pm}$ at four different energy scales, along with six parameters from a principal component analysis of the global spline fit of the cosmic ray flux. 
+From the fits to the data, a correlated prior is evaluated for the full ensemble of 24 parameters, as shown in Figure~\ref{fig:daemon_cor}.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{figures/daemon_cov.png}
@@ -617,7 +618,7 @@ From the fits to the data, a correlated prior is determined for the full ensembl
 \end{figure}
 
 One important thing of note regarding this new flux model is the model prediction for the charge ratio. 
-The fractional difference in the fluxes from the old fluxmodel, which used a Hillas-Gaisser H3a model~\cite{GAISSER2012801}  with the Sybill2.3c interaction model~\cite{Riehn:2017mfm}, to the new DaemonFlux one, is shown in Figure~\ref{fig:fractional_diff}. 
+The fractional difference in the fluxes from the old fluxmodel, which used a Hillas-Gaisser H3a model~\cite{GAISSER2012801} with the Sybill2.3c interaction model~\cite{Riehn:2017mfm}, to daemonflux, is shown in Figure~\ref{fig:fractional_diff}. 
 From this figure we can see that DaemonFlux predicts a smaller $\bar{\nu}$ flux. 
 Since the signature of the sterile neutrino oscillations is a disappearance of $\bar{\nu}_{\mu}$, we expect a suppresion our predicted sensitivity from this change.
 
@@ -831,7 +832,7 @@ Because the effects are so small, we elected to fix the uncertainty of the neutr
 \end{figure}
 
 
-\subsection{Cosmic Ray Muon Background}
+\subsection{Cosmic Ray Muon Background}\label{sec:cr_muon}
 
 One of the most difficult sources of background in IceCube comes from the muons forged in the cosmic ray air showers above IceCube. 
 These muons enter IceCube at a rate of about 2 kilohertz, and so over the ten years of livetime for the cascades sample, an estimated $3.15\times 10^{11}$ muons would have entered the volume over a wide range of energies. 

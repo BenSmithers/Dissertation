@@ -14,7 +14,8 @@ These five values are
 \begin{enumerate}
     \item 1.0eV$^{2}$ - a commonly chosen value used in sterile oscillations studies~\cite{Aartsen_2017_dc, PhysRevD.91.052019, PhysRevD.105.052001}. 
     \item 3.5eV$^{2}$ - a value close to the best-fit point from BEST~\cite{barinov2021results}
-    \item 4.5eV$^{2}$ - a value close to the eight-year IceCube through-going track analysis~\cite{Aartsen_2020, Aartsen_2020_prd}
+    \item 5.0eV$^{2}$ - a value close to the eight-year IceCube through-going track analysis~\cite{Aartsen_2020, Aartsen_2020_prd}
+    \item 7.0eV$^{2}$ - a value close to the IceCube 10-year ``MEOWS-BDT'' 3+1 sterile results. 
     \item 10.0eV$^{2}$ - an intermediate value between those above, and larger mass-squared splitting
     \item 100.0eV$^{2}$ - a larger mass-squared splitting where fast oscillations will dominate the signal
 \end{enumerate}
@@ -200,32 +201,6 @@ The cross section uncertainty and Barr-Z parameters are observed to have a minor
     \caption{Fit results after injecting various perturbed values for each nuisance parameter and running the fitter. Priors are adjusted in each fit according to the injected values.}\label{fig:ir_priorpert}
 \end{figure}
 
-\subsection{Asimov Sensitivity}
-
-First, a single realization was generated without applying statistical variation on the per-bin expectation. 
-This is the Asimov realization. 
-Fits were performed for this simulated observation and test scores were calculated for each one following the metrics defined in Section~\ref{sect:llh_metric}.
-The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for the fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_sense}. 
-These results are plotted, superimposed against other experiment's sensitivities, in Figure~\ref{fig:asimov_compare}. 
-Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$.
-
-The sensitivities here are observed to be worse than those predicted earlier in Chapter~\ref{chapter:sense}, though this is not surprising; here a full treatment of systematic uncertainty is used.
-In addition to this, the newer flux model predicts a higher charge ratio, resulting in fewer signal-neutrinos from being apparent against the $\nu_{\mu}$ flux.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\linewidth]{figures/joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.95_dof3}
-    \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis.}\label{fig:asimov_sense}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.45\linewidth]{figures/pheno_joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof3.png}%
-    \includegraphics[width=0.45\linewidth]{figures/comparison.png}
-    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:asimov_compare}
-\end{figure}
-
-
 \subsection{Systematic Impact Tests}
 
 Nuisance parameters were collected into ``bundles.'' 
@@ -233,11 +208,11 @@ Asimov sensitivity scans~\cite{Cowan_2011} were then performed for each bundle w
 The resulting confidence intervals then show the impact of fixing those nuisance parameters. 
 The bundles are 
 \begin{enumerate}
+    \item (Norm)alization: everything is fixed except for the normalization.
+    \item Astro(physical): astrophysical normalization and the spectral index
     \item Conv(entional): Daemonflux~\cite{yanez2023daemonflux} parameters, AIRS scale, and the kaon-nucleon cross section uncertainty
-    \item Astr: astrophysical normalization and the spectral index
     \item Det(ector): hole ice uncertainty, DOM efficiency, and the bulk-ice uncertainty
     \item Muon: the CR muon background\footnote{Because of the large, extra, error introduced by the muon background, for this systematic impact test a special realization is generated and fit to where there no muon contribution is added at all.}
-    \item (Norm)alization: everything is fixed except for the normalization.
 \end{enumerate}
 These sensitivity contours are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}
 
@@ -306,6 +281,154 @@ For the cases where a signal is injected near a grid point, the best fit is suff
     \caption{To be added later}
 \end{figure}
 
+
+
+\section{Sensitivities}
+
+\subsection{Asimov Sensitivity}
+
+First, a single realization was generated without applying statistical variation on the per-bin expectation. 
+This is the Asimov realization. 
+Fits were performed for this simulated observation and test scores were calculated for each one following the metrics defined in Section~\ref{sect:llh_metric}.
+The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for the fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_sense}. 
+These results are plotted, superimposed against other experiment's sensitivities, in Figure~\ref{fig:asimov_compare}. 
+Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$.
+
+The sensitivities here are observed to be worse than those predicted earlier in Chapter~\ref{chapter:sense}, though this is not surprising; here a full treatment of systematic uncertainty is used.
+In addition to this, the newer flux model predicts a higher charge ratio, resulting in fewer signal-neutrinos from being apparent against the $\nu_{\mu}$ flux.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.95_dof3}
+    \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis.}\label{fig:asimov_sense}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/pheno_joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/comparison.png}
+    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:asimov_compare}
+\end{figure}
+
+\subsection{Median Sensitivities}
+
+The experimental results of 200 simulated experiments assuming Poissonian statistical fluctuations on the median expectation.
+A full fit scan was then carried out for each of these pseudo-experiments, and the exclusion contours were drawn for each.
+The median location of the contour, the bands containing 68\% of the contours, and the bands containing 95\% of contours were then calculated for contours at 90\% and 95\% confidence level. 
+These bands are shown in Figure~\ref{fig:brazil} for contours at 90\% CL (top) and 95\% CL (bottom).
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/median_sense_cl0.9.png}\\
+    \includegraphics[width=0.95\linewidth]{figures/median_sense_cl0.95.png}
+    \caption{``Brazil Bands'' for 90\% CL contours (top) and 95\% CL contours (bottom).}\label{fig:brazil}
+\end{figure}
+
+\section{Mismodeling Tests}
+
+There is always the possibility that an inaccurate model of some process could mimic the signatures of a 3+1 sterile neutrino model. 
+Several possible sources of such a mismodeling were investigated. 
+
+\subsection{Cosmic-Ray Mismodeling}
+
+Newer high-energy IceCube oscillations analyses had begun to adopt the daemonflux~\cite{yanez2023daemonflux} cosmic ray and conventional neutrino model. 
+As part of this analysis, we generated a pseudo-experiment where daemonflux is the true neutrino flux with no new physics. 
+Then, fits were run assuming a neutrino flux resulting from a Hillas-Gaisser H3a cosmic ray model~\cite{GAISSER2012801}, Sibyll2.3c interaction model~\cite{Riehn:2017mfm}, and an AIRS-like atmosphere model~\cite{airs_ref}. 
+This is the same as the model used in the 8-year IceCube sterile search~\cite{Aartsen_2020, Aartsen_2020_prd}. 
+The result of a joint-fit are shown in Figure~\ref{fig:uhoh_mismodel}.
+In this case, a 3+1 sterile model is preferred over the injected (null) physics values with a significance of $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.68$. 
+
+\begin{figure}  
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/joint_daemon_mismodel_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The 90\% CL contours for three degrees of freedom. A daemonflux flux is injected and a flux model consistent with the 8-year IceCube sterile search is assumed. $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.68$.}\label{fig:uhoh_mismodel}
+\end{figure}
+
+Further, two similar fit-scans were carried out using only tracks. 
+These scans are shown in Figure~\ref{fig:uhoh_mismodel_worse}; in the case where a fitscan is ran mimicking the original 8-year IceCube sterile search a closed-contour result is recovered at the 90\% confidence level. 
+This suggests that if daemonflux is a better description of the truth, then assuming the model used in the 8-year IceCube sterile search is likely to give spurious signals given no new physics, or artificially strong signals given sterile neutrinos.
+
+\begin{figure}  
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/track_daemon_mismodel_Realization_daemon_Asimov_sterile_0_cl0.9_dof2.png}
+    \includegraphics[width=0.45\linewidth]{figures/track_daemon_mismodel_nomeow_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{Fit results after injecting daemonflux, but fitting assuming the flux model used in the IceCube 8-year sterile search. (Left) the 90\% CL contours for two degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=5.02$ after fitting over $(\Delta m_{41}^{2}, \sin^{2}(2\theta_{24}))$, the results from the 8-year IceCube sterile search are overlain~\cite{Aartsen_2020, Aartsen_2020_prd}; (right) the 90\% CL contours for three degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.7$ after fitting over $(\Delta m_{41}^{2}, \abs{U_{\mu4}}, \abs{U_{\tau 4}})$}\label{fig:uhoh_mismodel_worse}
+\end{figure}
+
+The converse was also investigated.
+Fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the cosmic ray flux model used in the 8-year IceCube sterile search was injected. 
+In this case, the best fit was consistent with a three-neutrino hypothesis.
+
+\begin{figure}  
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/joint_daemon_inject_barr_Realization_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The 90\% CL contours for three degrees of freedom. A conventional flux model consistent with the 8-year IceCube sterile search is injected and daemonflux is assumed in fits. $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$.}\label{fig:uhoh_mismodel}
+\end{figure}
+
+Two additional fitscans were ran. 
+A neutrino flux predcition was made using the Global Spline Fit~\cite{dembinski2017datadriven}, the Sibyll2.3c interaction model~\cite{Riehn:2017mfm}, and the US Standard Atmospheric model~\cite{united1976u}. 
+Fit scans were ran on a pseudo-experimental result generated from this flux assuming (1) daemonflux and its uncertainties of the cosmic ray flux, and (2) the model used in the 8-year IceCube sterile search. 
+These results are shown in Figure~\ref{fig:gsf_updates}. 
+In both cases, no statistically significant signal is seen; each one is consistent with the injected null model. 
+
+\begin{figure}  
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/gsfinject_fitbarr_Realization_gsfdaemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \includegraphics[width=0.45\linewidth]{figures/gsfinject_fitdaemon_Realization_gsfdaemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{On the left (right), fit results after injecting the new GSF model while assuming the model used in the 8-year IceCube sterile search (daemonflux), $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$ $(0.2)$.}\label{fig:gsf_updates}
+\end{figure}
+
+
+\subsection{Astrophysical Mismodeling}
+
+Recently, the IceCube Neutrino Observatory became the first experiment to observe an excess of astrophysical neutrinos coming from the Milky Way\cite{doi:10.1126/science.adc9818}. 
+This extra population of neutrinos is produced from cosmic-ray interactions with the interstellar medium throughout our galaxy: causing the Milky Way to glow with neutrinos. 
+In this, and similar oscillations analyses, the astrophysical neutrino flux has been assumed to be isotropic. 
+A test was carried out where a non-isotropic flux modeling the Milky way, the KRA$\gamma$-50\cite{Gaggero_2015} model, is injected in addition to an isotropic flux but with no new physics signatures. 
+A fit scan is then ran and the resulting likelihood profile is investigated. 
+The exclusion contours, with best fit, is shown in Figure~\ref{fig:galaxy}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/double_galactic_mismodel_fix_Realization_galactic_focus_sterile_0_cl0.9_dof3.png}
+    \caption{Exclusion contours at 90\% CL and for three degrees of freedom for an Asimov realization (solid) and a KRA$\gamma$-50 injected neutrino flux (dashed). The contours have considerable overlap and no spurious 3+1 signatures are observed}\label{fig:galaxy}
+\end{figure}
+
+\subsection{CR Muon Mismodeling}
+
+As discussed earlier in Section~\ref{sec:cr_muon}, the cosmic ray muon background is considerable for the cascades sub-sample. 
+In addition to those methods in-place to account for its contributions, a few tests were run to check if under-predicting the CR muons could mimic a 3+1 sterile neutrino signature. 
+To this end, fitscans were ran under different situations:
+\begin{enumerate}[label=(\alph*)]
+    \item A normal amount of CR muons are injected, but none are assumed, with no MC statistical error 
+    \item double the expected CR muons are injected, but the normal amount is assumed 
+    \item double the expected CR muons are injected, but none are assumed and with no additional MC statistical error 
+\end{enumerate}
+The resulting contours are shown in Figures~\ref{fig:first_muon_sad} through~\ref{fig:last_muon_sad} below. 
+No spurious 3+1 sterile signature was seen in any of these tested cases.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/double_muon_mismodel_worse_Realization_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The exclusion contours for situation (a) with the Asimov sensitivities provided for context}\label{fig:first_muon_sad}
+\end{figure}  
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/double_muon_mismodel_Realization_doublcr_sterile_0_cl0.9_dof3.png}
+    \caption{The exclusion contours for situation (b) with the Asimov sensitivities provided for context}
+\end{figure}   
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/double_muon_mismodel_worse_Realization_doublcr_sterile_0_cl0.9_dof3.png}
+    \caption{The exclusion contours for situation (c) with the Asimov sensitivities provided for context}\label{fig:last_muon_sad}
+\end{figure}    
+
+
 \section{Unblinding Procedure}
 
 \begin{figure}
@@ -320,6 +443,9 @@ No best fit parameters or likelihoods are reported.
 At the best fit point, if any nuisance parameters have a fit value more than $3\sigma$ away from their central values, we stop. 
 Then we count the number of bins whose best fit values are more than $3\sigma$ away from their expected value; if more than 3 satisfy this condition, we stop. 
 
+\subsection{5\% Data Blind Fit Results}
+
+\subsection{100\% Data Blind Fit Results}
 
 \section{Results}
 
