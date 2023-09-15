@@ -250,9 +250,9 @@ The endcaps are added to ensure that events are sampled over the entire volume o
 This maximum distance is calculated according to 
 \begin{align}
 R_{\mu}(E) &= \dfrac{1}{d_{b}}\log\left(1 + E\dfrac{d_{a}}{d_{b}}\right), \text{ and} \label{eq:dima1} \\
-R_{\tau}(E) &= R_{\mu}(E) + \left(3.8\times 10^{4}\right)\log\left(1+\tfrac{1}{5.6\times 10^{7}}\right) \label{eq:dima2},
+R_{\tau}(E) &= R_{\mu}(E) + \left(3.8\times 10^{4}\right)\log\left(1+\tfrac{E}{5.6\times 10^{7}}\right) \label{eq:dima2},
 \end{align}
-with $d_{a}=0.212/1.2~[\si{\GeV\per\mwe}]$ and $d_{b}=(0.251\times 10^{-3})/1.2~[\si{\per\mwe}]$~\cite{chirkin2004propagating}.
+with $d_{a}=0.212/1.2~[\si{\GeV\mwe}]^{-1}$ and $d_{b}=(0.251\times 10^{-3})/1.2~[\si{\per\mwe}]$~\cite{chirkin2004propagating}.
 $R_{\mu}$ and $R_{\tau}$ represent the maximum ranges, in meters water equivalent, for $\SI{99.9}\percent$ of muons and taus of energy $E$ in $\si\GeV$ respectively. 
 The factor of 1.2 is to account for the observed deviations from the fits producing these max range functions. 
 The maximum deviation was less than $\SI{20}\percent$, and as such $d_{b}$ is appropriately scaled.
@@ -469,7 +469,7 @@ However, this approach to the material model breaks down when the symmetry is br
 To accommodate these experiments a more detailed software model of the surrounding material would need to be implemented.
 As long as the injection and weighting procedures query the updated material mode, no other modifications should be necessary.
 
-\section{Outlook on \LeptonInjector and \LeptonWeighter \label{sec:li_conclusions}}
+\section{Outlook on \LeptonInjector~and \LeptonWeighter \label{sec:li_conclusions}}
 
 Here we have presented the first publicly available neutrino telescope event generator for $\si\GeV$-$\si\PeV+$ energy ranges that factorizes the problem of Earth and atmospheric propagation from the event generation.
 The valid energy range of the generator is not limited by the software, but by the input cross-sections provided by the user. 

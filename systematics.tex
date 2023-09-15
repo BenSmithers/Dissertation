@@ -8,6 +8,7 @@ In this Chapter the sources of systematic uncertainty and strategies for margina
 In Section~\ref{sec:methods}, we discuss two methods used to this end: SnowStorm and systematic downsizing. 
 SnowStorm is used for extracting the analysis-level effects of highly correlated sources of systematic uncertainty, and systematic downsizing is used for marginalizing these correlated parameters in an uncorrelated basis as well as only manipulating the strongest of those uncorrelated nuisance parameters. 
 Then, in Section~\ref{sec:analyis_app}, the implementation schema are discussed alongside the expected shape-effects of these nuisance parameters in analysis space. 
+Two different models were implemented and investigated to describe uncertainties on the conventional neutrino flux; they are described in Subsections~\ref{sec:barr_hg} and~\ref{sec:daemon_sense}. 
 
 \section{Methods}\label{sec:methods}
 \subsection{Snowstorm}
@@ -149,56 +150,58 @@ By re-writing the transformation matrix $U$ as a vector of its column vectors $\
 \begin{equation}
     \Sigma \eta_{i} = \lambda_{i}\eta_{i}.
 \end{equation}
-The column vectors of the transformation matrix are the right eigenvectors of the covariance matrix, and each of the corresponding eigenvalues of the covariance matrix are the diagonals of the new matrix $A$, and are the squares of the widths of the distribution along the axes in the uncorrelated basis. 
-
-We lay out a procedure then for any given covariance matrix
+The column vectors of the transformation matrix are the right eigenvectors of the covariance matrix, and each of the corresponding eigenvalues of the covariance matrix are the diagonals of the new matrix $A$, and are the squares of the widths of the distribution along the axes in the uncorrelated basis. We lay out a procedure then for any given covariance matrix:
 \begin{enumerate}
     \item Solve for its eigenvalues and eigenvectors; the values each represent a normal prior width for new, uncorrelated, parameters in the new basis
     \item The block-matrix of the eigenvectors is the transformation matrix allowing for transforming from the correlated basis to the uncorrelated basis. 
     \item Fits are performed in the uncorrelated basis - to evaluate effects of systematic uncertainty we transform whatever point is in question back to the correlated basis and evaluate the effects using the original parametrization. 
 \end{enumerate}
 
+The parameters, in the uncorrelated basis, with the strongest effects can then be identified. 
+Parameters whose effects are sufficiently small\footnote{how small is sufficiently small is analysis-dependent} can then be fixed in fits. 
+
 \section{Analysis Applications}\label{sec:analyis_app}
 
 
 Two tables listing all fit systematic uncertainties, their central values, their prior widths, the event morphologies they apply to, and other notes about their implementation are included. Table~\ref{table:nutrition} shows nuisance parameters when the Hillas-Gaisser H3a model is used as the central model and CR uncertainty model; Table~\ref{table:daemon_table} shows the same but when using the DaemonFlux nominal flux and CR systematic uncertainty model. 
+The former uses a normalization uncertainty that applies only to the conventional flux while the latter uses a normalization uncertainty applying to the entire predicted neutrino flux.
 
 \begin{table}
     \centering
     \rowcolors{2}{gray!25}{white}
-    \begin{tabular}{c | ccccc}\rowcolor{blue!25}
-        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} & {\large \textbf{Implementation}}\\ \hline
-        \multicolumn{6}{c}{Conventional Flux} \\\hline
-        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4, 4] & Both &  Spline\\
-        Barr WM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Barr WP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Barr YM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Barr YP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Barr ZM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Barr ZP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Spectral Shift $\Delta \gamma$ & 0.0 & $0.0\pm0.25$ & [-4, 4]& Both &  \\
-        Normalization $\Phi_{conv}$ & 1.0 & $1.0\pm0.4$ & [0, 4] & Both & \\
-        \multicolumn{6}{c}{Astrophysical Flux} \\\hline
-        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both & \\
-        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both & \\
-        \multicolumn{6}{c}{Cross Sections} \\\hline
-        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both & Spline \\
-        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both & Spline \\
-        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both &  nuSQuIDS Gradient\\
-        \multicolumn{6}{c}{Detector} \\\hline 
-        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks & \\
-        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
-        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
-        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_grad\_0\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4] & Tracks & \\
-        ice\_grad\_1\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4]& Tracks & \\
-        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both & Spline \\
-        \multicolumn{6}{c}{Muons} \\\hline
-        Normalization $\Phi_{muon}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Cascades & \\        
+    \begin{tabular}{c | cccc}\rowcolor{blue!25}
+        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} \\ \hline
+        \multicolumn{5}{c}{Conventional Flux} \\\hline
+        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4, 4] & Both \\
+        Barr WM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Barr WP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Barr YM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Barr YP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Barr ZM  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Barr ZP  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Spectral Shift $\Delta \gamma$ & 0.0 & $0.0\pm0.25$ & [-4, 4]& Both   \\
+        Normalization $\Phi_{conv}$ & 1.0 & $1.0\pm0.4$ & [0, 4] & Both  \\
+        \multicolumn{5}{c}{Astrophysical Flux} \\\hline
+        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both \\
+        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both \\
+        \multicolumn{5}{c}{Cross Sections} \\\hline
+        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both  \\
+        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both  \\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both  \\
+        \multicolumn{5}{c}{Detector} \\\hline 
+        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks  \\
+        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades  \\
+        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades  \\
+        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_grad\_0\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4] & Tracks  \\
+        ice\_grad\_1\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4]& Tracks  \\
+        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both \\
+        \multicolumn{5}{c}{Muons} \\\hline
+        Normalization $\Phi_{muon}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Cascades  \\        
     \end{tabular}
     \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ priors calculated from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$, $\dag$, or $\ddag$.}\label{table:nutrition}
 \end{table}
@@ -207,43 +210,43 @@ Two tables listing all fit systematic uncertainties, their central values, their
 \begin{table}
     \centering
     \rowcolors{2}{gray!25}{white}
-    \begin{tabular}{c | ccccc}\rowcolor{blue!25}
-        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} & {\large \textbf{Implementation}}\\ \hline
-        \multicolumn{6}{c}{Conventional Flux} \\\hline
-        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4, 4] & Both &  Spline\\
-        Daemon 0$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 1$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 9$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 12$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 18$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 19$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 20$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        Daemon 23$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both & nuSQuIDS Gradient \\
-        \multicolumn{6}{c}{Astrophysical Flux} \\\hline
-        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both & \\
-        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both & \\
-        \multicolumn{6}{c}{Cross Sections} \\\hline
-        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both & Spline \\
-        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both & Spline \\
-        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both &  nuSQuIDS Gradient\\
-        \multicolumn{6}{c}{Detector} \\\hline 
-        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks & \\
-        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
-        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & \\
-        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades & spline \\
-        ice\_grad\_0\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4] & Tracks & \\
-        ice\_grad\_1\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4]& Tracks & \\
-        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both & Spline \\
-        \multicolumn{6}{c}{Muons} \\\hline
-        Normalization $\Phi_{muon}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Cascades & \\       
-        \multicolumn{6}{c}{Normalization} \\\hline
-        Normalization $\Phi_{\nu}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Both & \\       
+    \begin{tabular}{c | cccc}\rowcolor{blue!25}
+        {\large \textbf{Parameter}} & {\large \textbf{Center}} & {\large \textbf{Prior}} & {\large \textbf{Boundary}}& {\large \textbf{Morphology}} \\ \hline
+        \multicolumn{5}{c}{Conventional Flux} \\\hline
+        Atm. Density & 0.0 & 0.0$\pm$1.0 & [-4, 4] & Both \\
+        Daemon 0$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 1$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 9$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 12$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 18$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 19$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 20$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        Daemon 23$^{**}$  & 0.0 & $0.0\pm1.0$ & [-4, 4]& Both  \\
+        \multicolumn{5}{c}{Astrophysical Flux} \\\hline
+        astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both  \\
+        astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both  \\
+        \multicolumn{5}{c}{Cross Sections} \\\hline
+        Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both \\
+        Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both \\
+        Kaon energy loss $\sigma_{KA}$ & 0.0 & $0.0\pm1.0$ & [-4.0, 4.0]& Both \\
+        \multicolumn{5}{c}{Detector} \\\hline 
+        hole\_ice\_scale & -1.0 & $-1\pm10$ & [-4, 1]&Tracks  \\
+        holeice p$_{0}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        holeice p$_{1}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades  \\
+        ice\_0$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_1$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_3$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_5$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_6$^{\ddag}$ & 0.0 & $0\pm 1.0$ & [-4, 4]&Cascades \\
+        ice\_grad\_0\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4] & Tracks  \\
+        ice\_grad\_1\_rotated$^{*}$ & 0.0 & $0\pm 1.0$ & [-4, 4]& Tracks  \\
+        DOM Efficiency & 1.0 & $1.00\pm0.123$ & [0.972, 1.058] & Both \\
+        \multicolumn{5}{c}{Muons} \\\hline
+        Normalization $\Phi_{muon}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Cascades  \\       
+        \multicolumn{5}{c}{Normalization} \\\hline
+        Normalization $\Phi_{\nu}$ & 1.0 & $1.0\pm0.2$ & [0, 2] & Both \\       
     \end{tabular}
-    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ priors calculated from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$, $\dag$, or $\ddag$.}\label{table:daemon_table}
+    \caption{The central values, priors, and boundaries for all nuisance parameters. The ice gradients and astrophysical parameters are all listed here in the uncorrelated basis and in terms of the $1\sigma$ priors calculated from a PCA of their covariance matrices; these parameters are linear combinations of correlated parameters and are marked with $*$,$**$, $\dag$, or $\ddag$.}\label{table:daemon_table}
 \end{table}
 
 
@@ -556,27 +559,39 @@ Existing measurements of the cosmic ray flux are shown in Table~\ref{tab:spectra
 \end{table}
 
 More recently, calculations have shown a softening in the cosmic ray spectrum at energies above 10TeV~\cite{LIPARI2020102441}. 
-To account for this, and previous measurements, we use a prior width on $\Delta \gamma$ of 0.25. 
+To account for this and previous measurements, we use a prior width on $\Delta \gamma$ of 0.25. 
+The effect of a 0.03 perturbation on the spectral index is shown inFigure~\ref{fig:deltagamma} (left)
+
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/systematics/deltagamma.png}
-    \caption{The shape-effect of perturbing the spectral index of the conventional neutrino flux.}
+    \includegraphics[width=0.45\linewidth]{figures/systematics/deltagamma.png}
+    \includegraphics[width=0.45\linewidth]{figures/systematics/conv_norm.png}
+    \caption{(Left) the shape-effect of perturbing the spectral index of the conventional neutrino flux; (right) the shape-effect of perturbing the normalization of the conventional neutrino flux.}\label{fig:deltagamma}
 \end{figure}
 
 
 Like in the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, we parametrize the uncertainty in the production of pions and kaons in air showers using the model developed by Barr et. al.~\cite{PhysRevD.74.094009} (refered to as the Barr Parametrization from here on). 
 
-Our nominal flux predictions use the Hillas-Gaisser H3a~\cite{GAISSER2012801} cosmic ray flux model. 
+This nominal cosmic ray flux prediction uses the Hillas-Gaisser H3a~\cite{GAISSER2012801} cosmic ray flux model. 
 This model is broken into five distinct mass-range populations: p, He, CNO, Fe, and MgSi; each of which correlate to a range of cosmic ray masses. 
-Add some plots, charge ratio, flux itself, etc etc.
+These are then grouped into three populations combining p and He, and CNO and Fe.
+This is demonstrated in Figure~\ref{fig:hillas} (left), which shows the full cosmic ray flux prediction (black line) overlain with results from eleven measurements of the cosmic ray spectrum. 
+The $\nu_{\mu}/\bar{\nu}_{\mu}$, or charge ratio, is highly relevant for the signal strength of this analysis. 
+A figure showing it is shown in Figure~\ref{fig:hillas} (right). 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/hillas_flux.png}
+    \includegraphics[width=0.45\linewidth]{figures/gaisser_charge_ratio.png}
+    \caption{(Left) the Hillas-Haisser H3a flux prediction (all particle fit) compared to data; (right) the $\nu_{\mu}/\bar{\nu}_{\mu}$ ratio. Both figures are from Ref~\cite{GAISSER2012801}}\label{fig:hillas}
+\end{figure}
 
-The neutrino flux predictions are determined by propagating these air showers using Matrix Cascade Equations (MCEq)~\cite{fedynitch2015calculation} and the SIBYLL 2.3c interaction model~\cite{Riehn:2017mfm}. 
+The neutrino flux predictions are determined by propagating these air showers using Matrix Cascade Equations (MCEq)~\cite{fedynitch2015calculation}, the \texttt{SIBYLL} 2.3c interaction model~\cite{Riehn:2017mfm}, and an atmospheric density model using the Atmospheric InfraRed Sounder satellite~\cite{airs_ref}. 
 MCEq establishes a series of particle production and decay rates for air-shower evolution according to a given atmospheric model and interaction model. 
-Initial states are then numerically integrated to yield the expected final state rates of any chosen particle. 
+It then numerically integrates the initial states to yield the expected final state rates of any chosen particle at the Earth's surface for a given zenith angle. 
 
-The Barr parametrization uses existing data to constrain the hadronic production rates in cosmic ray air showers as a function of the incident projectile particle energy and the Bjorken x scaling variable, which is itself defined as the fractional momentum transfer from the incident projectile to the hadronic component of the interaction as observed in the lab frame. 
+The Barr Parametrization uses existing accelerator data to constrain production rates of pions and kaons in cosmic ray air showers as a function of the incident projectile particle energy and the Bjorken x scaling variable, which is itself defined as the fractional momentum transfer from the incident projectile to the hadronic component of the interaction as observed in the lab frame. 
 In the lab frame with the target at rest, 
 \begin{equation}
     x = \dfrac{ 2M_{p}^{2} - p_{4}^{2}}{2M_{p}^{2}}
@@ -588,9 +603,16 @@ Regions in this phase-space with similar constraints are established, and indexe
     \includegraphics[width=0.7\linewidth]{./figures/barr_letters.png}
     \caption{Uncertainty regions for the Barr parametrization.}\label{fig:bar_letters}
 \end{figure}
-The uncertainties with in each region are fully correlated, and fully uncorrelated between different regions.
-Due to the strong effect of the charge ratio on this signal's analysis, we double the number of parameters in order to independently effect mesons and anti-mesons. 
+The uncertainties with in each region are fully correlated, and are fully uncorrelated for points in different regions.
+Due to the strong effect of the charge ratio on this signal's analysis, we double the number of parameters in order to independently perturb the production rates of mesons and anti-mesons. 
 As shown in References~\cite{Aartsen_2020, Aartsen_2020_prd, axani2020sterile}, since the neutrino flux is kaon-dominated at these energies only the W, Y, and Z regions are relevant for this analysis. 
+
+We evalutate the effect of perturbing each of these parameters, both postively and negatively, on the expected neutrino flux at the Earth's surface over a $1^{\circ}\times 1^{\circ}$ solid-angle grid. 
+At each point and for each different perturbation, we marginalize over months in a year and hours in a day. 
+Since the analysis is zenith-only, we also marginalize over azimuths. 
+Then gradients are calculated for each of the Barr Parameters for $\nu$'s and $\bar{\nu}$'s for each active neutrino flavor.
+These gradients are then evolved through nuSQuIDS for each tested 3+1 sterile physics point. 
+The effect of a $1\sigma$ perturbation for each Barr Parameter in reconstructed space is shown in Figure~\ref{fig:bar_effect}.
 
 \begin{figure}
     \centering
@@ -600,27 +622,29 @@ As shown in References~\cite{Aartsen_2020, Aartsen_2020_prd, axani2020sterile}, 
     \includegraphics[width=0.45\linewidth]{./figures/systematics/ZP.png}
     \includegraphics[width=0.45\linewidth]{./figures/systematics/YM.png}%
     \includegraphics[width=0.45\linewidth]{./figures/systematics/YP.png}
-    \caption{The effects of perturbing each barr parameter.}
+    \caption{The effects of perturbing each Barr systematic uncertainty parameter.}\label{fig:bar_effect}
 \end{figure}
 
 
-\subsection{Alternative Conventional Flux Uncertainty}\label{sec:daemon_sense}
+\subsection{Alternative Conventional Flux Model: daemonflux}\label{sec:daemon_sense}
 \index{neutrino!flux}
-Previous studies, in particular the 8-year track-only analysis~\cite{Aartsen_2020,Aartsen_2020_prd}, have used an uncertainty on the normalization and spectral index for the cosmic ray flux, and modeled uncertainties on the production of pions and kaons in the air showers using the Barr parametrization~\cite{PhysRevD.74.094009}. 
-An alternative model for conventional flux uncertainties, the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (daemonflux) model was also inestigated. 
-Daemonflux incorporates uncertainties estimated for both fixed-target and cosmic ray experimental results to estimate total uncertainty on a gobal spline fit~\cite{dembinski2017datadriven} to the coscmic ray flux and the resulting neutrino flux. 
-This model implements parameters effecting particle production rates of protons, neutrons, $\pi^{\pm}$, and $K^{\pm}$ at four different energy scales, along with six parameters from a principal component analysis of the global spline fit of the cosmic ray flux. 
-From the fits to the data, a correlated prior is evaluated for the full ensemble of 24 parameters, as shown in Figure~\ref{fig:daemon_cor}.
+An alternative model for conventional flux uncertainties, the DAta-rivEn MuOn-calibrated Neutrino Flux~\cite{yanez2023daemonflux} (daemonflux) model was also investigated. 
+Daemonflux uses two approaches. 
+First, a principal component analysis was done to a glboal spline fit~\cite{dembinski2017datadriven} of the cosmic ray flux. 
+Six components were found to be sufficient to span the given uncertainties on the cosmic ray flux, and a new correlation matrix was calculated to describe the full uncertainty on the flux they predict. 
+Then, additional constraints from fixed-target experiments are used to describe uncertainties on particle production rates of protons, neutrons, $\pi^{\pm}$, and $K^{\pm}$ at four different energy scales. 
+Cosmic Ray muon data are used to further constrain and describe the uncertainties in the global spline fit and the hadronic production rates. 
+A correlated prior was evaluated for the full ensemble of 24 parameters, as shown in Figure~\ref{fig:daemon_cor}.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{figures/daemon_cov.png}
     \caption{The correlation between the parameters used in the DaemonFlux model.}\label{fig:daemon_cor}
 \end{figure}
 
-One important thing of note regarding this new flux model is the model prediction for the charge ratio. 
-The fractional difference in the fluxes from the old fluxmodel, which used a Hillas-Gaisser H3a model~\cite{GAISSER2012801} with the Sybill2.3c interaction model~\cite{Riehn:2017mfm}, to daemonflux, is shown in Figure~\ref{fig:fractional_diff}. 
+
+The fractional difference in the fluxes from the old fluxmodel, which used a Hillas-Gaisser H3a model~\cite{GAISSER2012801} with the \texttt{Sibyll} 2.3c interaction model~\cite{Riehn:2017mfm}, to daemonflux, is shown in Figure~\ref{fig:fractional_diff}. 
 From this figure we can see that DaemonFlux predicts a smaller $\bar{\nu}$ flux. 
-Since the signature of the sterile neutrino oscillations is a disappearance of $\bar{\nu}_{\mu}$, we expect a suppresion our predicted sensitivity from this change.
+Since the signature of the sterile neutrino oscillations is a disappearance of $\bar{\nu}_{\mu}$, we expect a suppression our predicted sensitivity when daemonflux is used as the nominal flux model.
 
 \begin{figure}
     \centering
@@ -642,7 +666,7 @@ As an additional check, fits were carried out using two different numbers of fre
 These results are shown in Table~\ref{tab:daemonfluxfit}
 \fi
 
-The effects of pertubing the eight strongest parameters by one sigma are shown for both tracks and cascades in Figures~\ref{fig:daemon_analysis_one} and~\ref{fig:daemon_analysis_two}.
+The effects of perturbing the eight strongest parameters by one sigma are shown for both tracks and cascades in Figures~\ref{fig:daemon_analysis_one} and~\ref{fig:daemon_analysis_two}.
 
 \begin{figure}
     \centering
@@ -709,7 +733,7 @@ This standard deviation is shown for muon and electron neutrinos in Figure~\ref{
 
 This is then used as the atmospheric density uncertainty after being forced through zero near $\cos\theta_{z}=-0.7$ to account for the temperature offset between the Northern and Southern hemispheres. 
 Figure~\ref{fig:airs_grid} shows the effect on neutrino fluxes after forcing it through zero at the equator.
-This effect is calculated as a gradient effecting the neutrino flux, and it is then evolved through the Earth for each sterile neutrino model to propagate the effects into other neutrino flavors. 
+%This effect is calculated as a gradient effecting the neutrino flux, and it is then evolved through the Earth for each sterile neutrino model to propagate the effects into other neutrino flavors. 
 The effects of this nuisance parameter, and this source of systematic uncertainty, is shown in Figure~\ref{fig:airs_reco}.
 
 The 1976 United States Standard atmosphere~\cite{united1976u} was also used as a baseline for cross-checks, and it was found to lie within the allowed envelope. 
