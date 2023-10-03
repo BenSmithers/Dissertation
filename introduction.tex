@@ -5,8 +5,8 @@
 \begin{document}
 
 
-\section{Neutrinos: A Primer}
-Of the seventeen known fundamental particles to exist, with which we can account for a whopping 6\% of Universe, neutrinos are understood to be three, as shown in Figure~\ref{fig:party}
+\section{Neutrinos}
+Three of the seventeen fundamental particles, known to exist, are neutrinos.~\ref{fig:party}
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{figures/particles.png}
@@ -32,53 +32,107 @@ Of particular interest to neutrino telescopes, matter effects can result in the 
 \subsection{Neutrino oscillations}
 \index{neutrino!oscillations}
 
-First, a review of how these oscillations happen is of merit. 
-For decades, now, it has been well understood that the neutrinos have multiple distinct flavor and mass eigenstates.
-A consequence of this is that a neutrino prepared in a definite eigenstate will oscillate through different superpositions of its mass eigenstates, and when the flavor is measured after some time it may be observed to be in a distinct flavor eigenstate from that in which it was created. 
-To understand \textit{why} that is the case we consider that there is some unitary matrix, 
+Neutrinos were, initially, thought to be massless neutral particles. 
+
+The weak interaction couples to the SU(2) doublets,
+\begin{align}
+&\left(\begin{array}{c} \nu_{e} \\ e^{-} \end{array}\right) & &\left(\begin{array}{c} \nu_{\mu} \\ \mu^{-} \end{array}\right) & &\left(\begin{array}{c} \nu_{\tau} \\ \tau^{-} \end{array}\right),
+\end{align}
+neutrinos will themselves be produced in one of these three flavor-eigenstates.
+These flavor eigenstates can be expressed in the mass-basis as a linear superposition of the mass states. 
+The relations are encoded in the unitary\footnote{neutrino number needs to be conserved.} PMNS matrix, 
 \begin{equation}
-    U_{\text{PMNS}} = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right)
+    U_{\text{PMNS}} = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right),
 \end{equation}
-which allows for rotations from the mass basis to the flavor basis, such that
+with which we can write
 \begin{equation}
     \left(\begin{array}{ccc} \nu_{e} & \nu_{\mu} & \nu_{\tau} \end{array}\right)  = \left(\begin{array}{ccc} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{array}\right) \left(\begin{array}{c} \nu_{1} \\ \nu_{2} \\ \nu_{3} \end{array}\right).
 \end{equation}
 where $\nu_{i}$, $i\in\left(1,2,3\right)$ is in the mass basis and $i\in\left(e,\mu\tau\right)$ is in the flavor basis. 
-This is called the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix.
-We can, in general then, express a stationary state in the flavor basis in terms of the mass basis:
-\begin{equation}\label{eq:nunu}
-    \ket{\nu_{e}} = U_{e1} \ket{\nu_{1}} + U_{e2} \ket{\nu_{2}} + U_{e3}\ket{\nu_{3}}.
+We can, in general then, express a stationary state in the flavor basis in terms of the mass basis. 
+
+First, let us consider two neutrino oscillations.
+A generic SU(2) matrix can be written as 
+\begin{equation}
+    U_{2d}=\left(\begin{array}{cc} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{array}\right)
 \end{equation}
-To consider a neutrino in-flight, we consider the time-dependent Schr\"odinger Equation
+and so we can write an initial $\ket{\nu_{e}}$ state as 
+\begin{equation}
+    \ket{\nu_{e}} = \cos\theta \ket{\nu_{1}} + \sin\theta \ket{\nu_{2}} 
+\end{equation}
+To consider a propagating neutrino, we solve the time-dependent Schr\"odinger Equation
 \begin{equation}
     i\dfrac{\partial}{\partial t} \ket{\nu_{i} (t)} = \bvec{H}_{\nu}\ket{\nu_{i}(t)},
 \end{equation}
-which can be solved with the stationary state solution 
-\begin{equation}
+with a stationary state solution
+\begin{equation}\label{eq:stationary}
     \ket{\nu_{i} (t)}  =  e^{-iEt} \ket{\nu_{i} (0)}.
 \end{equation}
-For neutrinos, we can expand out the energy term and simplify under the small-mass assumption. 
+Neutrinos are known to have very small masses~\cite{KATRIN:2021uub}, and so expand out the energy term and cut off terms with $\mathcal{O}(>m^{2})$. 
 \begin{align}
     E_{i} &= \sqrt{p^{2}c^{2} + m_{i}^{2}c^{4}} \\
     &\approxeq pc + \dfrac{m_{i}^{2}c^{4}}{2E}
 \end{align}
-The stationary state solution then becomes, using $t=L/c$ and $c=1$ 
+The stationary state solution Eq~\eqref{eq:stationary} becomes, using $t=L/c$ and $c=1$ 
 \begin{equation}
-    \ket{\nu_{i} (t)}  =  e^{-ipt}e^{ -m_{i}^{2}L/2E}\ket{\nu_{i} (0)}
+    \ket{\nu_{i} (t)}  =  e^{-ipt}e^{ -im_{i}^{2}L/2E}\ket{\nu_{i} (0)}
 \end{equation}
 and for the state described in Equation~\eqref{eq:nunu},
-
 \begin{equation}
-    \ket{\nu_{e}(t)} = \sum\limits_{i} U_{ei} e^{-ipt}e^{ -m_{i}^{2}L/2E}\ket{\nu_{i} (0)}
+    \ket{\nu_{e}(t)} = e^{-ipt}e^{ -im_{1}^{2}L/2E} \cos\theta \ket{\nu_{1}}  + e^{-ipt}e^{ -im_{2}^{2}L/2E} \sin\theta \ket{\nu_{2}}.
 \end{equation}
-
-Oscillations probabilities can be calculated by projecting the final considered state onto this propagated state
-
-
+Considering the muon flavor state expressed in the mass basis,
 \begin{equation}
-    \braket{\nu_{\mu} | \nu_{e}(t)} = e^{-ipt} \sum\limits_{i} U_{\mu i}^{*}U_{ei} e^{ -m_{i}^{2}L/2E}
+    \bra{\nu_{\mu}} = -\sin\theta\bra{\nu_{1}} + \cos\theta\bra{\nu_{2}},
 \end{equation}
-To calculate actual transmission probabilities, we need the conjugate squared of this, $P_{e\mu} = \left|\braket{\nu_{\mu}|\nu_{e}(t)}\right|^{2}$. While the phase term, $e^{-ipt}$, cancels we are left with 
+Oscillations probabilities can be calculated by projecting the final considered state onto this propagated state.
+So, we consider the probability of measuring the neutrino in the muon flavor state some time $t$ after preparing it the electron flavor state. 
+\begin{align}
+    \braket{\nu_{\mu} | \nu_{e}(t)} &= -e^{-ipt}e^{ -im_{1}^{2}L/2E} \cos\theta\sin\theta  + e^{-ipt}e^{ -im_{2}^{2}L/2E} \sin\theta\cos\theta \\
+    \braket{\nu_{\mu} | \nu_{e}(t)} &= \tfrac{1}{2}e^{-ipt}\left[e^{ -im_{2}^{2}L/2E} - e^{ -im_{1}^{2}L/2E}\right] \sin 2\theta
+\end{align}
+To calculate actual transmission probabilities, we need the conjugate-square of this, $P_{e\mu} \equiv \left|\braket{\nu_{\mu}|\nu_{e}(t)}\right|^{2}$. While the phase term, $e^{-ipt}$, cancels we are left with 
+\begin{align}
+    \braket{\nu_{\mu} | \nu_{e}(t)} &=\tfrac{1}{4} \left[e^{ -im_{2}^{2}L/2E} - e^{ -im_{1}^{2}L/2E}\right]\left[e^{ im_{2}^{2}L/2E} - e^{ im_{1}^{2}L/2E}\right] \sin^{2} 2\theta \\
+    \braket{\nu_{\mu} | \nu_{e}(t)} &=\tfrac{1}{4}\left[1 - e^{-i\Delta m_{21}^{2}L/2E}- e^{i\Delta m_{21}^{2}L/2E}  +1\right]\sin^{2} 2\theta\\
+    \braket{\nu_{\mu} | \nu_{e}(t)} &=\tfrac{1}{4}\left[2- 2\cos\left( \Delta m_{21}^{2}L/2E\right) \right]\sin^{2} 2\theta \\
+    \braket{\nu_{\mu} | \nu_{e}(t)} &=\left[\dfrac{1-\cos\left( 2\Delta m_{21}^{2}L/4E\right)}{2} \right]\sin^{2} 2\theta \\
+    \braket{\nu_{\mu} | \nu_{e}(t)} &=\sin^{2}\left( \Delta m_{21}^{2}L/4E\right) \sin^{2} 2\theta
+\end{align}
+
+Neutrino oscillation probabilities are dependent not on the mass of the neutrino eigenstates, but the differences of square of the masses over which oscillations are considered.
+Through oscillations we can only measure the absolute of the difference of the masses, and so the ordering of the masses is invisible to neutrino oscillations. 
+Since oscillations today are well-established, at minimum two of the neutrino masses must be non-zero. 
+Oscillations will also depend on the energy $E$ of the neutrinos involved and the baseline $L$ over which they travel. 
+
+For oscillations over a $L/E$ scale, the mass-squared splitting will affect the frequency of the neutrino oscillations and the elements in the neutrino mixing matrix will affect the amplitudes of the oscillations. \index{neutrino!baseline}
+
+A toy-model example is shown in Figure~\ref{fig:toy_osc}, where an initial $\nu_{\mu}$ flux is propagated over a fixed baseline. 
+A varying amount of the initial flux is expected to oscillate to $\nu_{e}$ as a function of energy. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/oscillations_example.png}
+    \caption{A toy 2-neutrino oscillations example. The initial flux is shown as a solid blue line, and the propagated fluxes are shown as dashed lines in orange and blue.}\label{fig:toy_osc}
+\end{figure}
+
+We next consider the general case of an electron initially in the electron-flavor neutrino state. 
+\begin{equation}\label{eq:three}
+    \ket{\nu_{e}} =\sum\limits_{j} U_{ej} \ket{\nu_{j}} 
+\end{equation}
+Much like before we evolve an arbitrary stationary state
+\begin{equation}
+    \ket{\nu_{j} (t)}  = e^{-ipt}e^{ -m_{j}^{2}L/2E}\ket{\nu_{j} (0)}
+\end{equation}
+and so the state described in Equation~\eqref{eq:three},
+\begin{equation}
+    \ket{\nu_{e}(t)} = \sum\limits_{j} U_{ej} e^{-ipt}e^{ -m_{j}^{2}L/2E}\ket{\nu_{j} (0)}
+\end{equation}
+Again, consider the probability of measuring the neutrino in the muon flavor state some time $t$ after preparing it the electron flavor state. 
+\begin{equation}
+    \braket{\nu_{\mu} | \nu_{e}(t)} = e^{-ipt} \sum\limits_{j} U_{\mu j}^{*}U_{ej} e^{ -m_{j}^{2}L/2E}
+\end{equation}
+We need the conjugate-square of this, $P_{e\mu} \equiv \left|\braket{\nu_{\mu}|\nu_{e}(t)}\right|^{2}$.
 \begin{equation}\begin{split}
 P_{\mu e}&= \sum\limits_{i}\left[\left|U_{\mu i}\right|^{2}\left|U_{e i}\right|^{2} \right.\\
 &\hspace{1cm} + 2\sum\limits_{i>j}U_{\mu i}^{*}U_{e i}U_{\mu j}U_{e j}^{*}\left.e^{-i\Delta m_{ij}^{2}L/2E} \right]
@@ -90,21 +144,12 @@ Using the sinusoidal form of the exponential, we can write this in other compone
     &\hspace{1cm} -2\sum\limits_{i>j}\Im(U_{\mu i}^{*}U_{e i}U_{\mu j}U_{e j}^{*})\sin\left(\Delta m_{ij}^{2}L/2E \right)
 \end{split}\end{equation} 
 
-From this we notice a few things. 
-Neutrino oscillation probabilities are dependent not just on the mass of the neutrino eigenstates, but the differences of square of the masses. 
-Through oscillations we can only measure the absolute of the difference of the masses, and so the ordering of the masses will be invisible to oscillations. 
-This also suggests that, since oscillations have been observed, at minimum two of the neutrino masses must be non-zero. 
-Oscillations will also depend on the energy $E$ of the neutrinos involved and the baseline $L$ over which they travel. \index{neutrino!baseline}
+\subsection{Unitary Matrix Construction for SU(N)}
 
-\subsection{Higher Neutrino Numbers}
+One can consider that the 3x3 PMNS matrix is embedded in a larger, unitary, NxN mixing matrix.
+This could be the case if neutrino oscillation experiment find evidence that the PMNS matrix is non-unitary.
 
-In general, we can relate a flavor and mass eigenstates by 
-\begin{equation}
-    \braket{\nu_{\alpha}} = \sum_{i} U_{\alpha i}^{*}\braket{\nu_{i}}
-\end{equation}
-where $U$ is the neutral lepton mixing matrix.
-For antineutrinos the relation is the same, although $U\to U^{*}$. 
-In the cases with a number of neutrinos greater than three, we parametrize $U$ as a product of complex rotations parametrized by angles $\theta_{ij}$ and phases $\delta_{ij}$, 
+In these cases we construct arbitrary $U\in SU(N)$ as a product of complex rotations parametrized by angles $\theta_{ij}$ and phases $\delta_{ij}$, 
 \begin{equation}
     U(\theta_{ij}, \delta_{ij}) = R_{N-1,N}R_{N-2,N}\ldots R_{45}R_{34}R_{24}R_{15}R_{34}R_{24}R_{14}R_{23}R_{13}R_{12}
 \end{equation}
@@ -113,16 +158,6 @@ as discussed in Ref~\cite{Arguelles:2020hss}
 \subsection{Neutrino Interactions}
 \index{neutrino!interactions}
 Discuss neutrino interactions at medium to high energies. Deep Inelastic Scattering
-
-
-\subsection{Matter Effects on Neutrion Oscillations}
-\index{neutrino!matter effect}
-Neutrinos propagating in the presence of matter will experience a coherent forward elastic scattering with electrons and nucleons in the medium through which they propagate. Although all three neutrinos can scatter via Z$^{0}$ boson exchange with nucleons only $\nu_{e}$ can scatter via the exchange of W$^{\pm}$ and Z$^{0}$ with electrons. 
-The consequence of these interactions is that neutrinos behave as if they had slightly different masses, which are referred to as effective massses, and so their oscillations are impacted.  
-Mathematically, in the two-neutrino case the total effective Hamiltonian governing the neutrino propagation is modified via the orgogonal matrix 
-\begin{equation}
-    U^{m} = \left( \begin{array}{cc} \cos\theta^{m} & \sin\theta^{m} \\ -\sin\theta^{m} & \cos\theta^{m} \end{array}\right) 
-\end{equation}
 
 
 \section{Passage of Particles through Matter}
@@ -165,8 +200,55 @@ The rate of energy loss
 -\left(\dfrac{dE}{dx}\right) =\left(2\pi e\right)^{2}\int \left(1-\dfrac{1}{\left(vn\right)^{2}}\right)\nu d\nu
 \end{equation}
 
-\subsection{Neutrino Propagation}
-In addition to neutirno oscillation, several other phenomena effect the full description of the neutrino flux as it propagates through the Earth. 
+
+\subsection{Matter Effects on Neutrion Oscillations}
+\index{neutrino!matter effect}
+Although neutrino-anything cross sections are small compared to all other standard-model interactions, neutrinos at high energy passing through a large amount of media can result in a measureable effect on the neutrino flux. 
+The neutrinos can experience a coherent forward elastic scattering with electrons and nucleons in the medium through which they propagate. Although all three neutrinos can scatter via Z$^{0}$ boson exchange with nucleons; only $\nu_{e}$ can scatter via the exchange of W$^{\pm}$ and Z$^{0}$ with electrons. 
+The consequence of these interactions is that neutrinos behave as if they had slightly different masses, which are referred to as effective masses, and so their oscillations are impacted.  
+The mass-modification is parametrized through a weak-field effect from the $Z^{0}$ and $W^{\pm}$ on the neutrino flavor state $\nu_{i}$, which we first write out as
+\begin{align} 
+    V_{\nu_{i}, e}^{Z^{0}+W^{\pm}} &= -\dfrac{\sqrt{2}}{2}G_{F} N_{e} + \sqrt{2}G_{F}N_{e}  & V_{\nu_{i}, n}^{Z^{0}} &= -\dfrac{\sqrt{2}}{2}G_{F} N_{n} & V_{\nu_{i}, p}^{Z^{0}} &= \dfrac{\sqrt{2}}{2}G_{F} N_{p}
+\end{align}
+where $G_{F}$ is the Fermi constant and $N_{\alpha}$ is the number density of particle $\alpha$ in the medium. 
+If we assume similar numbers of protons and neutrons in a medium the effects of neutrons and protons cancel for each neutrino flavor. 
+The resulting weak-field effects, per-flavor, are
+\begin{align} 
+    V_{\nu_{e}}^{Z^{0}+W^{\pm}} &= \dfrac{\sqrt{2}}{2}G_{F} N_{e}  & V_{\nu_{\mu}}^{Z^{0}} &= -\dfrac{\sqrt{2}}{2}G_{F} N_{e} & V_{\nu_{\tau}}^{Z^{0}} &= -\dfrac{\sqrt{2}}{2}G_{F} N_{e}
+\end{align}
+Differences in the propagation of the different flavors will appear due to a difference in the weak-field potential. 
+Since there are only two unique terms, it follows that 
+\begin{equation}
+    V \equiv V_{\nu_{e}}^{Z^{0}+W^{\pm}} -  V_{\nu_{\mu}}^{Z^{0}}  =  V_{\nu_{e}}^{Z^{0}+W^{\pm}} -  V_{\nu_{\tau}}^{Z^{0}}   = \sqrt{2} G_{F} N_{e}
+\end{equation}
+We now define a function $V(\vec{x})\equiv  \sqrt{2} G_{F} N_{e}(\vec{x})$ that depends on the electron number-density at arbitrary position $\vec{x}$.  
+Since the electron flavor is the only one with a unique matter-effect, the potential difference that could modify neutrino oscillations goes like 
+\begin{equation}
+    V = V(x)\left(\begin{array}{ccc} 1&0&0\\0&0&0 \\0&0&0 \end{array}\right) 
+\end{equation}
+
+From here, we consider the two-neutrino case and use the small-mass approximation of the neutrino mass
+\begin{align} 
+    \braket{\nu_{\alpha} | H_{vac} | \nu_{\beta} } &= \braket{ \sum_{i} U_{\alpha i} \nu_{i} \middle| H_{vac} \middle| \sum_{j} U_{\beta j}^{*}\nu_{j}}  \\
+    &=  \sum\limits_{j} U_{\alpha j} U^{*}_{e\beta}\left( p + \dfrac{m_{j}^{2}}{2E} \right)
+\end{align}
+As in the case of vacuum oscillations, it is the relative phases of the mass-eigenstate wave packets that contribute to the interference in the flavor basis. 
+The \textit{difference} energies for the different mass states gives rise to neutrino oscillations, so alternatively we can express each of the masses as differences from $m_{1}^{2}$ 
+\begin{align}
+    H_{\alpha \beta, vac } &= \sum\limits_{j} U_{\alpha j} U^{*}_{\alpha j} \Delta m^{2}_{j1}\\
+    H_{vac }&= \dfrac{1}{2E} U\left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & \Delta m_{21}^{2} & 0 \\ 0 & 0 & \Delta m_{31}^{2} \end{array}\right)U^{\dag}
+\end{align}
+
+And so we can construct a modified Hamiltonian with the matter contribution 
+\begin{equation}
+    H_{tot }= \dfrac{1}{2E} \left[ U\left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & \Delta m_{21}^{2} & 0 \\ 0 & 0 & \Delta m_{31}^{2} \end{array}\right)U^{\dag} + V(x)\left(\begin{array}{ccc} 1&0&0\\0&0&0 \\0&0&0 \end{array}\right)  \right]
+\end{equation}
+
+A common tactic for working with this modified Hamiltonian is in the diagonalized basis, where the new diagonale elements are treated as \textit{effective} mass eigenstates. 
+
+
+\subsection{Neutrino Propagation with Interactions}
+In addition to neutirno oscillations, several other phenomena effect the full description of the neutrino flux as it propagates through the Earth. 
 These include, but are not limited to, neutrino flux attenuation as neutrinos interact in the Earth, the process where charged tau leptons produced through neutrino-nucleon interactions decay to produce lower energy tau neutrinos called tau regeneration, and Glashow resonance interactions~\cite{PhysRev.118.316}.  
 
 This section  describes the methods of determining propagation of neutrino fluxes from Earth-surface fluxes to in-IceCube fluxes. 
