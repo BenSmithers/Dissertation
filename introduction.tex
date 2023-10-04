@@ -6,6 +6,9 @@
 
 
 \section{Neutrinos}
+
+
+
 Three of the seventeen fundamental particles, known to exist, are neutrinos.~\ref{fig:party}
 \begin{figure}
     \centering
@@ -32,7 +35,9 @@ Of particular interest to neutrino telescopes, matter effects can result in the 
 \subsection{Neutrino oscillations}
 \index{neutrino!oscillations}
 
-Neutrinos were, initially, thought to be massless neutral particles. 
+Neutrinos were first predicted as solutions to the problem of energy observed to be missing in beta decays.
+Electrons emitted were not monoenergetic; there was an implication that some massless (or nearly so), neutral, particle participates in the decay and carries away some fraction of the decay energy. 
+Neutrinos, as they would later be called, would eventually be discovered in 19XX.  
 
 The weak interaction couples to the SU(2) doublets,
 \begin{align}
@@ -57,14 +62,14 @@ A generic SU(2) matrix can be written as
     U_{2d}=\left(\begin{array}{cc} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{array}\right)
 \end{equation}
 and so we can write an initial $\ket{\nu_{e}}$ state as 
-\begin{equation}
+\begin{equation}\label{eq:nunu}
     \ket{\nu_{e}} = \cos\theta \ket{\nu_{1}} + \sin\theta \ket{\nu_{2}} 
 \end{equation}
-To consider a propagating neutrino, we solve the time-dependent Schr\"odinger Equation
+A time-evolved neutrino state will be one solving the time-dependent Schr\"odinger Equation,
 \begin{equation}
     i\dfrac{\partial}{\partial t} \ket{\nu_{i} (t)} = \bvec{H}_{\nu}\ket{\nu_{i}(t)},
 \end{equation}
-with a stationary state solution
+which we can do with a stationary state solution
 \begin{equation}\label{eq:stationary}
     \ket{\nu_{i} (t)}  =  e^{-iEt} \ket{\nu_{i} (0)}.
 \end{equation}
@@ -116,7 +121,7 @@ A varying amount of the initial flux is expected to oscillate to $\nu_{e}$ as a 
     \caption{A toy 2-neutrino oscillations example. The initial flux is shown as a solid blue line, and the propagated fluxes are shown as dashed lines in orange and blue.}\label{fig:toy_osc}
 \end{figure}
 
-We next consider the general case of an electron initially in the electron-flavor neutrino state. 
+We next consider the general case of a neutrino initially in the electron-flavor neutrino state. 
 \begin{equation}\label{eq:three}
     \ket{\nu_{e}} =\sum\limits_{j} U_{ej} \ket{\nu_{j}} 
 \end{equation}
@@ -236,7 +241,7 @@ As in the case of vacuum oscillations, it is the relative phases of the mass-eig
 The \textit{difference} energies for the different mass states gives rise to neutrino oscillations, so alternatively we can express each of the masses as differences from $m_{1}^{2}$ 
 \begin{align}
     H_{\alpha \beta, vac } &= \sum\limits_{j} U_{\alpha j} U^{*}_{\alpha j} \Delta m^{2}_{j1}\\
-    H_{vac }&= \dfrac{1}{2E} U\left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & \Delta m_{21}^{2} & 0 \\ 0 & 0 & \Delta m_{31}^{2} \end{array}\right)U^{\dag}
+    H_{vac }&= \dfrac{1}{2E} U\left(\begin{array}{ccc} 0 & 0 & 0 \\ 0 & \Delta m_{21}^{2} & 0 \\ 0 & 0 & \Delta m_{31}^{2} \end{array}\right)U^{\dag} \label{eq:hamy}
 \end{align}
 
 And so we can construct a modified Hamiltonian with the matter contribution 
@@ -247,19 +252,53 @@ And so we can construct a modified Hamiltonian with the matter contribution
 A common tactic for working with this modified Hamiltonian is in the diagonalized basis, where the new diagonale elements are treated as \textit{effective} mass eigenstates. 
 
 
-\subsection{Neutrino Propagation with Interactions}
-In addition to neutirno oscillations, several other phenomena effect the full description of the neutrino flux as it propagates through the Earth. 
-These include, but are not limited to, neutrino flux attenuation as neutrinos interact in the Earth, the process where charged tau leptons produced through neutrino-nucleon interactions decay to produce lower energy tau neutrinos called tau regeneration, and Glashow resonance interactions~\cite{PhysRev.118.316}.  
+\subsection{MSW Effect}
 
-This section  describes the methods of determining propagation of neutrino fluxes from Earth-surface fluxes to in-IceCube fluxes. 
-Here, we summarize the procedures described also in Reference~\cite{arguelles2021nusquids}.
+
+The Mikheyev-Smirnov-Wolfenstein (MSW) is a neutrino matter effect effecting neutrino oscillations in media of varying density. 
+First, we re-write Equation~\eqref{eq:hamy} in the two neutrino-case. 
+\begin{align}
+    H_{vac} &= \dfrac{1}{2E}\left(\begin{array}{cc}\cos\theta &\sin\theta \\ -\sin\theta & \cos\theta\end{array}\right)\left(\begin{array}{cc}0 & 0 \\ 0 & \Delta m^{2}\end{array}\right) \left(\begin{array}{cc}\cos\theta &-\sin\theta \\ \sin\theta & \cos\theta\end{array}\right) \\
+    &= \dfrac{\Delta m^{2}}{2E}\left(\begin{array}{cc} -\sin^{2}\theta & \cos\theta\sin\theta \\ -\cos\theta \sin\theta & \cos^{2}\theta\end{array}\right)\\
+    &= \dfrac{\Delta m^{2}}{4E}\left(\begin{array}{cc} -2\sin^{2}\theta & \sin 2\theta \\ -\sin 2\theta & 2\cos^{2}\theta\end{array}\right)
+\end{align}
+We can subtract an identity from this since we only care about relative 
+\begin{align}
+    H_{vac}  &= \dfrac{\Delta m^{2}}{4E}\left(\begin{array}{cc} -2\sin^{2}\theta-1 & \sin 2\theta \\ \sin 2\theta & 2\cos^{2}\theta -1\end{array}\right)\\
+    H_{vac} &= \dfrac{\Delta m^{2}}{4E}\left(\begin{array}{cc} -\cos 2\theta & \sin 2\theta \\ \sin 2\theta & \cos 2\theta \end{array}\right)
+\end{align}
+When adding in matter-effects, the terms along the diagonal are modified by a term $A$, which is a measure to the magnitude of the matter effect.
+\begin{align}\label{eq:hamil_msq}
+    H_{tot} &= \dfrac{\Delta m^{2}}{4E}\left(\begin{array}{cc} -(\cos 2\theta - A) & \sin 2\theta \\ \sin 2\theta & \cos 2\theta - A\end{array}\right) & A&= \dfrac{2\sqrt{2} G_{F} N_{E}E}{\Delta m^{2}},
+\end{align}
+We can then define an effective mass difference as 
+\begin{equation}\label{eq:mass_m}
+    \Delta m_{M}^{2} = \Delta m^{2}\sqrt{\sin^{2}2\theta + (\cos 2\theta - A)^{2}}
+\end{equation}
+and an effecting mixing amplitude as 
+\begin{equation}\label{eq:mass_th}
+    \sin^{2} 2\theta_{M} = \dfrac{\sin^{2} 2\theta}{\sin^{2} 2\theta + (\cos 2\theta + A)^{2}}.
+\end{equation}
+Using these, the matter-Hamiltonian of Eq~\eqref{eq:hamil_msq} can be written as 
+\begin{equation}\label{eq:wolfwolf}
+    H_{tot} = \dfrac{\Delta m_{M}^{2}}{4E}\left(\begin{array}{cc} -\cos 2\theta_{M} & \sin 2\theta_{M} \\ \sin 2\theta_{M} & \cos 2\theta_{M} \end{array} \right).
+\end{equation}
+As can be seen, as $A\to 0$ Equations~\ref{eq:mass_m} and~\ref{eq:mass_th} yield the original vacuum forms. And so Equation~\ref{eq:wolfwolf} hmmm... 
+
+The inclusion of matter effects can sometimes have dramatic effects on neutrino oscillation probabilities. If w
+
+\subsection{Neutrino Propagation with Interactions}
+In addition to neutrino oscillations and coherent matter effects, several other phenomena effect the full description of neutrino propagation through the Earth. 
+These include, but are not limited to, neutrino flux attenuation as neutrinos interact in the Earth, the process where charged tau leptons produced through neutrino-nucleon interactions decay to produce lower energy tau neutrinos called tau regeneration, and Glashow resonance interactions~\cite{PhysRev.118.316}.
+These effects become increasingly relevant at the higher energies relevant to the analysis presented in this dissertation.  
+Here we describe the methods numerically propagating neutrino fluxes from the Earth's surface to IceCube; these procedures were originally described by Reference~\cite{arguelles2021nusquids}.
 
 The neutrino flux is described as a function of energy $E$ and location $x$ for neutrino flavor $\alpha$ using the density matrix formalism in the weak-interaction flavor-eigenstate basis as 
 \begin{equation}
-    \rho(E,x) = \sum_{\alpha} \phi_{\alpha}(E,x) \ket{\nu_{\alpha}}\bra{\nu_{\alpha}}.
+    \rho(E,x) = \sum_{\alpha} \phi_{\alpha}(E,x) \ket{\nu_{\alpha}}\bra{\nu_{\alpha}},
 \end{equation}
 where $\phi_{\alpha}$ specifies the neutrino flux of the flavor $\alpha$. 
-The evolution of the system is described by the von Neumann equation
+The evolution of the system can be described by the von Neumann equation,
 \begin{equation}\label{eq:evol}
     \dfrac{\partial\rho (E,x)}{\partial x} = -i\left[ H(E,x), \rho(E,x)\right],
 \end{equation}
