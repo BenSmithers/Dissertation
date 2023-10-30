@@ -225,6 +225,7 @@ The former uses a normalization uncertainty that applies only to the conventiona
         \multicolumn{5}{c}{Astrophysical Flux} \\\hline
         astro\_rotated\_0$^{\dag}$ & 0.0 & $0.0\pm 0.42 $ & [-2.1, 2.1]&Both  \\
         astro\_rotated\_1$^{\dag}$ & 0.0 & $0.0\pm0.20$ & [-0.95, 0.95]&Both  \\
+        astro\_flavor & 0.0 & $0.0\pm1.0$ & [-1.3, 1.25] & Both \\
         \multicolumn{5}{c}{Cross Sections} \\\hline
         Cross section $\sigma_{\nu}$ & 1.0 & $1.0\pm0.03$ & [0.5, 1.5]& Both \\
         Cross section $\sigma_{\bar{\nu}}$ & 1.0 & $1.0\pm0.075$ & [0.5, 1.5]& Both \\
@@ -649,7 +650,7 @@ Since the signature of the sterile neutrino oscillations is a disappearance of $
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{figures/flux_plot_manyratio.png}
-    \caption{The fractional difference between the old flux model and the new flux model. Red represents a smaller flux. It is apparent that the new model predicts a smaller $\bar{\nu}$ flux.}\label{fig:fractional_diff}
+    \caption{The fractional difference between daemonflux and a Hillas-Gaisser H3a cosmic ray flux with the Sibyll2.3c interaction model. Red represents a smaller predicted flux. It is apparent that the new model predicts a smaller $\bar{\nu}$ flux.}\label{fig:fractional_diff}
 \end{figure}
 
 For this analysis, the effects of perturbing each of these 24 parameters are evaluated after a one-sigma from their central values.
@@ -840,9 +841,9 @@ The expected effect on reconstructed event rates from perturbing the flavor rati
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{figures/test_flavor_plot.png}%
-    \includegraphics[width=0.45\linewidth]{figures/bowtie.png}
-    \caption{(left) The predicted astrophysical flavor ratios at the Earth given different neutrino production mechanisms. (right) the flavor bowtie for a 3-neutrino oscillations, and 3+ neutrino oscillations, from Ref~\cite{Arg_elles_2020_astrotime}.}\label{fig:flavor_triangle_points}
+    \includegraphics[width=0.55\linewidth]{figures/test_flavor_plot.png}%
+    \includegraphics[width=0.40\linewidth]{figures/bowtie.png}
+    \caption{(left) The predicted astrophysical flavor ratios at the Earth given different neutrino production mechanisms and the chosen prior that spans all three. (Right) the flavor bowties for 3-neutrino oscillations (purple), and 3+ neutrino oscillations (orange), from Ref~\cite{Arg_elles_2020_astrotime}.}\label{fig:flavor_triangle_points}
 \end{figure}
 
 \begin{figure}
@@ -925,7 +926,7 @@ The shape effect from allowing the atmospheric muon scale to float is shown in F
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/atm_muon_scale.png}
+    \includegraphics[width=0.8\linewidth]{figures/systematics/atm_muon_scale.png}
     \caption{The shape-only effect of increasing the CR muon normalization by 20\%. This manifests as an increase in event rates at 1-3 TeV across all zeniths; apparent suppression at high energies is an artifact of this being a shape-only plot.}\label{fig:muon_shape}
 \end{figure}
 

@@ -24,7 +24,7 @@ These five values are
 
 Ultimately 7.6 years of tracks and 10 years of cascades were used in this analysis. 
 A track MC sample using approximately 500 years of equivalent livetime and a cascades sample with approximately 100 years of equivalent lifetime. 
-The central MC expectations are shown in Figure\ref{fig:event_no} with tracks on the left and cascades on the right. 
+The central MC expectations are shown in Figure~\ref{fig:event_no} with tracks on the left and cascades on the right. 
 
 \begin{figure}
     \centering
@@ -35,27 +35,19 @@ The central MC expectations are shown in Figure\ref{fig:event_no} with tracks on
 \subsection{Cascade Event Selection}
 
 This final level event filter was developed and published in Ref~\cite{2018PhDT17N}.
-
-The monopod reconstruction algorithm is then run on events which survive the topological splitting cuts. 
-When the reconstruction algorithm, Monopod, is run on the events surviving the level three filter described in Section SEC, 
-several quantities are fit and logged including the reconstructed energy, interaction vertex, direction, and a reduced likelihood for the fit; the smaller the reduced log-likelihood is the better. 
+Monopod is first run on the events surviving the level three filter described in Section~\ref{sec:level3}:
+several quantities are fit and logged including the reconstructed energy, interaction vertex, direction, and a reduced likelihood for the fit (the smaller the reduced log-likelihood is the better).
 Events for which the reduced algorithm fail, or which have a reduced log-likelihood ($rLogl$) of greater than 9.1, are discarded. 
-
-A first series of cuts, the level four cuts, are then applied. 
-These are designed to further cut away any events which are likely resulting from particles entering into IceCube. 
+A series of cuts are then applied to reduce the muon contamination: 
 \begin{enumerate}
     \item Discard events which are inside the dust layer unless they are high-energy or have $rLogl<7.5$. 
-    \item Discard events with a reconstructed $z$ $>500$ or $<-500$. 
-    \item Discard events which are reconstructed as being near the edge, unless they are well-reconstructed $rLogl<7.6$.
+    \item Discard events with a reconstructed vertex with $z$ $>500$ or $<-500$. 
+    \item Discard events which are reconstructed as being near the edge, unless they are well-reconstructed with $rLogl<7.6$.
     \item Discard events near the top or bottom of IceCube unless they are well reconstructed. 
-    \item Discard events with very large, negative, photon delay times. 
+    \item Discard events with very large, negative, photon delay times. This is common for triggers resulting from uncorrelated bundles of atmospheric cosmic ray muons. 
 \end{enumerate}
-Large delay times are common for detector triggers resulting from uncorrelated bundles of atmospheric cosmic ray muons. 
-
-A Boosted Decision Tree classifier is then run on the events which survive the level-four cuts. 
-This BDT has been developed to classify events into three classes: cascades, hybrid, and tracks.
-
-Events enter the cascades sample based on an energy-dependent cut on the cascade score $s_{cascade}$. Only events satisfying Equation~\eqref{eq:e_casc_cut}
+A Boosted Decision Tree classifier is then run on the events which survive these cuts.  
+Only thoe eents who satisfy an energy-dependent cut on the cascade score $s_{cascade}$ are kept. The cut is shown in Equation~\eqref{eq:e_casc_cut},
 \begin{equation}
     s_{\text{cascade}} > 1 - \left(\dfrac{1}{A + \exp\left[ -B(\log E_{reco} - C) \right]} + D\right),
 \end{equation}\label{eq:e_casc_cut}
@@ -137,38 +129,53 @@ where $\Gamma$ is the gamma function.
 
 The set of nuisance parameters describe that describe systematic uncertainties are themselves constrained by Gaussian priors functions. 
 These priors are used to weight the likelihoods, which is maximized to form a profile likelihood, defined as 
-
 \begin{equation}
 \mathcal{L}_{\text{profile}}\left(\vec{\theta}\right) = \text{max}_{\vec{\eta}}\left[\mathcal{L}(\vec{\Theta}, \vec{\eta}) \Xi(\vec{\eta}) \right]
 \end{equation}
-where $\Xi(\vec{\eta})$ is the total likelihood penalty for the set of nuisance parameters $\vec{\eta}$ calculated accounting for the correlations between the priors. 
+where $\Xi(\vec{\eta})$ is the total likelihood penalty for the set of nuisance parameters $\vec{\eta}$ calculated accounting for the correlations between the nuisance parameters' priors. 
 
 We then construct an analysis test statistic (TS) for producing confidence intervals, which we define as 
 \begin{equation}\begin{split}
-TS(\vec{\Theta}) &= -2\left[ \log\mathcal{L}_{\text{profile}}(\vec{\theta}) - \log\mathcal{L}_{\text{profile}}(\vec{\Theta}_{min}) \right] \\
-&= -2 \Delta \log\mathcal{L}_{\text{profile}}(\vec{\theta})\\
-&=-2\Delta \text{LLH}
+TS(\vec{\Theta}) &= -2\left[ \log\mathcal{L}_{\text{profile}}(\vec{\Theta}) - \log\mathcal{L}_{\text{profile}}(\vec{\Theta}_{min}) \right] \\
+TS(\vec{\Theta}) &= -2 \Delta \log\mathcal{L}_{\text{profile}}(\vec{\Theta})\\
+TS(\vec{\Theta}) &=-2\Delta \text{LLH}
 \end{split}\end{equation}
 where $\vec{\Theta}_{min}$ is the sterile hypothesis that maximizes the likelihood, and best matches the data: the best fit point. 
 
-\textit{Short discussion about biases introduced by this likelihood function}
+For fit-scans, we assume that this test statistic satisfies Wilk's Theorem~\cite{10.1214/aoms/1177732360}, and that $\chi^{2}= TS$. 
+Threshold values of $\chi^{2}$ for a given number of degrees of freedom $k$ and a desired confidence level $\gamma$ are related by 
+\begin{equation}
+    \gamma = \dfrac{1}{2^{k/2} \Gamma(k/2)} \int_{0}^{\chi^{2}_{thresh}} dx x^{k/2 - 1} e^{-x/2}. 
+\end{equation}
+This functional form is inverted to solve for the TS threshold. A few example thresholds commonly used here are shown in Table~\ref{table:tsthresh}.
+\begin{table}
+    \centering
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{c | c c}\rowcolor{blue!25}
+        & 2DOF & 3DOF \\\hline
+    68\% & 2.72 & 3.51 \\
+    90\% & 4.61 & 6.25 \\ 
+    95\% & 5.99 & 7.81 \\
+    99\% & 9.21 & 11.34 
+    \end{tabular}
+    \caption{A table listing the test-statistic thresholds assuming Wilks' theorem holds.}\label{table:tsthresh}
+\end{table}
 
 \section{Tests}
 
 A series of tests were performed to validate the implementation of the nuisance parameters and verify the performance of the fitting framework. 
+Throughout this section, we refer to two models of the conventional flux.
+One uses the model from the 8-year sterile analysis~\cite{Aartsen_2020, Aartsen_2020_prd}; its set of nuisance parameters are listed in Table~\ref{table:nutrition}.
+The other model uses the daemonflux~\cite{yanez2023daemonflux} nominal conventional flux model and conventional flux uncertainties ; its set of nuisance parameters are listed in Table~\ref{table:daemon_table}. 
+Although both were investigated, only the daemonflux model was used in data fits. 
 
 \subsection{Previous Results Cross-Check}
 
-Using only the track sample, we verified we were able to recover similar sensitivities to the original eight-year sensitivity published in References~\cite{Aartsen_2020} and~\cite{Aartsen_2020_prd}. 
-First, a comparison was done using the older GolemFit framework and the new PISA framework~\cite{pisa} using the same exact nuisance parameter implementations and fluxes. 
-The sensitivities, calculated at 90\% C.L. and for two degrees of freedom, for both GolemFit and PISA are shown in Figure~\ref{fig:comparison} (left).
+For validation using the new PISA implementation, we verified we could recover the same sensitivities as from the original eight-year sensitivity published in References~\cite{Aartsen_2020} and~\cite{Aartsen_2020_prd}.
 
-Then, additional fluxes, gradients, and Fast MC, were generated in logarithmic steps in $\sin^{2}(2\theta_{14})$ and $\Delta m_{41}^{2}$ space.
-Using the new nuisance parameter implementations and Daemonflux gradients, we evaluated the same 90\% CL sensitivities for two degrees of freedom.
-The resulting sensitivities are shown in Figure~\ref{fig:comparison} (right) with the previous sensitivities overlain. 
-As mentioned in Section~\ref{sec:daemon_sense}, the observed sensitivities using DaemonFlux are worse than the older 8-year sensitivities. 
-
-As a means of verifying suspicions that the charge-ratio is responsible for the hit to the expected sensitivity. I now will write about the check where I made the charge ratio smaller 
+New fluxes, gradients, and Fast MC, were generated in logarithmic steps in $\sin^{2}(2\theta_{14})$ and $\Delta m_{41}^{2}$ space using the same techniques as what is used for the joint fits over ($\Delta m_{41}^{2}$, $\abs{U_{\mu 4}}^{2}$,$\abs{U_{\tau 4}}^{2}$).
+Using the new nuisance parameter implementations in PISA, we ran a global-scan of nuisance parameter fits to an Asimov realization in the same 2D space as in the previous analyses. 
+The resulting 90\% confidence level sensitivities are shown in Figure~\ref{fig:comparison} with the previous sensitivities overlain. 
 
 \begin{figure}
     \centering
@@ -214,12 +221,14 @@ The bundles are
     \item Det(ector): hole ice uncertainty, DOM efficiency, and the bulk-ice uncertainty
     \item Muon: the CR muon background\footnote{Because of the large, extra, error introduced by the muon background, for this systematic impact test a special realization is generated and fit to where there no muon contribution is added at all.}
 \end{enumerate}
-These sensitivity contours are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}
+The systematic impact tests were calculated twice: once using the conventional flux model using the Barr parametrization, and once more using daemonflux. 
+Both are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.90\linewidth]{figures/systematic_impact_joint.png}
-    \caption{The sensitivity contours for fixing each bundle of nuisance parameters. Contours are shown at 90\% CL and 3DOF for various mass-squared splittings; from left to right: 1.0eV$^{2}$, 4.5eV$^{2}$, 10.0eV$^{2}$, and 100.0eV$^{2}$.}\label{fig:impact}
+    \includegraphics[width=0.90\linewidth]{figures/systematic_impact_joint.png}\\
+    \includegraphics[width=0.90\linewidth]{figures/Systematic_impact_joint_daemon.png}
+    \caption{The sensitivity contours for fixing each bundle of nuisance parameters. Contours are shown at 90\% CL and 3DOF for various mass-squared splittings; from left to right: 1.0eV$^{2}$, 4.5eV$^{2}$, 10.0eV$^{2}$, and 100.0eV$^{2}$. Top: results when using the conventinonal flux model used in the 8-year analysis, and on bottom: the results when using daemonflux.}\label{fig:impact}
 \end{figure}
 
 \subsection{Signal Inject-Recover}
@@ -228,29 +237,9 @@ Various points were chosen along the Asimov 90\% CL thresholds to test the fitti
 Two each were chosen along the contours at 1.0, 4.5, and 10 eV$^{2}$; one more was chosen at 100 eV$^{2}$. 
 Additionally, three more points were chosen off-grid at various points.
 Of those three, one was selected as the recovered best-fit point from the 8-year track analysis. 
-Each of these points are listed in Table~\ref{table:injected_signals}.
 Then, we ran a full fit-scan on an Asimov realization generated for each of these simulated signals. 
 Injected values are recovered in all cases where a signal is injected at a grid-point. 
 For the cases where a signal is injected near a grid point, the best fit is sufficiently close.
-
-\begin{table}
-    \centering
-    \rowcolors{2}{gray!25}{white}
-    \begin{tabular}{c | cccc}\rowcolor{blue!25}
-            Realization Name & $\theta_{14}$ [rad] & $\theta_{24}$ [rad] & $\theta_{34}$ [rad] & $\Delta m_{41}^{2}$ [eV$^{2}$] \\
-            RealIR\_0& 0.0  & 0.08192326 & 0.3206565 & 1.0 \\
-            RealIR\_1& 0.0  & 0.1473121 & 0.077387 & 1.0\\
-            RealIR\_2& 0.0  & 0.2295065 & 0.07861259 & 4.5\\
-            RealIR\_3& 0.0  & 0.08192326 & 0.3206565 & 4.5\\
-            RealIR\_4& 0.0  & 0.3096057 & 0.2337925 & 10.0\\
-            RealIR\_5& 0.0  & 0.0948438 & 0.223506 & 10.0\\
-            RealIR\_6& 0.0  & 0.1473121 & 0.1317024 & 100\\
-            RealIR\_7$^{\dag}$ & 0.0  & 0.02 & 0.02 & 2.0\\
-            RealIR\_8$^{\dag}$ & 0.0  & 0.08 & 0.003 & 7.0\\
-            RealIR\_9$^{\dag}$ & 0.0  & 0.1609 & 0.0 & 4.5
-    \end{tabular}
-    \caption{Sterile neutrino mixing angles at which Asimov realizations were generated. Entries marked with $\dag$ were generated off of the grid used for fit scans.}\label{table:injected_signals}
-\end{table}
 
 \begin{figure}
     \centering
@@ -287,15 +276,17 @@ For the cases where a signal is injected near a grid point, the best fit is suff
 
 \subsection{Asimov Sensitivity}
 
-First, a single realization was generated without applying statistical variation on the per-bin expectation. 
-This is the Asimov realization. 
+First, a single realization was generated without applying statistical variation on the per-bin expectation; this is the Asimov realization. 
 Fits were performed for this simulated observation and test scores were calculated for each one following the metrics defined in Section~\ref{sect:llh_metric}.
-The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for the fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_sense}. 
-These results are plotted, superimposed against other experiment's sensitivities, in Figure~\ref{fig:asimov_compare}. 
-Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$.
+Two fit-scans were carried out: once using the conventional flux model from the 8-year analysis and once using daemonflux. 
+Daemonflux fit-scans here also included a nuisance parameter accounting for uncertainty on the astrophysical neutrino flavor ratio; this was not included in the 8-year conventional model fit scans. 
+The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for each fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_sense} for the 8-year model and Figure~\ref{fig:asimov_daemon_sense} using daemonflux. 
+Sensitivities for the two different models are shown, overlain, in Figure~\ref{fig:asimov_model_compare}; here the astrophysical flavor ratio uncertainty was not included in the daemonflux sensitivities. 
+The change in sensitivity where daemonflux is used as the nominal conventional flux model is due to the difference in the predicted charge ratio; daemonflux predicts a higher charge ratio and therefore a smaller signature from the resonant $\bar{\nu_{\mu}}$ disappearance. 
 
+These results are plotted compared to the previous pheno predictions in Figure~\ref{fig:pheno_compare}. 
+Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$.
 The sensitivities here are observed to be worse than those predicted earlier in Chapter~\ref{chapter:sense}, though this is not surprising; here a full treatment of systematic uncertainty is used.
-In addition to this, the newer flux model predicts a higher charge ratio, resulting in fewer signal-neutrinos from being apparent against the $\nu_{\mu}$ flux.
 
 \begin{figure}
     \centering
@@ -303,16 +294,38 @@ In addition to this, the newer flux model predicts a higher charge ratio, result
     \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis.}\label{fig:asimov_sense}
 \end{figure}
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/joint_daemon_asimov_with_flavor_update_Realization_daemon_newflavor_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The 90\% confidence level sensitivity contours with three degrees of freedom for this analysis; using daemonflux for the conventional flux model}\label{fig:asimov_daemon_sense}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/double_joint_full_daemon_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{A comparison of the sensitivities calculated for a daemonflux conventional flux model and the conventional flux model used in the 8-year analysis (labeled as \textit{H3-H3a}).}\label{fig:asimov_model_compare}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/pheno_joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/pheno_joint_daemon_update_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$, 3.5 eV$^{2}$, and  4.5 eV$^{2}$. On the left, using the 8-year analysis conventional flux model, and on the right using daemonflux.}\label{fig:pheno_compare}
+\end{figure}
+
 \begin{figure}
     \centering
     \includegraphics[width=0.45\linewidth]{figures/pheno_joint_asimov_oldairs_Realization_Asimov_sterile_0_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/comparison.png}
-    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:asimov_compare}
+    \caption{The 90\% confidence level sensitivity contours for this analysis with two degrees of freedom at $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$ (left), and  4.5 eV$^{2}$ (right), are shown. Senstivities from DeepCore~\cite{Aartsen_2017_dc} and Super-K~\cite{PhysRevD.91.052019} at 1.0eV$^{2}$ are also shown.}\label{fig:experiment_compare}
 \end{figure}
+
 
 \subsection{Median Sensitivities}
 
-The experimental results of 200 simulated experiments assuming Poissonian statistical fluctuations on the median expectation.
+The experimental results of \texttt{A NUMBER OF} simulated experiments assuming Poissonian statistical fluctuations on the median expectation.
 A full fit scan was then carried out for each of these pseudo-experiments, and the exclusion contours were drawn for each.
 The median location of the contour, the bands containing 68\% of the contours, and the bands containing 95\% of contours were then calculated for contours at 90\% and 95\% confidence level. 
 These bands are shown in Figure~\ref{fig:brazil} for contours at 90\% CL (top) and 95\% CL (bottom).
@@ -330,7 +343,7 @@ These bands are shown in Figure~\ref{fig:brazil} for contours at 90\% CL (top) a
 There is always the possibility that an inaccurate model of some process could mimic the signatures of a 3+1 sterile neutrino model. 
 Several possible sources of such a mismodeling were investigated. 
 
-\subsection{Cosmic-Ray Mismodeling}
+\subsection{Conventional Neutrino Flux Mismodeling}
 
 Newer high-energy IceCube oscillations analyses had begun to adopt the daemonflux~\cite{yanez2023daemonflux} cosmic ray and conventional neutrino model. 
 As part of this analysis, we generated a pseudo-experiment where daemonflux is the true neutrino flux with no new physics. 
@@ -347,7 +360,7 @@ In this case, a 3+1 sterile model is preferred over the injected (null) physics 
 
 Further, two similar fit-scans were carried out using only tracks. 
 These scans are shown in Figure~\ref{fig:uhoh_mismodel_worse}; in the case where a fitscan is ran mimicking the original 8-year IceCube sterile search a closed-contour result is recovered at the 90\% confidence level. 
-This suggests that if daemonflux is a better description of the truth, then assuming the model used in the 8-year IceCube sterile search is likely to give spurious signals given no new physics, or artificially strong signals given sterile neutrinos.
+This suggests that if daemonflux is a better description of the truth, then assuming the model used in the 8-year IceCube sterile search is likely to give spurious 3+1 signals given no new physics, or artificially strong signals given sterile neutrinos.
 
 \begin{figure}  
     \centering
@@ -357,17 +370,17 @@ This suggests that if daemonflux is a better description of the truth, then assu
 \end{figure}
 
 The converse was also investigated.
-Fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the cosmic ray flux model used in the 8-year IceCube sterile search was injected. 
-In this case, the best fit was consistent with a three-neutrino hypothesis.
+Fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the conventional neutrino flux model used in the 8-year IceCube sterile search was injected. 
+In this case, the best fit was consistent with a three-neutrino hypothesis, as shown in Figure~\ref{fig:daemon_midmodel}
 
 \begin{figure}  
     \centering
     \includegraphics[width=0.7\linewidth]{figures/joint_daemon_inject_barr_Realization_Asimov_sterile_0_cl0.9_dof3.png}
-    \caption{The 90\% CL contours for three degrees of freedom. A conventional flux model consistent with the 8-year IceCube sterile search is injected and daemonflux is assumed in fits. $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$.}\label{fig:uhoh_mismodel}
+    \caption{The 90\% CL contours for three degrees of freedom. A conventional flux model consistent with the 8-year IceCube sterile search is injected and daemonflux is assumed in fits. $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$.}\label{fig:daemon_midmodel}
 \end{figure}
 
 Two additional fitscans were ran. 
-A neutrino flux predcition was made using the Global Spline Fit~\cite{dembinski2017datadriven}, the Sibyll2.3c interaction model~\cite{Riehn:2017mfm}, and the US Standard Atmospheric model~\cite{united1976u}. 
+A neutrino flux prediction was made using the Global Spline Fit~\cite{dembinski2017datadriven}, the Sibyll2.3c interaction model~\cite{Riehn:2017mfm}, and the US Standard Atmospheric model~\cite{united1976u}. 
 Fit scans were ran on a pseudo-experimental result generated from this flux assuming (1) daemonflux and its uncertainties of the cosmic ray flux, and (2) the model used in the 8-year IceCube sterile search. 
 These results are shown in Figure~\ref{fig:gsf_updates}. 
 In both cases, no statistically significant signal is seen; each one is consistent with the injected null model. 
@@ -379,6 +392,7 @@ In both cases, no statistically significant signal is seen; each one is consiste
     \caption{On the left (right), fit results after injecting the new GSF model while assuming the model used in the 8-year IceCube sterile search (daemonflux), $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$ $(0.2)$.}\label{fig:gsf_updates}
 \end{figure}
 
+The result of this mismodeling test was the decision to fully adopt the daemonflux conventional neutrino flux model as the nominal flux model and the description of conventional flux uncertainties. 
 
 \subsection{Astrophysical Mismodeling}
 
@@ -386,13 +400,33 @@ Recently, the IceCube Neutrino Observatory became the first experiment to observ
 This extra population of neutrinos is produced from cosmic-ray interactions with the interstellar medium throughout our galaxy: causing the Milky Way to glow with neutrinos. 
 In this, and similar oscillations analyses, the astrophysical neutrino flux has been assumed to be isotropic. 
 A test was carried out where a non-isotropic flux modeling the Milky way, the KRA$\gamma$-50\cite{Gaggero_2015} model, is injected in addition to an isotropic flux but with no new physics signatures. 
-A fit scan is then ran and the resulting likelihood profile is investigated. 
-The exclusion contours, with best fit, is shown in Figure~\ref{fig:galaxy}.
+A fit scan is then ran and the resulting likelihood profile is found. 
+The exclusion contours, with best fit, are shown in Figure~\ref{fig:galaxy}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{figures/double_galactic_mismodel_fix_Realization_galactic_focus_sterile_0_cl0.9_dof3.png}
     \caption{Exclusion contours at 90\% CL and for three degrees of freedom for an Asimov realization (solid) and a KRA$\gamma$-50 injected neutrino flux (dashed). The contours have considerable overlap and no spurious 3+1 signatures are observed}\label{fig:galaxy}
+\end{figure}
+
+\subsection{Astrophysical Flavor Mis-modeling}
+
+Since the chosen prior does not span the full range of astrophysical flavor ratios allowed at $3\sigma$, a flavor-ratio mismodelling test was carried out.
+A pseudo-experimental result was generated assuming a flavor ratio ($f_{e}:f_{\mu}:f_{\tau}$) of (0.35,0.2,0.45); an allowed value that is not spanned by the astrophysical nuisance parameter. 
+A fitscan was then carried out to this possible experimental result, and the resulting 90\% CL contours are shown in Figure~\ref{fig:flavor_mismodel}. The pulls at the best fit are shown in Figure~\ref{fig:flavor_mismodel}.
+As can be seen, the flavor ratio pulls down to match the injected flavor ratio.
+The sample is insensitive to the differences between $\nu_{e}$ and $\nu_{\tau}$ at these energies, and so in practice only one nuisance parameter is needed.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/joint_astro_flavor_misfit_Realization_daemon_badflavor_Asimov_sterile_0_cl0.9_dof3.png}
+    \caption{Exclusion contours at 90\% CL and for three degrees of freedom while injecting an astrophysical flavor ratio outside the values spanned by the nuisance parameters.}\label{fig:flavor_mismodel}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/pulls_Realization_daemon_badflavor_Asimov_sterile_0_joint_astro_flavor_misfit.png}
+    \caption{The pulls at the best fit point in the fitscan shown in Figure~\ref{fig:flavor_mismodel}.}\label{fig:flavor_mismodel}
 \end{figure}
 
 \subsection{CR Muon Mismodeling}
@@ -445,10 +479,152 @@ Then we count the number of bins whose best fit values are more than $3\sigma$ a
 
 \subsection{5\% Data Blind Fit Results}
 
+First, a fit on 5\% of the data was carried out to validate basic functionality and ensure no glaring inconsistencies between data and MC exist. 
+A full fit scan is carried out over the full new-physics phase space, and the best-fit point is found. 
+The nuisance parameter pulls are determined, and shown in Figure~\ref{fig:pulls_5p}; none pulled above $3\sigma$.
+
+Then the 1D pulls were calculated and the 1D distributions calculated; none pulled above $3\sigma$. 
+These are shown in Figure~\ref{fig:1d_5p_distrib}.
+Finally, the 2D distribution of pulls were calculated and are shown in Figure~\ref{fig:2d_5p_distrib}.
+Again, nothing pulled above $3\sigma$. 
+P-values were calculated and all found to be within the required bounds. 
+Since all checks passed, we proceeded to blind fits on 100\% of the data. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/pulls_IC86_data_five_percent_joint_data_5p_with_flavor_update_fix.png}
+    \caption{The nuisance parameter pulls at the best fit to 5\% of the data.}\label{fig:pulls_5p}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/goodness_joint_data_5p_with_flavor_update_IC86_data_five_percent.png}
+    \caption{The 1D pulls and distribution of 5\% of the data.}\label{fig:1d_5p_distrib}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/2dpulls_joint_data_5p_with_flavor_update_fix_IC86_data_five_percent.png}
+    \caption{The 2D pulls and distribution of 5\% of the data.}\label{fig:2d_5p_distrib}
+\end{figure}
+
 \subsection{100\% Data Blind Fit Results}
+
+Before looking at the exclusion contours and ``unblinding,'' we first validate that the fit is sensible. 
+Similar to before, the nuisance parameter pulls were calculated and then the pulls in the 1D distributions. 
+These are shown in Figure~\ref{fig:pulls_100p} and~\ref{fig:1d_100p_distrib}.
+For the cascades, one bin pulled at $3\sigma$, and as a consequence the p-value dropped to 0.007: a stop condition. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/pulls_IC86_data_full_joint_data_full.png}
+    \caption{The nuisance parameter pulls at the best fit to 5\% of the data.}\label{fig:pulls_100p}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/goodness_joint_data_full_IC86_data_full.png}
+    \caption{The 1D pulls and distribution of 100\% of the data.}\label{fig:1d_100p_distrib}
+\end{figure}
+
+
+To investigate this, we suspected an ice-modelling may be a factor. 
+The track and cascades samples rely on the legacy Spice 3.2.1 ice model; the latter, newer, model had been shown to predict differing photon-DOM counts as a function of $\cos\theta$.  
+This is shown in Figure~\ref{fig:zenith_bfr}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/ice_investigate/zenith_bfr.png}
+    \caption{Differences in photon counts for SPICE 3.2.1 (dark blue line) and BFRv2 (light blue line).}\label{fig:zenith_bfr}
+\end{figure}
+
+Motivated by these differences, a small sample of 5000 cascades were generated for $\cos\theta\in\left[-1.0, -0.9\right]$ and $E_{\nu}^{true}\in\left[1\text{TeV}, 2\text{TeV}\right]$. 
+Using the exact same MC events and energy losses, photon propagation was performed separately using the SPICE 3.2.1 and BFRv2 models to generate two versions of the sample.
+The detector simulation, trigger simulation, filter simulation, and even reconstruction was then carried out for each of the two versions. 
+Reconstructed event rates are shown in Figure~\ref{fig:icetest}; a strong disagreement is observed between the two sample predictions. 
+This disagreement further supported a systematic difference in the predictions between the two ice models. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/ice_investigate/icetest.png}
+    \caption{Reconstructed event rates (unweighted) for the BFRv2 and Spice 3.2.1 MC sample versions; error bars are show MC statistical error.}\label{fig:icetest}
+\end{figure}
+
+A separate, low-statistics, MC sample had been prepared internally in IceCube as part of a separate mismodeling test. 
+This sample had been prepared using the BFRv2 ice model, and so we ran this analysis' cascade reconstruction and final level filters on the MC files. 
+BFRv2-generated track MC was similarly already available from a post-unblinding cross-check in a previous analysis.
+The predicted 1D event rates, as determined for both the BFRv2 and SPICE 3.2.1 ice models, are shown in Figure~\ref{fig:bfr_spice_wow}. 
+A similar disagreement was seen between the Spice 3.2.1 and BFRv2 models.
+As a final test, a realization was generated assuming BFRv2 describes the truth.
+Then, the SPICE 3.2.1 MC was used to perform a fitscan with the BFRv2-generated realization. 
+The goodness of fit is shown in Figure~\ref{fig:icetest_gof}.
+By applying the same stop criteria as mentioned earlier, this inject-recover test fails in the same exact was as the 100\% blind fits. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/ice_investigate/reco_energy_distrib_lognorm.png}%
+    \includegraphics[width=0.45\linewidth]{figures/ice_investigate/true_zenith_distrib.png}
+    \caption{The reconstructed energy (zenith) rates are shown in the left (right) comparing SPICE 3.2.1 and BFRv2.}\label{fig:bfr_spice_wow}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/ice_investigate/goodness_joint_injectbfr_fitspice_Realization_daemon_bfr_Asimov_sterile_0.png}
+    \caption{The goodness of fit after injecting a BFRv2-generated realization and fitting with SPICE 3.2.1 MC.}\label{fig:icetest_gof}
+\end{figure}
+
+As the MC predictions begin to deviate at approximately -0.8, shown in Figure~\ref{fig:bfr_spice_wow}, the decision was made to cut the first zenith bin in this analysis while generating a full high-statistics BFRv2 MC\footnote{publications of this work will only use future results using the BFRv2 model.}. We 
+
+\subsection{Post-Cut 100\% Blind Fits}
+
+As a sanity-check, two fitscans were performed prior to re-running the blind fits with all of the data: an Asimov scan and a signal inject-recover test. 
+These are shown in Figure~\ref{fig:new_sense_again_cut}. 
+Little effect was observed. 
+We then calculated the nuisance parameter pulls, the 1D distribution pulls, and then the 2D distribution pulls; these are shown sequentially in Figures~\ref{fig:pulls_100p_cut} through~\ref{fig:2d_100p_distrib_cut}.
+No stop criteria were met. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\linewidth]{figures/blindfit/joint_asimov_cut_Realization_daemoncut_Asimov_sterile_0_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/blindfit/joint_asimov_cut_signal_Realization_daemoncut_Asimov_sterile_4_cl0.9_dof3.png}
+    \caption{Left: the Asimov sensitivity after cutting the up-going zenith bin in the cascades selection; right: the 90\% CL contours after injecting signal and fitting after applying the zenith cut.}\label{fig:new_sense_again_cut}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/pulls_IC86_data_full_cut_joint_data_full_cut.png}
+    \caption{The nuisance parameter pulls at the best fit to 100\% of the data after applying the cut.}\label{fig:pulls_100p_cut}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/goodness_joint_data_full_cut_IC86_data_full_cut.png}
+    \caption{The 1D pulls and distribution of 100\% of the data after applying the cut.}\label{fig:1d_100p_distrib_cut}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{./figures/blindfit/2dpulls_joint_data_full_cut_IC86_data_full_cut.png}
+    \caption{The 2D pulls and distribution of 100\% of the data after applying the cut.}\label{fig:2d_100p_distrib_cut}
+\end{figure}
+
 
 \section{Results}
 
+The resulting exclusion contours are shown in Figure~\ref{fig:final_results} for 90\%, 95\%, and 99\% confidence level for three degrees of freedom. 
+The data are seen to prefer a 3+1 model with $\Delta m_{41}^{2}=\pi$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=e$, and $\abs{U_{\tau 4}}^{2}=\tau$ with a significance $-2\left(TS_{bf} - TS_{null}\right)=X.XX$. 
+These results are shown overlain against the analysis' 95\% CL Brazil Bands in Figure FIG. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/placeholder_results.png}
+    \caption{Left to right, top to bottom: the exclusion contours for three degrees of freedom and at a confidence level of 90\%, 95\%, and 99\%. The best fit is at $\Delta m_{41}^{2}=\pi$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=e$, and $\abs{U_{\tau 4}}^{2}=\tau$. No actual data here, this is a stand-in!}\label{fig:final_results}
+\end{figure}
+
 \section{Conclusions}
+
+Here I write about the implications of these results. 
 
 \end{document}

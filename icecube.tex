@@ -3,12 +3,12 @@
 \begin{document}
 
 
-\index{IceCube Neutrino Observatory}Described at length in Ref.~\cite{Aartsen_2017}, the IceCube Neutrino Observatory is a gigaton-scale Cherenkov observatory instrumented across a cubic kilometer, two kilometers deep, in the Antarctic glacial ice~\cite{Aartsen_2017}.
-Shown in Figure~\ref{fig:icecube_figs}, left, is composed of 5160 photo-multiplier tubes encased within glass pressure vessels, called ``Digital Optical Modules'' (DOMs)~\cite{ABBASI2009294}, which are used to detect the Cherenkov light emission from the charged daughter-particles resulting from neutrino interactions in and around the detector.
+\index{IceCube Neutrino Observatory}The IceCube Neutrino Observatory is a gigaton-scale Cherenkov observatory instrumented across a cubic kilometer at the South Pole, two kilometers deep, in the Antarctic glacial ice~\cite{Aartsen_2017}.
+As shown in Figure~\ref{fig:icecube_figs} (left) IceCube is composed of 5160 photo-multiplier tubes encased within glass pressure vessels, called ``Digital Optical Modules'' (DOMs)~\cite{ABBASI2009294}, which are used to detect the Cherenkov light emission from the charged daughter-particles resulting from neutrino interactions in and around the detector.
 These DOMs are arranged vertically with a seventeen-meter spacing into seventy-nine strings, which themselves are aligned into a hexagonal lattice with a 125-meter spacing. 
 A more densely instrumented sub-detector called DeepCore was also installed towards the bottom-center of the main detector~\cite{ABBASI2012615}; the additional strings of this dense in-fill brings the total string count to eighty-six.
-Working as both a veto layer and a cosmic-ray air shower detector, an array of surface detectors named IceTop is installed on surface of the IceCube glacier.
-A schematic illustration of the IceCube string and IceTop tank locations is shown in Figure~\ref{fig:icecube_figs}\footnote{String 37 is off-grid due to a deeply buried crate of pork chops obstructing the original drill-site.}.
+Working primarily as a cosmic-ray air shower detector, an array of surface detectors named IceTop is installed on surface of the IceCube glacier.
+A schematic illustration of the IceCube string and IceTop tank locations is shown in Figure~\ref{fig:icecube_figs}\footnote{String 37 is off-grid as a result of a sub-surface crate of pork chops obstructing the original drill-site.}.
 
 \begin{figure}
     \centering
@@ -19,33 +19,34 @@ A schematic illustration of the IceCube string and IceTop tank locations is show
 
 \section{Event topologies}\label{sec:event_morphology}
 
-Large-volume neutrino telescopes, like IceCube, typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} and the recently-observed~\cite{IceCube:2021rpz} Glashow-Resonance~\cite{PhysRev.118.316} interactions dominate. 
+Large-volume neutrino telescopes, like IceCube, typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} interactions dominate, and Glashow-Resonance~\cite{PhysRev.118.316} interactions have only just been observed~\cite{IceCube:2021rpz}.
 The detected neutrino interaction events fall into two morphological categories: tracks and cascades.
 
 Charged-current (CC) $\nu_{\mu}$ DIS events result in muons at energies where radiative processes dominate energy loss rates.
 As a result, energy losses are stochastically driven and the produced muons travel for kilometers. 
-The results are threefold: muons are difficult to fully contain in neutrino telescopes, muon energies are poorly correlated with progenitor muon-neutrino energies, and muons' long travel-distance can allow for reconstructing their direction to within 1$^{\circ}$~\cite{trackaccuracy2017}. These events are called \textit{tracks}~\cite{icecube_energy_reco}.
+The consequences are threefold: muons are difficult to fully contain in neutrino telescopes, muon energies are poorly correlated with progenitor muon-neutrino energies, and muons' long travel-distance can allow for reconstructing their direction to within 1$^{\circ}$~\cite{trackaccuracy2017}. These events are called \textit{tracks}~\cite{icecube_energy_reco}.
 
 All neutral-current (NC) DIS events result in a hadronic shower spreading around the interaction point and a secondary neutrino invisibly carrying away a proportion of the parent neutrino's energy. 
-These events are often contained with a spherical topology. 
+These events are often contained with a roughly spherical topology. 
 $\nu_{e}$-CC interactions develop similarly to neutral-current interactions, but repeated inverse Compton scattering of the produced electron initiates an electromagnetic shower superimposed over the hadronic shower. 
 Thus, nearly all of the interacting neutrino's energy is observable as detectable light. 
 These events are called \textit{cascades.} Such events tend to be well-contained permitting an efficient energy reconstruction, although suffer from poor angular reconstruction~\cite{icecube_energy_reco}. 
 
 The evolution of a $\nu_{\tau}$-CC interaction is highly dependent on the energies involved. A tau is produced simultaneously as a hadronic cascade propagates around the interaction point, and then the tau decays. 
 Due to their large mass, taus have a short lifetime and a decay length of $\sim 50$ m per PeV of tau energy~\cite{abbasi2020measurement}. 
-From the tau branching ratios~\cite{PhysRevD.98.030001}, 17.37\% of the charged tau decays evolve as muon tracks, while the remainder of the decays evolve as electromagnetic or hadronic cascades. Only at neutrino energies above 60 TeV do $\nu_{\tau}$-CC interactions yield events with potentially distinguishable primary and secondary cascades~\cite{abbasi2020measurement}.
+From the tau branching ratios~\cite{PhysRevD.98.030001}, 17.37\% of the charged tau decays evolve as muon tracks, while the remainder of the decays evolve as electromagnetic or hadronic cascades. Only at neutrino energies above 60 TeV do $\nu_{\tau}$-CC interactions yield events with potentially distinguishable primary and secondary cascades~\cite{abbasi2020measurement}; at lower energies the secondary cascade is indistinguishable from the hadronic one. Tau events which decay into muons will appear as starting track events while the remainder appear as cascades. 
 
 \iffalse
 Several distinct event samples have been developed to study these different types of events in IceCube. The High-Energy Starting Events sample~\cite{2021hese}, for example, was developed to study both taus and high-energy neutrinos likely astrophysical in origin. There exist other events samples optimized for higher event rates at lower energies, such as the Medium-Energy Starting Events~\cite{PhysRevDoverone}, and the five-year inelasticity sample~\cite{inelasticity2019}. There are also samples optimized for muon purity, such as the eight-year atmospheric muon sample~\cite{Aartsen_2020_prd} and others optimized for accurate energy resolution such as the six-years cascade sample~\cite{sixyrscascade}. This work will consider the cascade event selection described in~\cite{2018PhDT17N} and the track event selection previously used in IceCube sterile neutrino searches~\cite{Aartsen_2020, Aartsen_2020_prd}.
 \fi
 
 \section{The Ice}
-As discussed in Ref~\cite{journal_glaciology_2013}, the Antarctic ice containing IceCube is a rapidly-moving\footnote{several meters per annum} glacier formed over hundreds of thousands of years of compacted snowfall. 
+As discussed in Ref~\cite{journal_glaciology_2013}, the Antarctic ice containing IceCube is a rapidly-moving\footnote{several meters per year} glacier formed over hundreds of thousands of years of compacted snowfall. 
 The first few hundred meters, known as the \textit{firn} layer, is an opaque layer of geologically new snow. 
-At greater depths the integrated weight of the snow overburden compresses the firn layer snow into an ice characterized by short scattering lengths dominated by trapped bubbles of air.
+At greater depths the integrated weight of the snow overburden compresses the firn layer snow into an ice characterized by short scattering lengths ($\mathcal{O}$(meters)) dominated by trapped bubbles of air.
 At even greater depths, the pressures reach an extreme enough level such that the ice enters a new crystalline phase along with the air molecules. 
-The resulting, \textit{clathrate} ice boasts good optical properties, where the optical defects are characterized instead by microscopic grains of dust and pollutants. \index{ice!bulk}
+The resulting, \textit{clathrate} ice boasts good optical properties, where the optical defects are characterized instead by microscopic grains of dust and pollutants.
+Scattering lengths at these depths are on the order of 10s of meters while the absorption lengths rise to 100s of meters. \index{ice!bulk}
 Layers formed at the same point in time, or isocrons, tend to have similar ice optical properties as a result. 
 
 \begin{figure}
@@ -54,7 +55,7 @@ Layers formed at the same point in time, or isocrons, tend to have similar ice o
     \caption{A diagram of the IceCube dust logger.}\label{fig:dustlog}
 \end{figure}
 
-The properties were studied during the deployment of IceCube using a \textit{dust logger}, a long, ruggedized, device with a fan-shaped 404nm diode laser that could probe 60 derees of its horizon. 
+The properties were studied during the deployment of IceCube using a \textit{dust logger}, a long, ruggedized, device with a fan-shaped 404 nanometer diode laser that could probe a 60 degree wide field of view. 
 It used a downward-looking PMT at the bottom of the device to measure the intensity of back-scattered light.
 This device was lowered down six of the eighty-six boreholes dug during the IceCube deployment, which are shown on the right of Figure~\ref{fig:icetilt}.
 A diagram of the dust logger is shown in Figure~\ref{fig:dustlog}.
@@ -68,7 +69,7 @@ A diagram of the dust logger is shown in Figure~\ref{fig:dustlog}.
 Data from the dust logger, shown in Figure~\ref{fig:icetilt}, demonstrate that the absorption length and scattering length vary greatly as a function of depth. 
 The depth-profiles also varied slightly from hole-to-hole: suggesting ice at similar depths, but separated laterally, did not have the same optical properties.
 
-As the glacier around the present day location of IceCube moved and formed over thousands of years, the pressures of the ice over the hard bedrock beneath it warped and bent the glacier. 
+As the glacier around the present day location of IceCube moved and formed over hundreds of thousands of years, the pressures of the ice over the hard bedrock beneath it warped and bent the glacier. 
 The result of this is that the layers of ice with similar optical properties are not flat layers, but tilted and warped. \index{ice!tilt}
 Uncertainty in the bulk ice properties and their impacts on analysis-level quantities are discussed in Section~\ref{sec:bulk}.
 
@@ -80,12 +81,42 @@ Uncertainty in the bulk ice properties and their impacts on analysis-level quant
 
 During one of the dust-logger ascents, it was observed to smoothly rotate at a rate of one revolution per 25 meters depth. 
 Below 1100 meters, a consistent intensity in the back-scattered light was observed when the fan-laser was aligned with the direction of the glacial flow. 
-This optical anisotropy was attributed to a process where the flow of the glacial ice induced a shear between ice crystal grains and reorienting them to be orthogonal to the flow axis. 
+Later in-ice studdies attributed the optical anisotropy to a process where the flow of the glacial ice induced a shear between ice crystal grains and reorienting them to be orthogonal to the flow axis. 
 The ice crystals became birefringent, such that light diffusion is greatest along the flow axis, and light would deflect towards the flow axis~\cite{ice_anisotropy, ice_birefringence}.
 
 As the borehole water refroze around the IceCube strings, it froze inwards from the glacial wall. 
 This drew in trapped air from the clathrate air, resulting in a column of bubbles which formed in the central 5-10 cm of each borehole.
 This bubbly ``hole ice'' results in a much shorter scattering length when compared to the bulk ice in the region around the DOMs. 
 The models which describe it, and its impact on analysis quantities, are described in Section~\ref{sec:hole_ice}. 
+
+\section{The Digital Optical Modules}
+
+IceCube's Digital Optical Modules, or DOMs, are composed of a 0.5'' thick borosilicate glass pressure vessel with a downwards-facing 10'' Hamamatsu R7081-02 PMT and an onboard computer mounted internally on the DOM mainboard.
+The PMT has single-photon sensitivity in the 300-650nm range with a 25\% peak quantum efficiency at 390 nm~\cite{ABBASI2010139}.
+The PMT is optically connected with the glass pressure vessel using gel to maximize transmittance of light through the vessel and into the PMT; it is protected from the Earth's magnetic field via a mu-metal wire mesh. 
+The DOM's onboard computer houses the electronics and software necessary to trigger the DOM on any signal incident upon the PMT. 
+A schematic design of a DOM is shown in Figure~\ref{fig:dom_design}. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{./figures/icecube_dom.png}
+    \caption{A schematic of a Digital Optical Module (DOM).}\label{fig:dom_design}
+\end{figure}
+
+\section{Data Acquisition}
+
+When a DOM's PMT reads sufficient charge to cross the single-photon threshold, the DOM is triggered and signal collection starts. 
+
+To minimize spurious detector triggers a coincidence threshold trigger is used. 
+Upon DOM triggering, DOMs communicate directly with their neighbors, and if any neighboring DOMs are triggered within a 1$\mu$s window, a ``hard local coincidence'' (HLC) occurs.
+After an HLC, the surface-based IceCube Lab (ICL) registers a `hit' and the DOMs transmit their trigger timing information and full PMT waveforms.
+At the ICL a Simple Multiplicity Trigger (SMT) is applied: if eight\footnote{Starting in 2024 runs, this threshold is changing to twelve} HLC hits or more are detected in a 5$\mu$s window, a global detector trigger occurs and the trigger window is extended until another 5$\mu$s window passes with no further HLC hits neighboring the DOM hits. 
+At this point, the global detector trigger rate is approximately 2kHz and the raw data output is around 1 TB/day. 
+This data rate is too large, and so, all hits within the time window are collected into an Event and passed to the ICL ``Processing aNd Filtering'' (PnF) system in order to reduce the data volume below the amount allocated for IceCube's satellite collection (100 GB/day). 
+A rudimentary reconstruction is run to calcualte an approximate event interaction vertex, direction, and energy. 
+About 25 separate filters are then applied on these reconstructed event values to select only those Events of interest for ongoing IceCube analyses: if any trigger passes then the event is kept, processed further, and transmitted to the North\footnote{Anywhere that isn't Antarctica: the \textit{North} usually refers to Madison, Wisconsin, however.}. 
+Each filter is carefully studied before implementation, analyzers must provide predictions for the expected data bandwidth, CPU core-hours of processing required, data storage requirements, and extensive testing of the software responsible for running the trigger. 
+Approximately 15\% of all events are selected by one or more filter~\cite{Aartsen_2017}. 
 
 \end{document}

@@ -61,6 +61,7 @@ usenames,dvipsnames
 \usepackage{tikz}
 \usepackage{makeidx}
 \usepackage{enumitem}
+\usepackage{pdfpages}
 
 
 \usepackage{bm}
@@ -266,6 +267,8 @@ The work presented in this dissertation is as follows:
 
 \textbf{Chapter \ref{chapter:icecube}} will describe the IceCube Neutrino Observatory and the details of its operation. 
 
+\textbf{Chapter \ref{chapter:degg}} will describe the IceCube Upgrade and ongoing work to test the new optical modules.
+
 \textbf{Chapter~\ref{chapter:sense}} will provide the approximations of the expected sensitivities for this analysis~\cite{PhysRevD.105.052001}. 
 
 \textbf{Chapter \ref{chapter:gen}} will discuss the event generation schema and Monte Carlo simulation procedure IceCube~\cite{ABBASI2021108018}.
@@ -290,14 +293,15 @@ Chapter entries with citations refer to the papers in which the work discussed w
 
 % chapter 4
 \chapter{Event Generation and Filters}\label{chapter:gen}
-\subfile{leptons.tex}
 \subfile{generation.tex}
+\subfile{leptons.tex}
 
 % chapter 5 
 \chapter{Sources of Systematic Uncertainties}\label{chapter:unc}
 \subfile{systematics.tex}
 
 % chapter 6
+
 \chapter{Joint Sterile Analysis}\label{chapter:res}
 \subfile{final_analysis.tex}
 % \subfile{appendix.tex}
