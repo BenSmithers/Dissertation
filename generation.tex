@@ -9,8 +9,8 @@
 Like in the analysis presented in this dissertation, neutrino telescopes are often used to search for the signatures of new physics. 
 Traditional neutrino generation schema, however, coupled the neutrino event generation with the neutrino Earth-propagation and interaction cross sections.
 As a consequence of this, probing nonstandard neutrino cross sections, or new physics effecting the neutrino survival probability would be cumbersome. 
-The response to this was the \textit{NuFSGen} approach, later be renamed to the LeptonInjector/Weighter approach; in which the detector neutrino flux prediction and interaction were fully decoupled. 
-This system was published in Reference~\cite{ABBASI2021108018}.
+The response to this was the \textit{NuFSGen} approach, later be renamed to the LeptonInjector/Weighter approach; in which the detector neutrino flux prediction and interaction were fully decoupled to allow for easy testing of various physics hypotheses. 
+This system was published in Reference~\cite{ABBASI2021108018}, and is included in full at the end of this Chapter.
 
 \subsection{Continued Simulation}
 
@@ -21,15 +21,15 @@ The detector and electronics response to light is then simulated using proprieta
 This accounts for DOM noise, wavelength and angular acceptance of the PMTs, and the signal digization process.
 From here, MC and data are treated identically: the detector trigger is ran, a simple filter is applied, and a basic reconstruction is carried out on the passing events. 
 
-\subsection{Level 3 - Cascades}\label{sec:level3}
+\subsection{Cascades Pre-filter}\label{sec:level3}
 
-The level 3 cascade filter is used to reduce the large number of triggered background events upon which more complicated event reconstructions must be run. 
+The cascade pre-filter is used to reduce the large number of triggered background events before more complicated event reconstructions must be run. 
 The first step is to identify single events and coincident events; only single events are kept. 
 Large numbers of cosmic ray air showers yield large quantities of down-going muons; by removing any events with topologically separated features, we cut down on background cosmic ray muons tremendously. 
 
 Background muon events also enter into the detector from above, while the signal cascades start from within.
 The next step for the cascades filter is to then identify which events are fully contained within the detector and which are not; uncontained (through-going) events are discarded. 
 This also tremendously reduces the background in the sample. 
-The cascades reconstruction algorithm, Monopod, is then run on the events that survive for use in future cuts. 
+The cascades reconstruction algorithm, Monopod, is then run on the events that survive for use in analysis-specific cuts.
 
 \end{document}
