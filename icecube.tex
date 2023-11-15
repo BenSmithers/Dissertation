@@ -19,7 +19,7 @@ A schematic illustration of the IceCube string and IceTop tank locations is show
 
 \section{Event topologies}\label{sec:event_morphology}
 
-Large-volume neutrino telescopes, like IceCube, typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} interactions dominate, and Glashow-Resonance~\cite{PhysRev.118.316} interactions have only just been observed~\cite{IceCube:2021rpz}.
+Large-volume neutrino telescopes, like IceCube, typically are sensitive in the TeV to PeV energies; here, Deep-Inelastic Scattering (DIS)~\cite{gandhineutrinos} interactions dominate, and Glashow Resonance~\cite{PhysRev.118.316} interactions have only just been observed~\cite{IceCube:2021rpz}.
 The detected neutrino interaction events fall into two morphological categories: tracks and cascades.
 
 Charged-current (CC) $\nu_{\mu}$ DIS events result in muons at energies where radiative processes dominate energy loss rates.
@@ -40,14 +40,14 @@ From the tau branching ratios~\cite{PhysRevD.98.030001}, 17.37\% of the charged 
 Several distinct event samples have been developed to study these different types of events in IceCube. The High-Energy Starting Events sample~\cite{2021hese}, for example, was developed to study both taus and high-energy neutrinos likely astrophysical in origin. There exist other events samples optimized for higher event rates at lower energies, such as the Medium-Energy Starting Events~\cite{PhysRevDoverone}, and the five-year inelasticity sample~\cite{inelasticity2019}. There are also samples optimized for muon purity, such as the eight-year atmospheric muon sample~\cite{Aartsen_2020_prd} and others optimized for accurate energy resolution such as the six-years cascade sample~\cite{sixyrscascade}. This work will consider the cascade event selection described in~\cite{2018PhDT17N} and the track event selection previously used in IceCube sterile neutrino searches~\cite{Aartsen_2020, Aartsen_2020_prd}.
 \fi
 
-\section{The Ice}
+\section{The Ice}\label{sec:the_ice_stuff}
 As discussed in Ref~\cite{journal_glaciology_2013}, the Antarctic ice containing IceCube is a rapidly-moving\footnote{several meters per year} glacier formed over hundreds of thousands of years of compacted snowfall. 
 The first few hundred meters, known as the \textit{firn} layer, is an opaque layer of geologically new snow. 
 At greater depths the integrated weight of the snow overburden compresses the firn layer snow into an ice characterized by short scattering lengths ($\mathcal{O}$(meters)) dominated by trapped bubbles of air.
 At even greater depths, the pressures reach an extreme enough level such that the ice enters a new crystalline phase along with the air molecules. 
 The resulting, \textit{clathrate} ice boasts good optical properties, where the optical defects are characterized instead by microscopic grains of dust and pollutants.
 Scattering lengths at these depths are on the order of 10s of meters while the absorption lengths rise to 100s of meters. \index{ice!bulk}
-Layers formed at the same point in time, or isocrons, tend to have similar ice optical properties as a result. 
+Layers formed at the same point in time, or isochrons, tend to have similar ice optical properties as a result. 
 
 \begin{figure}
     \centering
@@ -63,7 +63,7 @@ A diagram of the dust logger is shown in Figure~\ref{fig:dustlog}.
 \begin{figure}  
     \centering
     \includegraphics[width=0.8\linewidth]{figures/tilt.png}
-    \caption{On the right we show which of the eighty six boreholes dustlogger data was taken, and on the left we show the intensity of the back-scatterd light as measured at each of the sampled holes as a function of depth.}\label{fig:icetilt}
+    \caption{On the right we show which of the eighty-six boreholes dust-logger data was taken, and on the left we show the intensity of the back-scattered light as measured at each of the sampled holes as a function of depth.}\label{fig:icetilt}
 \end{figure}
 
 Data from the dust logger, shown in Figure~\ref{fig:icetilt}, demonstrate that the absorption length and scattering length vary greatly as a function of depth. 
@@ -76,23 +76,27 @@ Uncertainty in the bulk ice properties and their impacts on analysis-level quant
 \begin{figure}  
     \centering
     \includegraphics[width=0.8\linewidth]{figures/icecube_isochron.png}
-    \caption{(a) shows the flow direction of the south pole glacier (b-f) Cross-sections of the ice at various depths showing contours for different isocrons: demonstrating the tilt of the ice.}\label{fig:isochron}
+    \caption{(a) shows the flow direction of the South Pole glacier (b-f) Cross-sections of the ice at various depths showing contours for different isochrons: demonstrating the tilt of the ice.}\label{fig:isochron}
 \end{figure}
-
-During one of the dust-logger ascents, it was observed to smoothly rotate at a rate of one revolution per 25 meters depth. 
-Below 1100 meters, a consistent intensity in the back-scattered light was observed when the fan-laser was aligned with the direction of the glacial flow. 
-Later in-ice studdies attributed the optical anisotropy to a process where the flow of the glacial ice induced a shear between ice crystal grains and reorienting them to be orthogonal to the flow axis. 
-The ice crystals became birefringent, such that light diffusion is greatest along the flow axis, and light would deflect towards the flow axis~\cite{ice_anisotropy, ice_birefringence}.
 
 As the borehole water refroze around the IceCube strings, it froze inwards from the glacial wall. 
 This drew in trapped air from the clathrate air, resulting in a column of bubbles which formed in the central 5-10 cm of each borehole.
 This bubbly ``hole ice'' results in a much shorter scattering length when compared to the bulk ice in the region around the DOMs. 
 The models which describe it, and its impact on analysis quantities, are described in Section~\ref{sec:hole_ice}. 
 
+During one of the dust-logger ascents, it was observed to smoothly rotate at a rate of one revolution per 25 meters depth. 
+Below 1100 meters, a consistent intensity in the back-scattered light was observed when the fan-laser was aligned with the direction of the glacial flow. 
+Later in-ice studies attributed the optical anisotropy to a process where the flow of the glacial ice induced a shear between ice crystal grains and reorienting them to be orthogonal to the flow axis. 
+The ice crystals became birefringent, such that light diffusion is greatest along the flow axis, and light would deflect towards the flow axis~\cite{ice_anisotropy, ice_birefringence}.
+Only some newer, internal, IceCube ice models account for the birefringence. 
+Legacy models, like \textbf{S}outh \textbf{P}ole \textbf{ICE} 3.2.1 (Spice 3.2.1), are still widely used for analyses where it can be shown that birefringence is not a significant effect. 
+Newer models, like \textbf{B}ire\textbf{FR}ingence v2 (BFR v2), are slowly being adopted by other analyses. 
+This adoption is slowed by expensive cost of re-generating Monte Carlo samples with the updated ice models and by the need to validate any changes to simulation. 
+
 \section{The Digital Optical Modules}
 
 IceCube's Digital Optical Modules, or DOMs, are composed of a 0.5'' thick borosilicate glass pressure vessel with a downwards-facing 10'' Hamamatsu R7081-02 PMT and an onboard computer mounted internally on the DOM mainboard.
-The PMT has single-photon sensitivity in the 300-650nm range with a 25\% peak quantum efficiency at 390 nm~\cite{ABBASI2010139}.
+The PMT has single-photon sensitivity in the 300-650 nm range with a 25\% peak quantum efficiency at 390 nm~\cite{ABBASI2010139}.
 The PMT is optically connected with the glass pressure vessel using gel to maximize transmittance of light through the vessel and into the PMT; it is protected from the Earth's magnetic field via a mu-metal wire mesh. 
 The DOM's onboard computer houses the electronics and software necessary to trigger the DOM on any signal incident upon the PMT. 
 A schematic design of a DOM is shown in Figure~\ref{fig:dom_design}. 
@@ -114,7 +118,7 @@ After an HLC, the surface-based IceCube Lab (ICL) registers a `hit' and the DOMs
 At the ICL a Simple Multiplicity Trigger (SMT) is applied: if eight\footnote{Starting in 2024 runs, this threshold is changing to twelve} HLC hits or more are detected in a 5$\mu$s window, a global detector trigger occurs and the trigger window is extended until another 5$\mu$s window passes with no further HLC hits neighboring the DOM hits. 
 At this point, the global detector trigger rate is approximately 2kHz and the raw data output is around 1 TB/day. 
 This data rate is too large, and so, all hits within the time window are collected into an Event and passed to the ICL ``Processing aNd Filtering'' (PnF) system in order to reduce the data volume below the amount allocated for IceCube's satellite collection (100 GB/day). 
-A rudimentary reconstruction is run to calcualte an approximate event interaction vertex, direction, and energy. 
+A rudimentary reconstruction is run to calculate an approximate event interaction vertex, direction, and energy. 
 About 25 separate filters are then applied on these reconstructed event values to select only those Events of interest for ongoing IceCube analyses: if any trigger passes then the event is kept, processed further, and transmitted to the North\footnote{Anywhere that isn't Antarctica: the \textit{North} usually refers to Madison, Wisconsin, however.}. 
 Each filter is carefully studied before implementation, analyzers must provide predictions for the expected data bandwidth, CPU core-hours of processing required, data storage requirements, and extensive testing of the software responsible for running the trigger. 
 Approximately 15\% of all events are selected by one or more filter~\cite{Aartsen_2017}. 
