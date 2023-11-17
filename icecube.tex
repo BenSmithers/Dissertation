@@ -89,9 +89,39 @@ Below 1100 meters, a consistent intensity in the back-scattered light was observ
 Later in-ice studies attributed the optical anisotropy to a process where the flow of the glacial ice induced a shear between ice crystal grains and reorienting them to be orthogonal to the flow axis. 
 The ice crystals became birefringent, such that light diffusion is greatest along the flow axis, and light would deflect towards the flow axis~\cite{ice_anisotropy, ice_birefringence}.
 Only some newer, internal, IceCube ice models account for the birefringence. 
-Legacy models, like \textbf{S}outh \textbf{P}ole \textbf{ICE} 3.2.1 (Spice 3.2.1), are still widely used for analyses where it can be shown that birefringence is not a significant effect. 
-Newer models, like \textbf{B}ire\textbf{FR}ingence v2 (BFR v2), are slowly being adopted by other analyses. 
-This adoption is slowed by expensive cost of re-generating Monte Carlo samples with the updated ice models and by the need to validate any changes to simulation. 
+Legacy models, like \textbf{S}outh \textbf{P}ole \textbf{ICE} 3.2.1 (Spice 3.2.1), are still widely used for analyses.
+Newer models, like \textbf{B}ire\textbf{FR}ingence v2 (BFR v2), are slowly being adopted by other analyses where it is shown that birefringence is found to be a relevant effect. 
+This adoption is slowed, however, by the expensive cost of re-generating Monte Carlo samples with the updated ice models and by the need to then validate changes to the simulation. 
+
+\section{\v{C}erenkov Radiation}
+
+As charged particles move through ice (or any transparent media), due to dielectric effects the particles themselves can move faster than the phase velocity of the light within it. 
+The particle will collectively polarize molecules in the surrounding bulk as it passes, and as these molecules relax to their original orientations. 
+This manifests as the emission of light in the shape of a cone opening outwards into the direction of the particle's propagation: \v{C}erenkov Radiation. 
+
+The threshold above which this happens can be found from energy-momentum relationships with a velocity substitution of the 3-momentum, or 
+\begin{equation}
+    E^{2} = m^{2} + \dfrac{m^{2}v^{2}}{1-v^{2}}.
+\end{equation}
+We then consider a transparent material with an index of refraction $n = 1./v_{critical}$, where $v$ is the phase velocity light in the medium. 
+Particles travelling at a velocity at or above this threshold will emit \v{C}erenkov radiation. 
+The associated energy $E_{critical}$ can be solved for algebraically,
+\begin{align}
+        E^{2}_{critical} &= m^{2} + \dfrac{m^{2}v_{critical}^{2}}{1-v_{critical}^{2}} \\
+        E^{2}_{critical}  - m^{2} - E^{2}_{critical}v_{critical}^{2}  + m^{2}v_{critical}^{2} &= m^{2}v_{critical}^{2} \\
+        E^{2}_{critical}\left(1  -v_{critical}^{2}\right) &=  m^{2} \\
+        \sqrt{\dfrac{m^{2}}{\left(1  -n^{-2}\right)}} &= E_{critical} 
+\end{align}
+
+Like a sonic boom of light, the light is emitted in a cone which opens at an angle $\theta_{c}$ relative to the direction at which the particle travels. 
+This angle is given by
+\begin{equation}
+\tan\theta_{c} = \sqrt{v^{2}n^{2} - 1} .
+\end{equation}
+Although the light is emitted in the forward direction, the \v{C}erenkov light wave-front counter-intuitively trails in a cone opening behind the radiating particle. 
+
+For highly relativistic particles travelling through ice, this angle is $41^{\circ}$, and the emitted light ranges from 300 to 600 nm. 
+
 
 \section{The Digital Optical Modules}
 
