@@ -362,8 +362,7 @@ This suggests that if daemonflux is a better description of the truth, then assu
     \caption{Fit results after injecting daemonflux, but fitting assuming the flux model used in the IceCube 8-year sterile search. (Left) the 90\% CL contours for two degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=5.02$ after fitting over $(\Delta m_{41}^{2}, \sin^{2}(2\theta_{24}))$, the results from the 8-year IceCube sterile search are overlain~\cite{Aartsen_2020, Aartsen_2020_prd}; (right) the 90\% CL contours for three degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.7$ after fitting over $(\Delta m_{41}^{2}, \abs{U_{\mu4}}^{2}, \abs{U_{\tau 4}}^{2})$}\label{fig:uhoh_mismodel_worse}
 \end{figure}
 
-The converse was also investigated.
-Fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the conventional neutrino flux model used in the 8-year IceCube sterile search was injected as a true model. 
+The converse was also investigated; fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the conventional neutrino flux model used in the 8-year IceCube sterile search was injected as a true model. 
 In this case, the best fit was consistent with a three-neutrino hypothesis, as shown in Figure~\ref{fig:daemon_midmodel}.
 
 \begin{figure}  
@@ -385,7 +384,7 @@ In both cases, no statistically significant signal is seen; each one is consiste
     \caption{On the left (right), fit results after injecting the new GSF model while assuming the model used in the 8-year IceCube sterile search (daemonflux), $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$ $(0.2)$.}\label{fig:gsf_updates}
 \end{figure}
 
-The result of this mismodeling test was the decision to fully adopt the daemonflux conventional neutrino flux model as the nominal flux model and the description of conventional flux uncertainties. 
+The result of this mismodeling test was the decision to fully adopt the daemonflux conventional neutrino flux model as the nominal flux model and our description of conventional flux uncertainties. 
 
 \subsection{Astrophysical Mismodeling}
 
@@ -395,7 +394,7 @@ In this, and similar oscillations analyses, the astrophysical neutrino flux has 
 A test was carried out where a non-isotropic flux modeling the Milky Way, the KRA$\gamma$-50~\cite{Gaggero_2015} model, is injected in addition to an isotropic flux but with no new physics signatures. 
 A fit scan is then ran assuming an isotropic flux and the resulting likelihood profile is found. 
 The exclusion contours, with best fit, are shown in Figure~\ref{fig:galaxy}.
-No spurious preference for new physics is seen. 
+No spurious preference for new physics is seen, and so we conclude that any anisotropic excess in the astrophysical neutrino flux will not bias this analysis' result. 
 
 \begin{figure}
     \centering
@@ -409,6 +408,7 @@ Since the chosen prior does not span the full range of astrophysical flavor rati
 A pseudo-experimental result was generated assuming a flavor ratio ($f_{e}:f_{\mu}:f_{\tau}$) of (0.35,0.2,0.45); an allowed value that is not spanned by the astrophysical nuisance parameter. 
 A fit-scan was then carried out injecting the above as the truth, and the resulting 90\% CL contours are shown in Figure~\ref{fig:flavor_mismodel}. The nuisance parameter pulls at the best fit are also shown in Figure~\ref{fig:flavor_mismodel_pulls}.
 As can be seen, the flavor ratio pulls down to match the injected flavor ratio, and no spurious new physics signature is seen. 
+From this we can conclude that the analysis-level representation of flavor space is sufficiently spanned by this nuisance parameter, and that a true flavor ratio not explicitly accessible will not bias our results. 
 
 \begin{figure}
     \centering
@@ -433,7 +433,7 @@ To this end, fit-scans were run under different situations:
     \item double the expected CR muons are injected, but none are assumed and with no additional MC statistical error 
 \end{enumerate}
 The resulting contours are shown in Figures~\ref{fig:first_muon_sad} through~\ref{fig:last_muon_sad} below. 
-No spurious 3+1 sterile signature was seen in any of these tested cases.
+No spurious 3+1 sterile signature was seen in any of these tested cases, and so we can conclude that any reasonable cosmic ray muon fluxes beyond our nominal expectation will not bias this analysis significantly.
 
 \begin{figure}
     \centering
@@ -616,14 +616,14 @@ No stop conditions were met.
 \section{Results}
 
 %The resulting exclusion contours, and best fits, are shown at the 90\% confidence level for the track and cascade subsamples separately in Figure~\ref{fig:final_results_permorpho}. 
-Individually, the track and cascade sub-samples show a difference in their preferred minima: the track sample favors a 3+1 model with $\Delta m_{41}^{2}=5.0$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.05$, and $\abs{U_{\tau 4}}^{2}=0.002$ at a significance $-2\left(TS_{BF} - TS_{null}\right)=4.06$; the cascade sample shows no particular preference for 3+1 over null.
+Individually, the track and cascade sub-samples show a difference in their preferred minima: the track sample favors a 3+1 model with $\Delta m_{41}^{2}=5.0$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.05$, and $\abs{U_{\tau 4}}^{2}=0.002$ at a significance $-2\left(TS_{BF} - TS_{null}\right)=4.12$; the cascade sample shows no particular preference for 3+1 over null.
 The exclusion contours for each subsample are shown in Figure~\ref{fig:results_separate} for the cascades on the left and tracks on the right. 
 The results of the joint fit are shown in Figure~\ref{fig:final_results}, where the data are seen to show a weak preference for the 3+1 model with $\Delta m_{41}^{2}=7$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.03$, and $\abs{U_{\tau 4}}^{2}=0.0$ at a significance $-2\left(TS_{BF} - TS_{null}\right)=0.93$. 
 A comparison is included to the median sensitivities in Figure~\ref{fig:final_results_median}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{figures/cascade_data_full_cut_moreseed_IC86_data_full_cut_cl0.9_dof3.png}%
+    \includegraphics[width=0.45\linewidth]{figures/multibatch_cascade.png}%
     \includegraphics[width=0.45\linewidth]{figures/multibatch_track.png}
     \caption{On left (right) the 90\% CL exclusion contours with three degrees of freedom from a fit-scan using only the cascade (track) subsample.}\label{fig:results_separate}
 \end{figure}
@@ -659,7 +659,7 @@ The results presented in this analysis are the strongest constraints with three 
 \end{figure}
 \fi
 
-\subsection{Discussion}
+\section{Discussion}
 
 These results are especially strange: the track-only fit shows a stronger preference for 3+1 compared to the joint cascade+track fit. 
 Each of these results also present a weaker result when compared to previous analysis results using the same event selection~\cite{Aartsen_2020, Aartsen_2020_prd}.
