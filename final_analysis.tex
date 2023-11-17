@@ -591,7 +591,7 @@ No stop conditions were met.
     \centering
     \includegraphics[width=0.45\linewidth]{figures/blindfit/joint_asimov_cut_Realization_daemoncut_Asimov_sterile_0_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/blindfit/joint_asimov_cut_signal_Realization_daemoncut_Asimov_sterile_4_cl0.9_dof3.png}
-    \caption{Left: the Asimov sensitivity after cutting the up-going zenith bin in the cascades selection; right: the 90\% CL contours after injecting signal and fitting after applying the zenith cut.}\label{fig:new_sense_again_cut}
+    \caption{Left: the Asimov sensitivity after cutting the up-going zenith bin in the cascade selection; right: the 90\% CL contours after injecting signal and fitting after applying the zenith cut.}\label{fig:new_sense_again_cut}
 \end{figure}
 
 \begin{figure}
@@ -616,9 +616,9 @@ No stop conditions were met.
 \section{Results}
 
 %The resulting exclusion contours, and best fits, are shown at the 90\% confidence level for the track and cascade subsamples separately in Figure~\ref{fig:final_results_permorpho}. 
-Individually, the track and cascade sub-samples show a difference in their preferred minima: the track sample favors a 3+1 model with $\Delta m_{41}^{2}=5.0$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.05$, and $\abs{U_{\tau 4}}^{2}=0.002$ at a significance $-2\left(TS_{BF} - TS_{null}\right)=4.12$; the cascade sample shows no particular preference for 3+1 over null.
+Individually, the track and cascade sub-samples show a difference in their preferred minima: the track sample favors a 3+1 model with $\Delta m_{41}^{2}=5.0$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.05$, and $\abs{U_{\tau 4}}^{2}=0.002$ at a significance of $1.2\sigma$ assuming Wilk's theorem and three degrees of freedom; the cascade sample shows no preference for 3+1 over null.
 The exclusion contours for each subsample are shown in Figure~\ref{fig:results_separate} for the cascades on the left and tracks on the right. 
-The results of the joint fit are shown in Figure~\ref{fig:final_results}, where the data are seen to show a weak preference for the 3+1 model with $\Delta m_{41}^{2}=7$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.03$, and $\abs{U_{\tau 4}}^{2}=0.0$ at a significance $-2\left(TS_{BF} - TS_{null}\right)=0.93$. 
+The results of the joint fit are shown in Figure~\ref{fig:final_results}, where the data are seen to show a weak preference for the 3+1 model with $\Delta m_{41}^{2}=7$ eV$^{2}$, $\abs{U_{\mu 4}}^{2}=0.03$, and $\abs{U_{\tau 4}}^{2}=0.0$ at a significance of $0.26 \sigma$. 
 A comparison is included to the median sensitivities in Figure~\ref{fig:final_results_median}.
 
 \begin{figure}
@@ -661,35 +661,44 @@ The results presented in this analysis are the strongest constraints with three 
 
 \section{Discussion}
 
-These results are especially strange: the track-only fit shows a stronger preference for 3+1 compared to the joint cascade+track fit. 
-Each of these results also present a weaker result when compared to previous analysis results using the same event selection~\cite{Aartsen_2020, Aartsen_2020_prd}.
+What we have found is that the introduction of the cascades to the track analysis weakens the disappearance signature seen previously.
+There are also no strong signatures of appearance or disappearance in the cascades channel, and as a consequence further tensions may arise. 
+While future work will implement the newer ice model with birefringence in the nominal expectation for the final results of this analysis, if these discrepancies persist then this would suggest that the track and cascade samples may not be jointly described by a common set of nuisance parameters.
+And if the lack of strong cascade appearance persists after the ice model updates, then we may find these results to fall into tension with predictions of strong $\nu_{e}/\nu_{\tau}$ appearance consistent with the BEST best fit sterile hypothesis.  
+
+We have also found weaker constraints compared to previous analyses using the same event selection~\cite{Aartsen_2020, Aartsen_2020_prd}.
 One noteable change from previous analyses was a switch from a conventional flux model using Hillas-Gaisser H3a~\cite{GAISSER2012801}, SIBYLL 2.3c~\cite{Riehn:2017mfm}, and the Barr parametrization~\cite{PhysRevD.74.094009} to daemonflux~\cite{yanez2023daemonflux}.
 In Section~\ref{fig:flux_mismod} we had shown that if daemonflux is a better description of the truth, then by using the older model one could expect spurious signatures of sterile neutrino oscillations. 
-We also expect a weaker constraint for signal given the loss of the up-going, signal-rich, zenith bin in the cascade sample. 
-Knowing these both it is reasonable to expect that the previously observed signatures might weaken in this updated search. 
+Knowing this it is reasonable to expect that the previously observed signatures might weaken in this updated search. 
 This is not to say that no such 3+1 signal-like feature exists in IceCube data, however: more recent results\footnote{as of writing currently under internal paper review} using an updated event selection and reconstruction along with daemonflux have found even stronger results for 3+1 sterile neutrinos~\cite{alfonso_slides} that are consistent with the best-fit point of this analysis.
+
+\iffalse
+
 
 The disagreement in best fits between the tracks and cascades is also possibly related to the observed data/MC disagreements seen in the cascade channel. 
 We showed in Section~\ref{sec:ice_chaos_ohgod} that birefringence in the ice has a large effect on the reconstructed angular quantities for cascades. 
 In the case where a birefringent ice model was injected as the truth, the joint fits showed a stronger preference for the null model than what is predicted for median sensitivities. 
 This comparison is shown below in Figure~\ref{fig:median_mismod}.
 And so if birefringence is a better description of the ice then by fitting assuming the older Spice model, even without the cut bin, the addition of cascades could weaken the significance of a track-only result when fit jointly. 
-
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{figures/mismodel_median_sense_cl0.9.png}
     \caption{The median sensitivities at 90\% CL with the results of an inject-BFR, fit Spice, mismodeling test overlain in red. The mismodeling results lie just outside the 68\% bounds and in some places reach the bounds of the 95\%.}\label{fig:median_mismod}
 \end{figure}
+\fi
 
 \section{Conclusions}
 
-Here we have presented the first results of a joint track and cascade analysis searching for high energy, matter-enhanced, sterile neutrino oscillations with IceCube.
-This analysis explores $\abs{U_{\tau4}}^{2}$ for the first time and implements a new conventional flux model, an updated bulk ice model with an improved system for covariance matrix calculation, and a starting event sample never before used for an oscillations analysis. 
-We have found tighter constraints on sterile neutrino oscillation parameters that are in agreement with previous and upcoming IceCube results. 
+Numerous oscillations persist in neutrino oscillations today: many of which can be solved through additional eV$^{2}$-scale oscillations. 
+Such an additional neutrino could not interact weakly in order to be consistent with measurements of Z-boson decay, and so is described as ``sterile.''
+Through attempts to test such explanations using sterile neutrinos, several tantalizing signal-like hints have been observed with varying degrees of significance in both $\nu_{e}/\bar{\nu}_{e}$ disappearance and $\nu_{\mu}$ disappearance; including the 8-year IceCube matter-enhanced sterile neutrino oscillations study in which signal-like hints above the 90\% confidence level for the 3+1 light sterile neutrino model were found.
 
-Because of the ice modeling issues however, future work will focus on the re-simulation of Monte Carlo to update the nominal ice model from Spice 3.2.1 to BFR v2: one which fully accounts for the effects of birefringence in ice.
-Whether this may require re-calculating the systematic uncertainties through further snowstorm MC  is still under investigation. 
-Regardless, we have found that the prior choice on one's ice model can have a substantial effect on the reconstructed direction of events with a cascade morphology, and a new nuisance parameter may be needed to quantify the scale of uncertainty on birefringence.
-Future work may also explore how an application of novel techniques developed for the upcoming MEOWS-BDT analysis may benefit the cascades morphology. 
+Here, we have presented the first results of a joint track-cascade analysis combining the methods used in previous IceCube analyses along with novel methods developed to needed to handle the additional sources of systematic uncertainty introduced with this new event morphology. 
+We have probed $U_{\mu4}$ and $\abs{U_{\tau4}}^{2}$ through high-energy events in a multi-channel search the first time, implemented a new conventional flux model and an updated bulk ice model with an improved system for covariance matrix calculation, and introduced a new starting event sample to neutrino oscillations analyses. 
+Results presented here improve upon world-leading constraints in $U_{\mu4}$-$U_{\tau4}$ parameter space, and have opened the door for large-volume \v{C}erenkov neutrino experiments to directly probe the models preferred by experiments like BEST.
+
+Because of challenges in ice modeling, immediate work will focus on the re-simulation of Monte Carlo to update the nominal ice model from Spice 3.2.1 to BFR v2: one which fully accounts for the effects of birefringence in ice.
+We may then find that the disagreement between the track, cascade, and joint fits persist; this would suggest that the cascade and track samples are not sufficiently described by a common set of nuisance parameters, and further investigation would be of merit. 
+We may instead find a consistent description of sterile neutrinos in both event morphologies: setting things up for an even stronger and compelling measurement than the one presented here. 
 
 \end{document}
