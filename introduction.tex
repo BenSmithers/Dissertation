@@ -13,16 +13,31 @@ Several of these could be explained by additional oscillations of unknown neutri
 To be consistent with measurements of Z-boson decay~\cite{zboson2006} any light new flavor state would need to be non weakly-interacting, or ``sterile''. 
 One of the simplest models satisfying these criteria is the ``3+1'' light sterile neutrino model in which only a single sterile neutrino is added to the three-neutrino paradigm. 
 This introduces a single mass eigenstate $\nu_{4}$ that is sufficiently heavy, compared to the other three, such as to be described by a single mass difference $\Delta m_{41}=m_{4}-m_{1}$. 
-Since the states are non-interacting, the most direct way\footnote{Indirect probes of sterile neutrinos are possible through the neutrino effective mass in $0\nu\beta\beta$ decays if the neutrino is Majorana~\cite{HUANG2019114691}} of testing for their existence is through neutrino oscillations. 
+Since the states are non-interacting, the most direct way\footnote{Indirect probes of sterile neutrinos are possible by measuring the neutrino effective mass in $0\nu\beta\beta$ decays. This will only work if the neutrino is Majorana, however~\cite{HUANG2019114691}} of testing for their existence is through neutrino oscillations. 
 
 Several recent developments have further motivated exploration of the 3+1 sterile neutrino landscape. 
 Recent results from MicroBooNE~\cite{microboonecollaboration2021search,microboonecollaboration2021searchmulti} have failed to support the 3+1 explanation of the MiniBoone low-energy excess~\cite{aguilar2018significant}. 
-While the implications of this new tension were just starting to be understood~\cite{arguelles2021microboone,denton2021sterile}, the Baksan Experiment on Sterile Transitions (BEST) has instead strongly validated existing anomalies in Gallium short-baseline oscillations experiments, having found strong evidence of sterile neutrino oscillations in $\nu_{e}$ disappearance in excess of $3\sigma$ with a best fit at $\Delta m^{2}=3.3$ eV$^{2}$ and $\sin^{2}2\theta_{14}=0.42$~\cite{barinov2021results, Barinov_2022}. 
+While the implications of this new tension were just starting to be understood~\cite{arguelles2021microboone,denton2021sterile}, the Baksan Experiment on Sterile Transitions (BEST) validated existing anomalies in Gallium short-baseline oscillations experiments SAGE~\cite{PhysRevC.73.045805} and GALLEX~\cite{KAETHER201047}: two experiments designed to detect solar neutrinos through $\nu_{e}+^{71}\text{Ga}\to e^{-} +^{71}\text{Ge}$. 
+Known as the gallium anomaly~\cite{LAVEDER2007344}, SAGE and GALLEX had observed an event rate 2-3$\sigma$ below the expected amount, or about 86\% what was predicted.
+This lead to extensive validation studies on cross-sections, germanium extraction efficiency, and counting efficiency; no calibration issues were found, although the lack of observed could be explained by eV$^{2}$-scale neutrino oscillations~\cite{LAVEDER2007344}.
+As a response to this open anomaly, BEST employed a $^{51}$Cr source placed at the geometric center of two concentric spherical volumes of Germanium of outer radii 133.5 cm and 234.5 cm.
+As $^{51}$Cr decays via electron capture with $\nu_{e}$ emission at four distinct energies, it is ideal for making precision measurements of very short baseline neutrino oscillations by comparing the ratio of $\nu_{e}+^{71}\text{Ga}\to e^{-} +^{71}\text{Ge}$ interaction rates in the inner and outer volumes.
+In BEST, the gallium anomaly became even more pronounced: the observed rates were $0.77\pm0.05$ and $0.79\pm0.05$ of the predicted rates for the outer and inner rates, respectively. 
+BEST's results prefer 3+1 over the null in excess of $3 \sigma$ with the best fit at $\Delta m^{2}=3.3$ eV$^{2}$ and $\sin^{2}2\theta_{14}=0.42$; its results are shown in Figure~\ref{fig:best_Results} (left)~\cite{barinov2021results, Barinov_2022}.
+
+\begin{figure}
+    \centering
+    \includegraphics[height=0.2\paperheight]{figures/best_result.png}%
+    \includegraphics[height=0.205\paperheight]{figures/icecube_prl_result.png}
+    \caption{(Left): the exclusion contours for the results of BEST; best fit is at $\Delta m=3.3$ eV$^{2}$ and $\sin^{2}2\theta=0.42$; (right): the exclusion contours from the IceCube matter-enhanced sterile neutrino search. Figures from Ref~\cite{barinov2021results} and Ref~\cite{Aartsen_2020}, respectively.}\label{fig:best_Results}
+\end{figure}
+
 Meanwhile Neutrino-4 claims signal at a similar significance at $2.9\sigma$ in $\bar{\nu_{e}}$ disappearance, preferring a 3+1 model with $\Delta m^{2}=7.3$ eV$^{2}$ and $\sin^{2}2\theta_{14}=0.38$~\cite{serebrov2019first}.
 By leveraging matter-enhanced oscillations, IceCube has independently observed signal-like evidence at the 90\% confidence level in one of the strongest $\bar{\nu}_{\mu}$ disappearance measurements to date~\cite{Aartsen_2020, Aartsen_2020_prd}.
+Its exclusion contours are shown in Figure~\ref{fig:best_Results} (right), and are consistent with constraints from BEST. 
 These results complicate matters as they strongly refute previous solutions to the anomalies in MiniBooNE and LSND~\cite{Athanassopoulos_1998}, and other constraints around 1~eV$^{2}$~\cite{kopp2013sterile, Cirelli:2004cz, abazajian2012light, Gariazzo:2017fdh, Dentler:2017tkw, Diaz:2019fwt}.
 These previous IceCube $\nu_{\mu}$ disappearance results, however, conservatively assumed $\theta_{14}=\theta_{34}=0$. 
-And so strong motivations are abundant to expand these previous IceCube analyses in a widened search, taking advantage of newer event morphologies, to study signatures we might expect given the results from BEST. 
+And so strong motivations are abundant to expand these previous IceCube analyses in a widened search, taking advantage of newer event morphologies, to study signatures we might expect given the results from BEST and previous IceCube analyses. 
 
 First, however, we begin with a review of the physics relevant to neutrinos.
 
@@ -32,7 +47,7 @@ First, however, we begin with a review of the physics relevant to neutrinos.
     \caption{A table of the seventeen fundamental particles. The mass eigenstates for the fermions are shown.}\label{fig:party}
 \end{figure}
 
-\section{Neutrino oscillations}
+\section{Neutrino Oscillations}
 \index{neutrino!oscillations}
 
 The weak interaction couples left-handed neutrinos and charged leptons in SU(2) doublets,
@@ -358,7 +373,9 @@ It is organized as follows:
 
 \textbf{Chapter~\ref{chapter:unc}} will summarize the sources of systematic uncertainty relevant for this analysis.
 
-\textbf{ Chapter~\ref{chapter:res}} will finally provide the results of this analysis. 
+\textbf{Chapter~\ref{chapter:res}} will provide the results of this analysis. 
+
+\textbf{Chapter~\ref{chapter:end}} will discuss the implications of the results presented here. 
 
 Chapter entries with citations refer to the papers in which the work discussed was published.
 

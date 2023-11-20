@@ -136,7 +136,7 @@ Tests are then ran on the results of these analyses, which are enumerated in Tab
         double pulse peak-to-valley & -20, -5 & $1.5\leq x\leq 2.0$ \\
         double pulse peak-to-valley 2 & -20, -5 & $1.75\leq x\leq 2.8$ \\
     \end{tabular}
-    \caption{The tests ran for each D-Egg. Tests with temperature ``varius'' were run with the freezer set at room temperature, -40C, -20C, -40C, and room temperature again. }\label{table:degg_tests}
+    \caption{The tests ran for each D-Egg. Tests with temperature ``various'' were run with the freezer set at room temperature, -40C, -20C, -40C, and room temperature again. }\label{table:degg_tests}
 \end{table}
 
 The most important of these is the gain analysis. 
@@ -177,7 +177,7 @@ The test laser intensity was also calibrated such that a 5\% filter corresponds 
 \end{figure}
 
 One additional analysis is performed to test the ability of the D-Eggs to distinguish between the light from a charged tau lepton and its decay product. 
-This requires being able to separately identifying two PMT pulses separated by only a few nano-seconds. 
+This requires being able to separately identifying two PMT pulses separated by only a few nanoseconds. 
 To emulate a tau-like signal, a function generator creates two picosecond bursts separated by 20 nanoseconds. 
 The generator creates then waits one microsecond before creating another burst of pulses. 
 A peak-finding algorithm is then run 5000 digitized waveforms and the separation of the fit peaks are verified to be consistent with 20 nanoseconds and any error within half of the width mainboard timing bins.
@@ -193,6 +193,5 @@ The results of all analyses and tests are automatically compiled into a pdf by s
 A PDF for each D-Egg is generated including a table of the test results and relevant plots for failed tests are fetched and included. 
 A second PDF is generated which summarizes the results of each D-Egg's tests and lists it as either Passing, Failing, or concerning. 
 In the latter, it raises warning, and individual intervention is required to decide if the D-Egg will go to the pole or be left behind. 
-An example D-Egg FAT result file is included in Appendix~\ref{append:degg_fat}.
 
 \end{document}

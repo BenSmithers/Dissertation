@@ -9,10 +9,10 @@
 This analysis utilizes a binned likelihood-maximization technique comparing some observation, whether it is true data or pseudo-data, against Monte Carlo simulation weighted to the expectation from multiple sterile neutrino hypothesis. 
 Binning is done on reconstructed quantities; bins are linearly spaced in $\cos\theta_{reco}$ and logarithmically spaced in $E_{reco}$. 
 Sterile neutrino points are chosen uniformly over $\left|U_{\mu 4}\right|^{2}=\sin^{2}\theta_{24}$, $\left|U_{\tau 4}\right|^{2}=\sin^{2}\theta_{34}\cos^{2}\theta_{24}$, and $\Delta m_{41}^{2}$. 
-A 16 by 16 grid in the unitary mixing matrix elements, and five discrete mass-squared splittings are explored. 
+A $19\times 22$ grid in the unitary mixing matrix elements $\abs{U_{\mu 4}}^{2}$ and $\abs{U_{\tau 4}}^{2}$, and five discrete mass-squared splittings are explored. 
 These five values are 
 \begin{enumerate}
-    \item 1.0eV$^{2}$ - a commonly chosen value used in sterile oscillations studies~\cite{Aartsen_2017_dc, PhysRevD.91.052019, PhysRevD.105.052001}. 
+    \item 1.0eV$^{2}$ - a commonly chosen reference value used in sterile oscillations studies~\cite{Aartsen_2017_dc, PhysRevD.91.052019, PhysRevD.105.052001}. 
     \item 3.5eV$^{2}$ - a value close to the best-fit point from BEST~\cite{barinov2021results}
     \item 5.0eV$^{2}$ - a value close to the eight-year IceCube through-going track analysis~\cite{Aartsen_2020, Aartsen_2020_prd}
     \item 7.0eV$^{2}$ - a value close to the IceCube 10-year ``MEOWS-BDT'' 3+1 sterile results. 
@@ -35,7 +35,7 @@ The central MC expectations are shown in Figure~\ref{fig:event_no} with tracks o
 
 \subsection{Track Event Selection}
 
-Since direct energy reconstruction is impossible for through-going track events, the energy of the muon is instead used as a proxy.
+Since direct neutrino energy reconstruction is impossible for through-going track events, the energy of the muon entering the detector is instead used as a proxy.
 The track sample of this analysis uses those events with a muon-proxy energy of between 500 GeV and 10 TeV. 
 The event selection is constructed from two sets of cuts, described briefly here, and at length in References~\cite{Aartsen_2020, Aartsen_2020_prd, axani2020sterile}. % 50, 68, 69, 129
 The first of these is the ``Golden Filter'':
@@ -72,22 +72,27 @@ Two possible signatures of sterile neutrino oscillations using these event sampl
 This final level event filter was developed and published previously for Ref~\cite{2018PhDT17N}.
 The likelihood-based reconstruction algorithm monopod is first run on events surviving the level three filter described in Section~\ref{sec:level3};
 several quantities are fit and logged including the reconstructed energy, interaction vertex, direction, and a reduced likelihood for the fit (the smaller the reduced log-likelihood is the better).
-Events for which the reduced algorithm fail, or which have a reduced log-likelihood ($rLogl$) of greater than 9.1, are discarded. 
+Events for which the reduced algorithm fail, or which have a reduced log-likelihood (rLogL) of greater than 9.1, are discarded. 
 A series of cuts are then applied to reduce the muon contamination: 
 \begin{enumerate}
-    \item Discard events which are inside the dust layer unless they are high-energy or have $rLogl<7.5$. 
+    \item Discard events which are inside the dust layer unless they are high-energy or have rLogl$<7.5$. 
     \item Discard events with a reconstructed vertex with $z$ $>500$ or $z<-500$. 
-    \item Discard events which are reconstructed as being near the edge, unless they are well-reconstructed with $rLogl<7.6$.
+    \item Discard events which are reconstructed as being near the edge, unless they are well-reconstructed with rLogl$<7.6$.
     \item Discard events near the top or bottom of IceCube unless they are well reconstructed. 
     \item Discard events with very large, negative, photon delay times. This is common for triggers resulting from uncorrelated bundles of atmospheric cosmic ray muons. 
 \end{enumerate}
 A Boosted Decision Tree classifier is then run on the events which survive these cuts.  
-Only those events which satisfy an energy-dependent cut on the cascade score $s_{cascade}$ are kept. The cut is shown below in Equation~\eqref{eq:e_casc_cut},
+Only those events which satisfy an energy-dependent cut on the cascade score $s_{cascade}$ are kept. The cut is shown below in Figure~\ref{fig:casc_score_cut} and Equation~\eqref{eq:e_casc_cut},
 \begin{equation}
     s_{\text{cascade}} > 1 - \left(\dfrac{1}{A + \exp\left[ -B(\log E_{reco} - C) \right]} + D\right),
 \end{equation}\label{eq:e_casc_cut}
 where the constants $A=1.539$, $B=5$, $C=4.1$, and $D=0.25$.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/cut_plot.png}
+    \caption{Cascade score $s_{cascade}$ threshold, as a function of energy, below which events are cut.}\label{fig:casc_score_cut}
+\end{figure}
 
 \section{Fast Monte Carlo, Event Merging}
 
@@ -126,13 +131,13 @@ We use the form where
 \begin{align}
     \alpha&=\dfrac{\mu^{2}}{\sigma^{2}} +1 & &\text{and} & \beta&=\dfrac{\mu}{\sigma^{2}}.
 \end{align}
-In the case where each MC event is just one event, $\mu = w_{i}$ and $\sigma^{2} = w_{2,i}$. For the track sample, meta events are used, and $\sigma^{2} = w_{2,i}/n$, where $n$ is the number of MC events used to generate that meta-event. The effective likelihood function takes the form of 
+In the case where each MC event is just one event, the mean and variance are defined by $\mu = w_{i}$ and $\sigma^{2} = w_{2,i}$, respectively. For the track sample, meta events are used, and $\sigma^{2} = w_{2,i}/n$, where $n$ is the number of MC events used to generate that meta-event. The effective likelihood function takes the form of 
 \begin{equation}
     \mathcal{L}_{eff}(\vec{\Theta} | k) = \left(\dfrac{\mu}{\sigma^{2}}\right)^{\tfrac{\mu^{2}}{\sigma^{2}} + 1} \Gamma\left(k + \dfrac{\mu^{2}}{\sigma^{2}} + 1\right) \left[ k! \left(1+\dfrac{\mu}{\sigma^{2}}\right)^{k+\tfrac{\mu^{2}}{\sigma^{2}} + 1} \Gamma\left(\dfrac{\mu^{2}}{\sigma^{2}} +1\right)\right]^{-1},
 \end{equation}
 where $\Gamma$ is the gamma function. 
 
-The set of nuisance parameters that qunaitize systematic uncertainties are themselves constrained by some arbitrary prior. 
+The set of nuisance parameters that quantify systematic uncertainties are themselves constrained by some prior. 
 The prior is used to weight the likelihoods which is maximized to form a profile likelihood defined as 
 \begin{equation}
 \mathcal{L}_{\text{profile}}\left(\vec{\theta}\right) = \text{max}_{\vec{\eta}}\left[\mathcal{L}(\vec{\Theta}, \vec{\eta}) \Xi(\vec{\eta}) \right]
@@ -140,8 +145,8 @@ The prior is used to weight the likelihoods which is maximized to form a profile
 where $\Xi(\vec{\eta})$ is the total likelihood penalty for the set of nuisance parameters $\vec{\eta}$. We then construct an analysis test statistic (TS) for producing confidence intervals, which we define as 
 \begin{equation}\begin{split}
 TS(\vec{\Theta}) &= -2\left[ \log\mathcal{L}_{\text{profile}}(\vec{\Theta}) - \log\mathcal{L}_{\text{profile}}(\vec{\Theta}_{min}) \right] \\
-TS(\vec{\Theta}) &= -2 \Delta \log\mathcal{L}_{\text{profile}}(\vec{\Theta})\\
-TS(\vec{\Theta}) &=-2\Delta \text{LLH}
+ &= -2 \Delta \log\mathcal{L}_{\text{profile}}(\vec{\Theta})\\
+&=-2\Delta \text{LLH}
 \end{split}\end{equation}
 where $\vec{\Theta}_{min}$ is the sterile hypothesis that maximizes the likelihood, and best matches the data (or pseudo-data): the best fit point. 
 
@@ -150,7 +155,7 @@ Threshold values of $\chi^{2}$ for a given number of degrees of freedom $k$ and 
 \begin{equation}
     \gamma = \dfrac{1}{2^{k/2} \Gamma(k/2)} \int_{0}^{\chi^{2}_{thresh}} dx x^{k/2 - 1} e^{-x/2}. 
 \end{equation}
-This functional form is inverted to solve for the TS threshold. A few example thresholds commonly used here are shown in Table~\ref{table:tsthresh}.
+This functional form is inverted to solve for the TS threshold for a given confidence level and number of degrees of fredom. A few example thresholds commonly used here are shown in Table~\ref{table:tsthresh}~\cite{PhysRevD.98.030001}.
 \begin{table}
     \centering
     \rowcolors{2}{gray!25}{white}
@@ -167,18 +172,19 @@ This functional form is inverted to solve for the TS threshold. A few example th
 \section{Tests}
 
 A series of tests were performed to validate the implementation of the nuisance parameters and verify the performance of the fitting framework. 
-Throughout this section, we will refer to two models of the conventional flux: one uses the model from the 8-year sterile analysis~\cite{Aartsen_2020, Aartsen_2020_prd}; its set of nuisance parameters are listed in Table~\ref{table:nutrition}.
+Throughout this section, we will refer to two models of the conventional flux: one uses the model from the 8-year sterile neutrino analysis~\cite{Aartsen_2020, Aartsen_2020_prd}; its set of nuisance parameters are listed in Table~\ref{table:nutrition}.
 The other model uses the daemonflux~\cite{yanez2023daemonflux} nominal conventional flux model and conventional flux uncertainties ; its set of nuisance parameters are listed in Table~\ref{table:daemon_table}. 
 Both were investigated and in the process we found that the 8-year analysis model could yield spurious 3+1 signatures following a mismodeling of the conventional neutrino flux. 
-And so, only daemonflux was used in determining the final results of this analysis. 
+Since Daemonflux was found to the model less likely to yield spurious signals of sterile neutrinos, it was used as the nominal model for fits to the data.
 
 \subsection{Previous Results Cross-Check}
 
 First we verified we could recover the same sensitivities as from the original eight-year analysis, whose sensitivities are published in References~\cite{Aartsen_2020} and~\cite{Aartsen_2020_prd}.
 
 New fluxes, gradients, and Fast MC, were generated in logarithmic steps in $\sin^{2}(2\theta_{24})$ and $\Delta m_{41}^{2}$ space using the same techniques as what are used for the joint fits over ($\Delta m_{41}^{2}$, $\abs{U_{\mu 4}}^{2}$, $\abs{U_{\tau 4}}^{2}$).
-Using the new PISA framework, we ran a global-scan of nuisance parameter fits to an Asimov realization.
-The resulting 90\% confidence level sensitivities are shown in Figure~\ref{fig:comparison} alongside the sensitivities from the 8-year analysis. 
+Using the new PISA framework, we ran a global-scan of nuisance parameter fits to an Asimov realization: the nominal expectation of the experiment without nuisance parameter or statistical fluctuations.
+The resulting 90\% confidence level sensitivities from the track sample alone are shown in Figure~\ref{fig:comparison} alongside the sensitivities from the 8-year analysis. 
+From this we conclude that the new fitting implementation in PISA is valid and can be used. 
 
 \begin{figure}
     \centering
@@ -192,9 +198,8 @@ Pseudo-experimental results, or `realizations,' are generated by perturbing all 
 Fits are then carried out to each of these realizations.
 
 The results are tabulated in two figures where the true injected and recovered values are shown: in Figure~\ref{fig:ir_nopriorpert} the fits are kept with the priors' centers kept at their original value, and in Figure~\ref{fig:ir_priorpert} the priors are changed to the value of the injected nuisance parameter. 
-In Figure~\ref{fig:ir_priorpert}, the injected values are all recovered exactly. 
-
-In Figure~\ref{fig:ir_nopriorpert}, the flatter the trend is then the more tightly-constrained its prior is compared to the shape effects caused by the nuisance parameter itself. 
+In Figure~\ref{fig:ir_nopriorpert}, the flatter the trend is then the more tightly-constrained its prior is compared to the shape effects caused by the nuisance parameter itself; in Figure~\ref{fig:ir_priorpert}, the injected values are all recovered exactly. 
+We conclude that the minimization framework successfully recovers the true minimum in fits. 
 
 \begin{figure}
     \centering 
@@ -223,7 +228,8 @@ The bundles are
     \item Muon: the CR muon background\footnote{Because of the large, extra, error introduced by the muon background, for this systematic impact test a special realization is generated and fit to where there no muon contribution is added at all.}
 \end{enumerate}
 The systematic impact tests were calculated twice for the two conventional flux models: once using the model from the previous 8-year analysis, and once using daemonflux. 
-Both are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}
+Both are shown at 90\% confidence level and with three degrees of freedom in Figure~\ref{fig:impact}. 
+For both models we find that the conventional flux uncertainty has the strongest effect on our sensitivity while the detector systematic uncertainties have the second strongest effect. 
 
 \begin{figure}
     \centering
@@ -239,21 +245,23 @@ Two each were chosen along the contours at 1.0, 4.5, and 10 eV$^{2}$; one more w
 Additionally, three more points were chosen off-grid at various points.
 Of those three, one was selected as the recovered best-fit point from the 8-year track analysis. 
 Then, we ran a full fit-scan on an Asimov realization generated for each of these simulated signals. 
-Injected values are recovered in all cases where a signal is injected at a grid-point. 
-For the cases where a signal is injected near a grid point, the best fit is sufficiently close.
+Injected values are recovered in all cases where a signal is injected at a grid-point.
+For the cases where a signal is injected near a grid point, the recovered best fit is sufficiently close, 
+and we find that the minimizer is able to accurately recover an injected 3+1 signal. 
+Exclusion contours for these signal inject-recover tests are shown in Figures~\ref{fig:first_ir} through~\ref{fig:last_ir}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_0_sterile_1_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_1_sterile_1_cl0.9_dof3.png}
-    \caption{To be added later}
+    \caption{Two signal inject-recover tests.}\label{fig:first_ir}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_2_sterile_4_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_3_sterile_4_cl0.9_dof3.png}
-    \caption{To be added later}
+    \caption{Two signal inject-recover tests.}
 \end{figure}
 
 
@@ -261,29 +269,30 @@ For the cases where a signal is injected near a grid point, the best fit is suff
     \centering
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_5_sterile_1_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_6_sterile_1_cl0.9_dof3.png}
-    \caption{To be added later}
+    \caption{Two signal inject-recover tests.}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_8_sterile_7_cl0.9_dof3.png}%
     \includegraphics[width=0.45\linewidth]{figures/inject_recover_RealIR_9_sterile_4_cl0.9_dof3.png}
-    \caption{To be added later}
+    \caption{Two signal inject-recover tests.}\label{fig:last_ir}
 \end{figure}
 
 \section{Sensitivities}
 
 \subsection{Asimov Sensitivity}
 
-First, a single realization is generated without applying statistical variation on the per-bin expectation; this is the Asimov realization. 
-Two fit-scans were carried out: once using the conventional flux model from the 8-year analysis and one using daemonflux. 
+Two Asimov fit-scans were carried out: once using the conventional flux model from the 8-year analysis and one using daemonflux. 
 The 90\% confidence level $\chi^{2}$ threshold was calculated for three degrees of freedom for each fit scan, and the resulting sensitivity contours are shown in Figure~\ref{fig:asimov_daemon_sense} using daemonflux. 
 Sensitivities for the two different models are shown, overlain, in Figure~\ref{fig:asimov_model_compare}; here the astrophysical flavor ratio uncertainty was not included in either scan. 
 The change in sensitivity where daemonflux is used as the nominal conventional flux model is due to the difference in the predicted charge ratio; daemonflux predicts a higher charge ratio and therefore a smaller signature from the resonant $\bar{\nu_{\mu}}$ disappearance. 
 
 These results are plotted compared to the previous phenomenological predictions in Figure~\ref{fig:pheno_compare}. 
 Sensitivities are compared at 90\% confidence level and assuming two degrees of freedom $\Delta m_{41}^{2}=$ 1.0 eV$^{2}$.
-The sensitivities here are observed to be worse than those predicted earlier in Chapter~\ref{chapter:sense}, though this is not surprising; here a full treatment of systematic uncertainty is used.
+The sensitivities calculated for this analysis are similar, although somewhat worse than those predicted earlier in Chapter~\ref{chapter:sense}. This is not surprising; here a full treatment of systematic uncertainty is used. 
+We also compare the two degrees of freedom sensitivity at 1.0 eV$^{2}$ for this analysis to the results of Super-Kamiokande~\cite{PhysRevD.91.052019} and DeepCore~\cite{Aartsen_2017_dc} in Figure~\ref{fig:experiment_compare}.
+We find that this analysis has strong sensitivity to $\abs{U_{\mu 4}}^{2}$ when compared to other existing constraints. 
 
 \begin{figure}
     \centering
@@ -321,6 +330,7 @@ A full fit scan was then carried out for each of these pseudo-experiments, and t
 The median location of the contour, the bands containing 68\% of the contours, and the bands containing 95\% of contours were then calculated for contours at 90\% and 95\% confidence level. 
 The bands over $\abs{U_{\mu 4}}^{2}$ are calculated as a function of $\abs{U_{\tau}4}^{2}$ for each explored mass squared splitting. 
 They are then shown in Figure~\ref{fig:brazil} for contours at 90\% CL (top) and 95\% CL (bottom).
+The median sensitivity was observed to converge to the Asimov sensitivity: suggesting Wilks' theorem is valid here. 
 
 
 \begin{figure}
@@ -347,7 +357,7 @@ In this case, a 3+1 sterile model is preferred over the injected (null) physics 
 \begin{figure}  
     \centering
     \includegraphics[width=0.7\linewidth]{figures/joint_daemon_mismodel_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
-    \caption{The 90\% CL contours for three degrees of freedom. A daemonflux flux is injected and a flux model consistent with the 8-year IceCube sterile search is assumed. $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.68$.}\label{fig:uhoh_mismodel}
+    \caption{The 90\% CL contours for three degrees of freedom. A daemonflux flux is injected and a flux model consistent with the 8-year IceCube sterile search is assumed. The fit prefers the 3+1 sterile neutrino model at a significance of $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.68$.}\label{fig:uhoh_mismodel}
 \end{figure}
 
 Further, two similar fit-scans were carried out using only tracks. 
@@ -358,12 +368,13 @@ This suggests that if daemonflux is a better description of the truth, then assu
 \begin{figure}  
     \centering
     \includegraphics[width=0.45\linewidth]{figures/track_daemon_mismodel_Realization_daemon_Asimov_sterile_0_cl0.9_dof2.png}
-    \includegraphics[width=0.45\linewidth]{figures/track_daemon_mismodel_nomeow_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
+    \includegraphics[width=0.425\linewidth]{figures/track_daemon_mismodel_nomeow_Realization_daemon_Asimov_sterile_0_cl0.9_dof3.png}
     \caption{Fit results after injecting daemonflux, but fitting assuming the flux model used in the IceCube 8-year sterile search. (Left) the 90\% CL contours for two degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=5.02$ after fitting over $(\Delta m_{41}^{2}, \sin^{2}(2\theta_{24}))$, the results from the 8-year IceCube sterile search are overlain~\cite{Aartsen_2020, Aartsen_2020_prd}; (right) the 90\% CL contours for three degrees of freedom, $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=4.7$ after fitting over $(\Delta m_{41}^{2}, \abs{U_{\mu4}}^{2}, \abs{U_{\tau 4}}^{2})$}\label{fig:uhoh_mismodel_worse}
 \end{figure}
 
 The converse was also investigated; fits were run assuming daemonflux, with its model of conventional flux uncertainty, while the conventional neutrino flux model used in the 8-year IceCube sterile search was injected as a true model. 
-In this case, the best fit was consistent with a three-neutrino hypothesis, as shown in Figure~\ref{fig:daemon_midmodel}.
+In this case, the best fit was consistent with a three-neutrino hypothesis, as shown in Figure~\ref{fig:daemon_midmodel}. 
+This suggests that if the model used in the 8-year analysis is a better description of the truth, then assuming daemonflux is not likely to yield spurious signatures of 3+1 sterile neutrinos given no new physics. 
 
 \begin{figure}  
     \centering
@@ -384,7 +395,7 @@ In both cases, no statistically significant signal is seen; each one is consiste
     \caption{On the left (right), fit results after injecting the new GSF model while assuming the model used in the 8-year IceCube sterile search (daemonflux), $-2(\mathcal{L}_{best}-\mathcal{L}_{null})=0.6$ $(0.2)$.}\label{fig:gsf_updates}
 \end{figure}
 
-The result of this mismodeling test was the decision to fully adopt the daemonflux conventional neutrino flux model as the nominal flux model and our description of conventional flux uncertainties. 
+In order to minimize the possibility that our choice of conventional neutrino flux model could bias a measurement of sterile neutrino oscillations, or yield a spurious signal, we opted to fully adopt daemonflux as our nominal flux model and as our description of conventional flux uncertainties. 
 
 \subsection{Astrophysical Mismodeling}
 
@@ -437,16 +448,10 @@ No spurious 3+1 sterile signature was seen in any of these tested cases, and so 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/double_muon_mismodel_worse_Realization_Asimov_sterile_0_cl0.9_dof3.png}
-    \caption{The exclusion contours for situation (a) with the Asimov sensitivities provided for context}\label{fig:first_muon_sad}
+    \includegraphics[width=0.45\linewidth]{figures/double_muon_mismodel_worse_Realization_Asimov_sterile_0_cl0.9_dof3.png}
+    \includegraphics[width=0.45\linewidth]{figures/double_muon_mismodel_Realization_doublcr_sterile_0_cl0.9_dof3.png}
+    \caption{The exclusion contours for situation (a) on the left and (b) on the right with the Asimov sensitivities provided for context}\label{fig:first_muon_sad}
 \end{figure}  
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\linewidth]{figures/double_muon_mismodel_Realization_doublcr_sterile_0_cl0.9_dof3.png}
-    \caption{The exclusion contours for situation (b) with the Asimov sensitivities provided for context}
-\end{figure}   
 
 
 \begin{figure}
@@ -536,7 +541,7 @@ This is shown in Figure~\ref{fig:zenith_bfr}.
 Motivated by these differences, a small sample of 5000 cascades were generated for $\cos\theta\in\left[-1.0, -0.9\right]$ and $E_{\nu}^{true}\in\left[1\text{TeV}, 2\text{TeV}\right]$. 
 Using the exact same MC events and energy losses, photon propagation was performed separately using the Spice 3.2.1 and BFR v2 models to generate two versions of the sample.
 The detector simulation, trigger simulation, filter simulation, and even reconstruction was then carried out for each of the two versions. 
-Reconstructed event rates are shown in Figure~\ref{fig:icetest}; a strong disagreement is observed between the two sample predictions. 
+Reconstructed event rates are shown in Figure~\ref{fig:icetest}; a disagreement is observed between the two sample predictions. 
 This disagreement further supported a systematic difference in the predictions between the two ice models. 
 
 \begin{figure}
@@ -553,7 +558,7 @@ A similar disagreement was seen between the Spice 3.2.1 and BFR v2 models.
 As a final test, a realization was generated assuming BFR v2 describes the truth.
 Then, the Spice 3.2.1 MC was used to perform a fit-scan with the BFR v2-generated realization. 
 The goodness of fit is shown in Figure~\ref{fig:icetest_gof}.
-By applying the same stop criteria as mentioned earlier, this inject-recover test fails in the same way as the 100\% blind fits. 
+By applying the same stop criteria as mentioned earlier, this inject-recover test fails in the same way as the blind fits. 
 Exclusion contours were then prepared for this mismodeling test and are shown in Figure~\ref{fig:injectbfr_fitspice}.
 Here a strong preference is seen for the injected three-neutrino model. 
 
@@ -576,7 +581,9 @@ Here a strong preference is seen for the injected three-neutrino model.
     \caption{90\% CL exclusion contours with three degrees of freedom after injecting BFR v2 and fitting with Spice 3.2.1.}\label{fig:injectbfr_fitspice}
 \end{figure}
 
-As the MC predictions begin to deviate at approximately -0.8, shown in Figure~\ref{fig:bfr_spice_wow}, the decision was made to cut the first zenith bin in this analysis while generating a full high-statistics BFR v2 MC\footnote{publications of this work will only use future results using the BFR v2 model.}. 
+As the MC predictions begin to deviate at approximately -0.8, shown in Figure~\ref{fig:bfr_spice_wow}, the decision was made to cut the first zenith bin in this analysis, while generating a full high-statistics BFR v2 MC.
+Our plan is to revise the analysis for publication with the BFR v2 ice model.
+
 
 
 \subsection{Post-Cut 100\% Blind Fits}
@@ -659,6 +666,8 @@ The results presented in this analysis are the strongest constraints with three 
 \end{figure}
 \fi
 
+\chapter{Discussion \& Conclusions}\label{chapter:end}
+
 \section{Discussion}
 
 What we have found is that the introduction of the cascades to the track analysis weakens the disappearance signature seen previously.
@@ -694,11 +703,11 @@ Such an additional neutrino could not interact weakly in order to be consistent 
 Through attempts to test such explanations using sterile neutrinos, several tantalizing signal-like hints have been observed with varying degrees of significance in both $\nu_{e}/\bar{\nu}_{e}$ disappearance and $\nu_{\mu}$ disappearance; including the 8-year IceCube matter-enhanced sterile neutrino oscillations study in which signal-like hints above the 90\% confidence level for the 3+1 light sterile neutrino model were found.
 
 Here, we have presented the first results of a joint track-cascade analysis combining the methods used in previous IceCube analyses along with novel methods developed to needed to handle the additional sources of systematic uncertainty introduced with this new event morphology. 
-We have probed $U_{\mu4}$ and $\abs{U_{\tau4}}^{2}$ through high-energy events in a multi-channel search the first time, implemented a new conventional flux model and an updated bulk ice model with an improved system for covariance matrix calculation, and introduced a new starting event sample to neutrino oscillations analyses. 
+We have probed $\abs{U_{\mu4}}^{2}$ and $\abs{U_{\tau4}}^{2}$ through high-energy events in a search the first time, implemented a new conventional flux model and an updated bulk ice model with an improved system for covariance matrix calculation, and introduced a new starting event sample. 
 Results presented here improve upon world-leading constraints in $U_{\mu4}$-$U_{\tau4}$ parameter space, and have opened the door for large-volume \v{C}erenkov neutrino experiments to directly probe the models preferred by experiments like BEST.
 
 Because of challenges in ice modeling, immediate work will focus on the re-simulation of Monte Carlo to update the nominal ice model from Spice 3.2.1 to BFR v2: one which fully accounts for the effects of birefringence in ice.
 We may then find that the disagreement between the track, cascade, and joint fits persist; this would suggest that the cascade and track samples are not sufficiently described by a common set of nuisance parameters, and further investigation would be of merit. 
-We may instead find a consistent description of sterile neutrinos in both event morphologies: setting things up for an even stronger and compelling measurement than the one presented here. 
+We may instead find a consistent description of sterile neutrinos in both event morphologies: laying the foundations for an even stronger and compelling test of the 3+1 sterile neutrino oscillation model with IceCube.
 
 \end{document}
